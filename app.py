@@ -1,5 +1,16 @@
 import os
-from flask import Flask, render_template, send_from_directory
+import sqlite3
+from contextlib import closing
+from flask import Flask, render_template, send_from_directory, \
+    request, session, g, redirect, url_for, abort, render_template, flash
+
+
+# configuration
+DATABASE = '/tmp/flaskr.db'
+DEBUG = True
+SECRET_KEY = 'development key'
+USERNAME = 'admin'
+PASSWORD = 'default'
 
 
 # initialization
@@ -31,3 +42,17 @@ def index():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

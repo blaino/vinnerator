@@ -9,9 +9,11 @@
     <meta name="author" content="">
     <meta charset="utf-8">
 
-    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+
+    <!-- <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet"> -->
     <style> body { padding-top: 60px; } </style>
-    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <!-- <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet"> -->
 
     <!-- SUPPORT FOR IE6-8 OF HTML5 ELEMENTS -->
     <!--[if lt IE 9]>
@@ -54,6 +56,8 @@
     </div>
     {% endblock %}
 
+    <div class="hero-unit"><p>Don't abuse this style!</p></div>
+    
     <div class="container page">
         <div class="content">
           {% block content %}
@@ -70,7 +74,8 @@
 
     </div>
     {% block js_footer %}
-      <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap.js"></script>
+      <!-- <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap.js"></script> -->
+      <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     {% endblock %}
   </body>
 </html>
