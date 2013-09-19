@@ -1,0 +1,20 @@
+<!doctype html>
+<title>Flaskr</title>
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+<div class=page>
+  <h1>Flaskr</h1>
+  <body class="container">
+    <div class="hero-unit"><p>Don't abuse this style!</p></div>
+  </body>
+  <div class=metanav>
+  {% if not session.logged_in %}
+    <a href="{{ url_for('login') }}">log in</a>
+  {% else %}
+    <a href="{{ url_for('logout') }}">log out</a>
+  {% endif %}
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+  {% endfor %}
+  {% block body %}{% endblock %}
+</div>

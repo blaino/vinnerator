@@ -3,6 +3,7 @@ import sqlite3
 from contextlib import closing
 from flask import Flask, render_template, send_from_directory, \
     request, session, g, redirect, url_for, abort, render_template, flash
+from flask.ext.sqlalchemy import SQLAlchemy
 
 
 # configuration
@@ -16,21 +17,24 @@ PASSWORD = 'default'
 # initialization
 app = Flask(__name__)
 app.config.from_object(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 
 app.config.update(
     DEBUG=True,
 )
 
+
 # db control
 def connect_db():
-    return sqlite3.connect(app.config['DATABASE'])
+    # return sqlite3.connect(app.config['DATABASE'])
+    return SQLAlchemy(app)
 
 
-def init_db():
-    with closing(connect_db()) as db:
-        with app.open_resource('schema.sql', mode='r') as f:
-            db.cursor().executescript(f.read())
-        db.commit()
+# def init_db():
+#     with closing(connect_db()) as db:
+#         with app.open_resource('schema.sql', mode='r') as f:
+#             db.cursor().executescript(f.read())
+#         db.commit()
 
 
 @app.before_request
@@ -54,7 +58,7 @@ def favicon():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+mig    return render_template('404.html'), 404
 
 
 @app.route('/paymentform')
