@@ -4,17 +4,17 @@ import unittest
 import tempfile
 
 
-class FlaskrTestCase(unittest.TestCase):
+class VinneratorTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.db_fd, flaskr.app.config['DATABASE'] = tempfile.mkstemp()
-        flaskr.app.config['TESTING'] = True
-        self.app = flaskr.app.test_client()
-        flaskr.init_db()
+        self.db_fd, app.config['DATABASE'] = tempfile.mkstemp()
+        app.config['TESTING'] = True
+        self.app = app.test_client()
+        #vinnerator.init_db()
 
     def tearDown(self):
         os.close(self.db_fd)
-        os.unlink(flaskr.app.config['DATABASE'])
+        os.unlink(app.config['DATABASE'])
 
     def test_empty_db(self):
         rv = self.app.get('/')

@@ -8,6 +8,10 @@ from flask.ext.sqlalchemy import SQLAlchemy
 # initialization
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://localhost/vinnerator_db"
+app.config['USERNAME'] = "admin"
+app.config['PASSWORD'] = "password"
+app.config['TESTING'] = True
+app.secret_key = ')\xd4\xa0\xbf@\xce\x81tol\xdbrae\xd0\xc6\x0b#\xf1\xc5\x11@\xdd\xcc'
 db = SQLAlchemy(app)
 
 
@@ -66,22 +70,26 @@ def paymentform():
     return render_template('paymentform.html')
 
 
-# @app.route('/')
-# def show_entries():
-#     cur = g.db.execute('select title, text from entries order by id desc')
-#     entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
-#     return render_template('show_entries.html', entries=entries)
+@app.route('/')
+def show_entries():
+    # cur = g.db.execute('select title, text from entries order by id desc')
+    # entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
+    entries = Entry.query.all()
+    return render_template('show_entries.html', entries=entries)
 
 
-# @app.route('/add', methods=['POST'])
-# def add_entry():
-#     if not session.get('logged_in'):
-#         abort(401)
-#     g.db.execute('insert into entries (title, text) values (?, ?)',
-#                  [request.form['title'], request.form['text']])
-#     g.db.commit()
-#     flash('New entry was successfully posted')
-#     return redirect(url_for('show_entries'))
+@app.route('/add', methods=['POST'])
+def add_entry():
+    if not session.get('logged_in'):
+        abort(401)
+    # g.db.execute('insert into entries (title, text) values (?, ?)',
+    #              [request.form['title'], request.form['text']])
+    # g.db.commit()
+    entry = Entry(request.form['title'], request.form['text'])
+    db.session.add(entry)
+    db.session.commit()
+    flash('New entry was successfully posted')
+    return redirect(url_for('show_entries'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -99,13 +107,11 @@ def login():
     return render_template('login.html', error=error)
 
 
-# @app.route('/logout')
-# def logout():
-#     session.pop('logged_in', None)
-#     flash('You were logged out')
-#     return redirect(url_for('show_entries'))
-
-
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    flash('You were logged out')
+    return redirect(url_for('show_entries'))
 
 # launch
 if __name__ == "__main__":
