@@ -1,20 +1,22 @@
 import os
 import app
 import unittest
-import tempfile
+from app import db
 
 
 class VinneratorTestCase(unittest.TestCase):
+    SQLALCHEMY_DATABASE_URI = "sqlite://"
+
+    def create_app():
+        app.init_db()
 
     def setUp(self):
-        self.db_fd, app.config['DATABASE'] = tempfile.mkstemp()
-        app.config['TESTING'] = True
-        self.app = app.test_client()
-        #vinnerator.init_db()
+        self.app = app.app.test_client()  # this is really confusing, but works???
+        db.create_all()
 
     def tearDown(self):
-        os.close(self.db_fd)
-        os.unlink(app.config['DATABASE'])
+        db.session.remove()
+        db.drop_all()
 
     def test_empty_db(self):
         rv = self.app.get('/')
@@ -30,7 +32,7 @@ class VinneratorTestCase(unittest.TestCase):
         return self.app.get('/logout', follow_redirects=True)
 
     def test_login_logout(self):
-        rv = self.login('admin', 'default')
+        rv = self.login('admin', 'password')
         assert 'You were logged in' in rv.data
         rv = self.logout()
         assert 'You were logged out' in rv.data
@@ -45,6 +47,7 @@ class VinneratorTestCase(unittest.TestCase):
             title='<Hello>',
             text='<strong>HTML</strong> allowed here'
         ), follow_redirects=True)
+        print rv.data
         assert 'No entries here so far' not in rv.data
         assert '&lt;Hello&gt;' in rv.data
         assert '<strong>HTML</strong> allowed here' in rv.data

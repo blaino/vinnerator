@@ -28,29 +28,11 @@ class Entry(db.Model):
         return '<Title %r>' % self.title
 
 
-# db control
-def connect_db():
-    return db
-
-# def init_db():
-#     with closing(connect_db()) as db:
-#         with app.open_resource('schema.sql', mode='r') as f:
-#             db.cursor().executescript(f.read())
-#         db.commit()
-
-
-@app.before_request
-def before_request():
-    g.db = connect_db()
-
-
-@app.teardown_request
-def teardown_request(exception):
-    db = getattr(g, 'db', None)
-    if db is not None:
-        pass
-        # something else here?  
-        #db.close()
+def init_db():
+    db.create_all()
+    entry = Entry('my first post', 'blik blik blue')
+    db.session.add(entry)
+    db.session.commit()
 
 
 # controllers
@@ -75,6 +57,7 @@ def show_entries():
     # cur = g.db.execute('select title, text from entries order by id desc')
     # entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
     entries = Entry.query.all()
+    print entries
     return render_template('show_entries.html', entries=entries)
 
 
@@ -82,9 +65,6 @@ def show_entries():
 def add_entry():
     if not session.get('logged_in'):
         abort(401)
-    # g.db.execute('insert into entries (title, text) values (?, ?)',
-    #              [request.form['title'], request.form['text']])
-    # g.db.commit()
     entry = Entry(request.form['title'], request.form['text'])
     db.session.add(entry)
     db.session.commit()
