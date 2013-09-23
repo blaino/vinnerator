@@ -5,30 +5,28 @@ from flask import Flask, render_template, send_from_directory, \
     request, session, g, redirect, url_for, abort, render_template, flash
 from flask.ext.sqlalchemy import SQLAlchemy
 
-
-# configuration
-DATABASE = '/tmp/flaskr.db'
-DEBUG = True
-SECRET_KEY = 'development key'
-USERNAME = 'admin'
-PASSWORD = 'default'
-
-
 # initialization
 app = Flask(__name__)
-app.config.from_object(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://localhost/vinnerator_db"
+db = SQLAlchemy(app)
 
-app.config.update(
-    DEBUG=True,
-)
+
+class Entry(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80), unique=True)
+    text = db.Column(db.String(120), unique=True)
+
+    def __init__(self, title, text):
+        self.title = title
+        self.text = text
+
+    def __repr__(self):
+        return '<Title %r>' % self.title
 
 
 # db control
 def connect_db():
-    # return sqlite3.connect(app.config['DATABASE'])
-    return SQLAlchemy(app)
-
+    return db
 
 # def init_db():
 #     with closing(connect_db()) as db:
@@ -46,7 +44,9 @@ def before_request():
 def teardown_request(exception):
     db = getattr(g, 'db', None)
     if db is not None:
-        db.close()
+        pass
+        # something else here?  
+        #db.close()
 
 
 # controllers
@@ -66,22 +66,22 @@ def paymentform():
     return render_template('paymentform.html')
 
 
-@app.route('/')
-def show_entries():
-    cur = g.db.execute('select title, text from entries order by id desc')
-    entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
-    return render_template('show_entries.html', entries=entries)
+# @app.route('/')
+# def show_entries():
+#     cur = g.db.execute('select title, text from entries order by id desc')
+#     entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
+#     return render_template('show_entries.html', entries=entries)
 
 
-@app.route('/add', methods=['POST'])
-def add_entry():
-    if not session.get('logged_in'):
-        abort(401)
-    g.db.execute('insert into entries (title, text) values (?, ?)',
-                 [request.form['title'], request.form['text']])
-    g.db.commit()
-    flash('New entry was successfully posted')
-    return redirect(url_for('show_entries'))
+# @app.route('/add', methods=['POST'])
+# def add_entry():
+#     if not session.get('logged_in'):
+#         abort(401)
+#     g.db.execute('insert into entries (title, text) values (?, ?)',
+#                  [request.form['title'], request.form['text']])
+#     g.db.commit()
+#     flash('New entry was successfully posted')
+#     return redirect(url_for('show_entries'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -99,11 +99,11 @@ def login():
     return render_template('login.html', error=error)
 
 
-@app.route('/logout')
-def logout():
-    session.pop('logged_in', None)
-    flash('You were logged out')
-    return redirect(url_for('show_entries'))
+# @app.route('/logout')
+# def logout():
+#     session.pop('logged_in', None)
+#     flash('You were logged out')
+#     return redirect(url_for('show_entries'))
 
 
 
