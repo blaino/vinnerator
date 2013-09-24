@@ -7,7 +7,9 @@ from flask.ext.sqlalchemy import SQLAlchemy
 
 # initialization
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://localhost/vinnerator_db"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://localhost/vinnerator_db"
+# Need to: export DATABASE_URL="postgresql://localhost/vinnerator_db for following to work:"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
 app.config['USERNAME'] = "admin"
 app.config['PASSWORD'] = "password"
 app.config['TESTING'] = True
