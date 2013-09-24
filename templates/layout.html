@@ -1,20 +1,38 @@
 <!doctype html>
 <title>Flaskr</title>
-<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+<!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" /> -->
+<!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" /> -->
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+<link href="http://bootsnipp.com/css/prettify.css" media="all" type="text/css" rel="stylesheet">
+<link href="http://bootsnipp.com/css/bootsnipp.css" media="all" type="text/css" rel="stylesheet">
+
+<div class="jumbotron masthead gradient">
+  <div class="container">
+    <h1> Vinnerator</h1>
+    <p> Design elements and code snippets for <a href="http://twitter.github.com/bootstrap/" target="_blank"> Bootstrap</a> HTML/CSS/JS framework </p>
+  </div>
+</div>
+
 <div class=page>
-  <h1>Flaskr</h1>
   <body class="container">
     <div class="hero-unit"><p>Don't abuse this style!</p></div>
+
+    <div class=metanav>
+      {% if not session.logged_in %}
+      <a href="{{ url_for('login') }}">log in</a>
+      {% else %}
+      <a href="{{ url_for('logout') }}">log out</a>
+      {% endif %}
+    </div>
+
   </body>
-  <div class=metanav>
-  {% if not session.logged_in %}
-    <a href="{{ url_for('login') }}">log in</a>
-  {% else %}
-    <a href="{{ url_for('logout') }}">log out</a>
-  {% endif %}
-  </div>
+
   {% for message in get_flashed_messages() %}
-    <div class=flash>{{ message }}</div>
+  <div class=flash>{{ message }}</div>
   {% endfor %}
+  
   {% block body %}{% endblock %}
+  
+
+  
 </div>
