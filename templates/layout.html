@@ -6,33 +6,71 @@
 <link href="http://bootsnipp.com/css/prettify.css" media="all" type="text/css" rel="stylesheet">
 <link href="http://bootsnipp.com/css/bootsnipp.css" media="all" type="text/css" rel="stylesheet">
 
-<div class="jumbotron masthead gradient">
-  <div class="container">
-    <h1> Vinnerator</h1>
-    <p> Design elements and code snippets for <a href="http://twitter.github.com/bootstrap/" target="_blank"> Bootstrap</a> HTML/CSS/JS framework </p>
-  </div>
-</div>
 
 <div class=page>
-  <body class="container">
-    <div class="hero-unit"><p>Don't abuse this style!</p></div>
 
-    <div class=metanav>
-      {% if not session.logged_in %}
-      <a href="{{ url_for('login') }}">log in</a>
-      {% else %}
-      <a href="{{ url_for('logout') }}">log out</a>
-      {% endif %}
+  <div class="jumbotron masthead gradient">
+    <div class="container">
+      <h1> Vinnerator</h1>
+      <p> Lorem Ipsum is simply dummy text of the typesetting industry. </p>
     </div>
+  </div>
 
+  <body class="container">
+  <!--   <div class=metanav> -->
+  <!--     {% if not session.logged_in %} -->
+  <!--     <a href="{{ url_for('login') }}">log in</a> -->
+  <!--     {% else %} -->
+  <!--     <a href="{{ url_for('logout') }}">log out</a> -->
+  <!--     {% endif %} -->
+  <!--   </div> -->
   </body>
-
-  {% for message in get_flashed_messages() %}
-  <div class=flash>{{ message }}</div>
-  {% endfor %}
   
-  {% block body %}{% endblock %}
-  
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container"><!-- Collapsable nav bar -->
+	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+	</a>
+	
+	<!-- Your site name for the upper left corner of the site -->
+	<!-- <a class="brand">My Site</a> -->
+	
+	<!-- Start of the nav bar content -->
+	<div class="nav-collapse"><!-- Other nav bar content -->
+          <!-- The drop down menu -->
+          <ul class="nav pull-right">
+            <!-- <li><a href="/users/sign_up">Sign Up</a></li> -->
+            <li class="divider-vertical"></li>
+	    <li class=metanav>
+	      {% if not session.logged_in %}
+	      <a href="{{ url_for('login') }}">log in</a>
+	      {% else %}
+	      <a href="{{ url_for('logout') }}">log out</a>
+	      {% endif %}
+	    </li>
+	    
+            <!-- <li class="dropdown"> -->
+            <!--   <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a> -->
+            <!--   <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;"> -->
+            <!--     <\!-- Login form here -\-> -->
+            <!--   </div> -->
+            <!-- </li> -->
+          </ul>
+	</div>
+      </div>
+    </div>
+  </div>
 
+  {% block body %}
+
+  {% endblock %}
   
 </div>
+
+
+
+
+
