@@ -1,4 +1,3 @@
-import os
 import app
 import unittest
 from app import db
@@ -56,12 +55,4 @@ class VinneratorTestCase(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
-
-
-
-
-
-
-
 
