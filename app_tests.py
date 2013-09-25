@@ -20,7 +20,7 @@ class VinneratorTestCase(unittest.TestCase):
         db.drop_all()
 
     def test_empty_db(self):
-        rv = self.app.get('/')
+        rv = self.app.get('/show_entries')
         assert 'No entries here so far' in rv.data
 
     def login(self, username, password):
@@ -34,16 +34,17 @@ class VinneratorTestCase(unittest.TestCase):
 
     def test_login_logout(self):
         rv = self.login('admin', 'password')
-        assert 'You were logged in' in rv.data
+        #assert 'You were logged in' in rv.data
+        assert 'log out' in rv.data
         rv = self.logout()
-        assert 'You were logged out' in rv.data
+        assert 'log in' in rv.data
         rv = self.login('adminx', 'default')
         assert 'Invalid username' in rv.data
         rv = self.login('admin', 'defaultx')
         assert 'Invalid password' in rv.data
 
     def test_messages(self):
-        self.create_app()
+        #self.create_app()
         self.login('admin', 'password')
         rv = self.app.post('/add', data=dict(
             title='<Hello>',
