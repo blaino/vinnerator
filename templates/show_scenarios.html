@@ -3,7 +3,7 @@
   {% if session.logged_in %}
   <div class="container">
     <div class="row">
-      <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+      <form action="{{ url_for('add_scenario') }}" method=post class=add-entry>
 	<div class="col-md-6">
 	  <table class="table table-striped">
 	    <tbody>
@@ -93,7 +93,7 @@
   {% for entry in entries %}
     <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
   {% else %}
-    <li><em>Unbelievable.  No entries here so far</em>
+    <li><em>Unbelievable.  No scenarios here so far</em>
   {% endfor %}
   </ul>
 {% endblock %}
