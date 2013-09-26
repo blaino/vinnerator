@@ -3,15 +3,9 @@
   {% if session.logged_in %}
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
-	<form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+      <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+	<div class="col-md-6">
 	  <table class="table table-striped">
-	    <thead>
-              <tr>
-		<th>Blik</th>
-		<th>Blue</th>
-              </tr>
-	    </thead>
 	    <tbody>
               <tr>
 		<td>Scenario name</td>
@@ -30,22 +24,68 @@
 		<td><input type=text size=30 name=transfer_cost></td>
               </tr>
               <tr>
-		<td>Text</td>
-		<td><input type=text size=30 name=text></td>
+		<td>Transfer buyer's share</td>
+		<td><input type=text size=30 name=transer_buyers_share></td>
+              </tr>
+	      <tr>
+		<td>Recordation cost</td>
+		<td><input type=text size=30 name=recordation_cost></td>
+              </tr>
+              <tr>
+		<td>Recordation buyer's share</td>
+		<td><input type=text size=30 name=recordation_buyers_share></td>
+              </tr>
+              <tr>
+		<td>Finance</td>
+		<td><input type=text size=30 name=finance></td>
+              </tr>
+              <tr>
+		<td>Interest</td>
+		<td><input type=text size=30 name=interest></td>
+              </tr>
+	      <tr>
+		<td>Amortization</td>
+		<td><input type=text size=30 name=amort></td>
               </tr>
 	    </tbody>
+	  </table>
+	</div>
+	<div class="col-md-6">
+	  <table class="table table-striped">
+            <tr>
+	      <td>Mezzanine rate</td>
+	      <td><input type=text size=30 name=mezz_rate></td>
+            </tr>
+            <tr>
+	      <td>Mezzanine interest only</td>
+	      <td><input type=text size=30 name=mezz_interest_only></td>
+            </tr>
+            <tr>
+	      <td>Mezzanine secured</td>
+	      <td><input type=text size=30 name=mezz_secured></td>
+            </tr>
+	    <tr>
+	      <td>Mezzanine amortization</td>
+	      <td><input type=text size=30 name=mezz_amort></td>
+            </tr>
+            <tr>
+	      <td>Appreciation/decpreciation</td>
+	      <td><input type=text size=30 name=apprec_depr></td>
+            </tr>
+	    <tr>
+	      <td>Holding period</td>
+	      <td><input type=text size=30 name=holding_period></td>
+            </tr>
+	    <tr>
+	      <td>Text</td>
+	      <td><input type=text size=30 name=text></td>
+            </tr>
 	  </table>
 	  <dl>
 	    <dd><input type=submit value=Vinnerate!></dd>
 	  </dl>
-	</form>
-      </div>
-      <div class="col-md-4">
-	 <a href="#"><img class="img-responsive img-circle" src="images/feat2.jpg"></a>
-         <h3 class="text-center">Type 2</h3>
-         <p>Dummy Text..</p>
-         <a href="#" class="btn btn-danger">Book Now @ $899</a>
-      </div>
+	</div>
+      </form>
     </div>
   </div>  
   {% endif %}

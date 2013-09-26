@@ -1,8 +1,6 @@
 import os
-import sqlite3
-from contextlib import closing
-from flask import Flask, render_template, send_from_directory, \
-    request, session, g, redirect, url_for, abort, render_template, flash
+from flask import Flask, send_from_directory, \
+    request, session, redirect, url_for, abort, render_template, flash
 from flask.ext.sqlalchemy import SQLAlchemy
 
 # initialization
@@ -17,10 +15,26 @@ app.secret_key = ')\xd4\xa0\xbf@\xce\x81tol\xdbrae\xd0\xc6\x0b#\xf1\xc5\x11@\xdd
 db = SQLAlchemy(app)
 
 
-class Entry(db.Model):
+class Scenario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80), unique=True)
+    title = db.Column(db.String(80), unique=True, default='Default title')
     text = db.Column(db.String(120), unique=True)
+
+    cash_on_cash = db.Column(db.Float, unique=True)
+    target_ltv = db.Column(db.Float, unique=True)
+    transfer_cost = db.Column(db.Float, unique=True)
+    transfer_buyer_share = db.Column(db.Float, unique=True)
+    recordation_cost = db.Column(db.Float, unique=True)
+    recordation_buyer_share = db.Column(db.Float, unique=True)
+    finance = db.Column(db.Float, unique=True)
+    interest = db.Column(db.Float, unique=True)
+    amort = db.Column(db.Float, unique=True)
+    mezz_rate = db.Column(db.Float, unique=True)
+    mezz_interest_only = db.Column(db.Boolean, unique=True)
+    mezz_secured = db.Column(db.Boolean, unique=True)
+    mezz_amort = db.Column(db.Float, unique=True)
+    apprec_depr = db.Column(db.Float, unique=True)
+    holding_period = db.Column(db.Float, unique=True)
 
     def __init__(self, title, text):
         self.title = title
@@ -32,9 +46,6 @@ class Entry(db.Model):
 
 def init_db():
     db.create_all()
-    entry = Entry('my first post', 'blik blik blue')
-    db.session.add(entry)
-    db.session.commit()
 
 
 # controllers
@@ -59,21 +70,26 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/show_entries')
-def show_entries():
-    entries = Entry.query.all()
-    return render_template('show_entries.html', entries=entries)
+@app.route('/show_scenarios')
+def show_scenarios():
+    if Scenario:
+        scenarios = Scenario.query.all()
+        print "Scenarios: " + str(scenarios)
+    else:
+        print "Scenario doesn't exist"
+        scenarios = []
+    return render_template('show_scenarios.html', scenarios=scenarios)
 
 
 @app.route('/add', methods=['POST'])
-def add_entry():
+def add_scenario():
     if not session.get('logged_in'):
         abort(401)
-    entry = Entry(request.form['title'], request.form['text'])
-    db.session.add(entry)
+    scenario = Scenario(request.form['title'], request.form['text'])
+    db.session.add(scenario)
     db.session.commit()
-    flash('New entry was successfully posted')
-    return redirect(url_for('show_entries'))
+    flash('New scenario was successfully posted')
+    return redirect(url_for('show_scenarios'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -87,7 +103,7 @@ def login():
         else:
             session['logged_in'] = True
             flash('You were logged in')
-            return redirect(url_for('show_entries'))
+            return redirect(url_for('show_scenarios'))
     return render_template('login.html', error=error)
 
 
