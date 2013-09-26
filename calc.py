@@ -45,6 +45,7 @@ class CalcCapRate():
         self.appr_depr_factor = self.apprec_depr * self.sinking_fund_factor
 
     def compute_cap_rate(self):
+        print "irr: %.7f" % self.irr
         first_mort = self.first_mort * self.const
         mezz = self.mezz_debt * self.mezz_const
         calc_yield = self.equity * self.irr
@@ -52,11 +53,21 @@ class CalcCapRate():
         amort_mezz = - (self.mezz_debt * self.per_mezz_loan_repaid * self.sinking_fund_factor)
         appr = self.appr_depr_factor
         self.irr = (self.cash_on_cash * self.equity - amort_first_mort - amort_mezz-appr) / self.equity
+        cap_rate = first_mort + mezz + calc_yield + amort_first_mort + amort_mezz + appr
+        print "cap_rate: %.7f" % cap_rate
+        return cap_rate
 
-        return first_mort + mezz + calc_yield + amort_first_mort + amort_mezz + appr
+    def iterate_computation(self):
+        cap_rate = self.compute_cap_rate()
+        cap_rate = self.compute_cap_rate()
+        cap_rate = self.compute_cap_rate()
+        return cap_rate
 
     def compute_offer_prices_cap_rate():
         pass
+
+
+
 
 
 

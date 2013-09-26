@@ -20,8 +20,21 @@ class CalcTestCase(unittest.TestCase):
                             'holding_period': 5}
         self.test1_cap_rate = .078
 
-    def tearDown(self):
-        pass
+        # Same as test1 but cash_on_cash is 20%
+        self.test2_input = {'cash_on_cash': 20,
+                            'target_ltv': 80,
+                            'transfer': {'cost': 2, 'buyer_share': 50},
+                            'recordation': {'cost': 5, 'buyer_share': 50},
+                            'finance': 1,
+                            'interest': 6,
+                            'amort': 30,
+                            'mezz_rate': 8,
+                            'mezz_interest_only': True,
+                            'mezz_secured': False,
+                            'mezz_amort': 30,
+                            'apprec_depr': 0,
+                            'holding_period': 5}
+        self.test2_cap_rate = .0996
 
     def test_init_scenario_1(self):
         c = CalcCapRate(self.test1_input)
@@ -36,23 +49,18 @@ class CalcTestCase(unittest.TestCase):
         self.assertAlmostEqual(c.per_mezz_loan_repaid, 0.0, 2)
 
     def test_scenario_1(self):
-        c = CalcCapRate(self.test1_input)
+        self.run_scenario(self.test1_input, self.test1_cap_rate)
+
+    def test_scenario_2(self):
+        self.run_scenario(self.test2_input, self.test2_cap_rate)
+
+    def run_scenario(self, input, output):
+        c = CalcCapRate(input)
         print ""
 
-        print "irr: %.7f" % c.irr
-        cap_rate = c.compute_cap_rate()
-        print "cap_rate: %.7f" % cap_rate
+        cap_rate = c.iterate_computation()
 
-        print "irr: %.7f" % c.irr
-        cap_rate = c.compute_cap_rate()
-        print "cap_rate: %.7f" % cap_rate
-
-        print "irr: %.7f" % c.irr
-        cap_rate = c.compute_cap_rate()
-        print "cap_rate: %.7f" % cap_rate
-
-
-        self.assertAlmostEqual(cap_rate, self.test1_cap_rate, 4)
+        self.assertAlmostEqual(cap_rate, output, 4)
 
 
 if __name__ == '__main__':
