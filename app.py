@@ -2,6 +2,8 @@ import os
 from flask import Flask, send_from_directory, \
     request, session, redirect, url_for, abort, render_template, flash
 from flask.ext.sqlalchemy import SQLAlchemy
+from calc import CalcCapRate
+from copy import deepcopy
 
 # initialization
 app = Flask(__name__)
@@ -131,21 +133,25 @@ def add_scenario():
     print request
     scenario = Scenario(request.form['title'],
                         request.form['text'],
-                        request.form['cash_on_cash'],
-                        request.form['target_ltv'],
-                        request.form['transfer_cost'],
-                        request.form['transfer_buyer_share'],
-                        request.form['recordation_cost'],
-                        request.form['recordation_buyer_share'],
-                        request.form['finance'],
-                        request.form['interest'],
-                        request.form['amort'],
-                        request.form['mezz_rate'],
+                        float(request.form['cash_on_cash']),
+                        float(request.form['target_ltv']),
+                        float(request.form['transfer_cost']),
+                        float(request.form['transfer_buyer_share']),
+                        float(request.form['recordation_cost']),
+                        float(request.form['recordation_buyer_share']),
+                        float(request.form['finance']),
+                        float(request.form['interest']),
+                        float(request.form['amort']),
+                        float(request.form['mezz_rate']),
                         request.form['mezz_interest_only'],
                         request.form['mezz_secured'],
-                        request.form['mezz_amort'],
-                        request.form['apprec_depr'],
-                        request.form['holding_period'])
+                        float(request.form['mezz_amort']),
+                        float(request.form['apprec_depr']),
+                        float(request.form['holding_period']))
+    c = CalcCapRate(scenario.__dict__)
+    cap_rate = c.iterate_computation()
+    print "===cap rate: " + str(cap_rate)
+
     db.session.add(scenario)
     db.session.commit()
     flash('New scenario was successfully posted')
@@ -177,4 +183,3 @@ def logout():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
-

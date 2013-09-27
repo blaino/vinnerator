@@ -2,6 +2,7 @@ from calc import CalcCapRate
 import unittest
 from copy import deepcopy
 
+
 class CalcTestCase(unittest.TestCase):
 
     def setUp(self):
