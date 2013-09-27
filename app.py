@@ -17,28 +17,46 @@ db = SQLAlchemy(app)
 
 class Scenario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80), unique=True, default='Default title')
-    text = db.Column(db.String(120), unique=True, default='Deafult text')
+    title = db.Column(db.String(80), unique=True)
+    text = db.Column(db.String(120), unique=True)
+    cash_on_cash = db.Column(db.Float, unique=False)
+    target_ltv = db.Column(db.Float, unique=False)
+    transfer_cost = db.Column(db.Float, unique=False)
+    transfer_buyer_share = db.Column(db.Float, unique=False)
+    recordation_cost = db.Column(db.Float, unique=False)
+    recordation_buyer_share = db.Column(db.Float, unique=False)
+    finance = db.Column(db.Float, unique=False)
+    interest = db.Column(db.Float, unique=False)
+    amort = db.Column(db.Float, unique=False)
+    mezz_rate = db.Column(db.Float, unique=False)
+    mezz_interest_only = db.Column(db.Boolean, unique=False)
+    mezz_secured = db.Column(db.Boolean, unique=False)
+    mezz_amort = db.Column(db.Float, unique=False)
+    apprec_depr = db.Column(db.Float, unique=False)
+    holding_period = db.Column(db.Float, unique=False)
 
-    cash_on_cash = db.Column(db.Float, unique=True, default=10.0)
-    target_ltv = db.Column(db.Float, unique=True, default=10.0)
-    transfer_cost = db.Column(db.Float, unique=True, default=10.0)
-    transfer_buyer_share = db.Column(db.Float, unique=True, default=10.0)
-    recordation_cost = db.Column(db.Float, unique=True, default=10.0)
-    recordation_buyer_share = db.Column(db.Float, unique=True, default=10.0)
-    finance = db.Column(db.Float, unique=True, default=10.0)
-    interest = db.Column(db.Float, unique=True, default=10.0)
-    amort = db.Column(db.Float, unique=True, default=10.0)
-    mezz_rate = db.Column(db.Float, unique=True, default=10.0)
-    mezz_interest_only = db.Column(db.Boolean, unique=True, default=True)
-    mezz_secured = db.Column(db.Boolean, unique=True, default=False)
-    mezz_amort = db.Column(db.Float, unique=True, default=10.0)
-    apprec_depr = db.Column(db.Float, unique=True, default=10.0)
-    holding_period = db.Column(db.Float, unique=True, default=10.0)
-
-    def __init__(self, title, text):
+    def __init__(self, title, text, cash_on_cash, target_ltv, transfer_cost,
+                 transfer_buyer_share, recordation_cost, recordation_buyer_share,
+                 finance, interest, amort, mezz_rate, mezz_interest_only,
+                 mezz_secured, mezz_amort, apprec_depr, holding_period):
         self.title = title
         self.text = text
+        self.cash_on_cash = cash_on_cash
+        self.target_ltv = target_ltv
+        self.transfer_cost = transfer_cost
+        self.transfer_buyer_share = transfer_buyer_share
+        self.recordation_cost = recordation_cost
+        self.recordation_buyer_share = recordation_buyer_share
+        self.finance = finance
+        self.interest = interest
+        self.amort = amort
+        self.mezz_rate = mezz_rate
+        self.mezz_interest_only = mezz_interest_only
+        self.mezz_secured = mezz_secured
+        self.mezz_amort = mezz_amort
+        self.apprec_depr = apprec_depr
+        self.holding_period = holding_period
+
 
     def __repr__(self):
         return '<Title %r>' % self.title
@@ -46,6 +64,25 @@ class Scenario(db.Model):
 
 def init_db():
     db.create_all()
+    scenario = Scenario("default",  # title
+                        "default",  # text
+                        10,  # cash_on_cash
+                        80,  # target_ltv
+                        2,  # transfer_cost
+                        50,  # transfer_buyer_share
+                        5,  # recordation_cost
+                        50,  # recordation_buyer_share
+                        1,  # finance
+                        6,  # interest
+                        30,  # amort
+                        8,  # mezz_rate
+                        True,  # mezz_interest_only
+                        False,  # mezz_secured
+                        30,  # mezz_amort
+                        0,  # apprec_depr
+                        5)  # holding_period
+    db.session.add(scenario)
+    db.session.commit()
 
 
 # controllers
@@ -88,7 +125,24 @@ def show_scenarios():
 def add_scenario():
     if not session.get('logged_in'):
         abort(401)
-    scenario = Scenario(request.form['title'], request.form['text'])
+    print request
+    scenario = Scenario(request.form['title'],
+                        request.form['text'],
+                        request.form['cash_on_cash'],
+                        request.form['target_ltv'],
+                        request.form['transfer_cost'],
+                        request.form['transfer_buyer_share'],
+                        request.form['recordation_cost'],
+                        request.form['recordation_buyer_share'],
+                        request.form['finance'],
+                        request.form['interest'],
+                        request.form['amort'],
+                        request.form['mezz_rate'],
+                        request.form['mezz_interest_only'],
+                        request.form['mezz_secured'],
+                        request.form['mezz_amort'],
+                        request.form['apprec_depr'],
+                        request.form['holding_period'])
     db.session.add(scenario)
     db.session.commit()
     flash('New scenario was successfully posted')
