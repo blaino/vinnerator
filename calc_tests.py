@@ -1,14 +1,16 @@
 from calc import CalcCapRate
 import unittest
-
+from copy import deepcopy
 
 class CalcTestCase(unittest.TestCase):
 
     def setUp(self):
         self.test1_input = {'cash_on_cash': 10,
                             'target_ltv': 80,
-                            'transfer': {'cost': 2, 'buyer_share': 50},
-                            'recordation': {'cost': 5, 'buyer_share': 50},
+                            'transfer_cost': 2,
+                            'transfer_buyer_share': 50,
+                            'recordation_cost': 5,
+                            'recordation_buyer_share': 50,
                             'finance': 1,
                             'interest': 6,
                             'amort': 30,
@@ -21,19 +23,8 @@ class CalcTestCase(unittest.TestCase):
         self.test1_cap_rate = .078
 
         # Same as test1 but cash_on_cash is 20%
-        self.test2_input = {'cash_on_cash': 20,
-                            'target_ltv': 80,
-                            'transfer': {'cost': 2, 'buyer_share': 50},
-                            'recordation': {'cost': 5, 'buyer_share': 50},
-                            'finance': 1,
-                            'interest': 6,
-                            'amort': 30,
-                            'mezz_rate': 8,
-                            'mezz_interest_only': True,
-                            'mezz_secured': False,
-                            'mezz_amort': 30,
-                            'apprec_depr': 0,
-                            'holding_period': 5}
+        self.test2_input = deepcopy(self.test1_input)
+        self.test2_input['cash_on_cash'] = 20
         self.test2_cap_rate = .0996
 
     def test_init_scenario_1(self):

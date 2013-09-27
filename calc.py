@@ -6,10 +6,10 @@ class CalcCapRate():
     def __init__(self, s):
         self.cash_on_cash = s['cash_on_cash'] / 100
         self.target_ltv = s['target_ltv'] / 100
-        self.transfer_cost = s['transfer']['cost'] / 100
-        self.transfer_buyer_share = s['transfer']['buyer_share'] / 100
-        self.recordation_cost = s['recordation']['cost']
-        self.recordation_buyer_share = s['recordation']['buyer_share'] / 100
+        self.transfer_cost = s['transfer_cost'] / 100
+        self.transfer_buyer_share = s['transfer_buyer_share'] / 100
+        self.recordation_cost = s['recordation_cost']
+        self.recordation_buyer_share = s['recordation_buyer_share'] / 100
         self.finance = s['finance'] / 100
         self.interest = s['interest'] / 100
         self.amort = s['amort']
