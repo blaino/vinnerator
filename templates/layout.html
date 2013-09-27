@@ -2,30 +2,10 @@
 <title>Vinnerator</title>
 <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
 <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" />
-<!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"> -->
-<!-- <link href="http://bootsnipp.com/css/prettify.css" media="all" type="text/css" rel="stylesheet"> -->
-<!-- <link href="http://bootsnipp.com/css/bootsnipp.css" media="all" type="text/css" rel="stylesheet"> -->
-
-
 <div class=page>
 
-  <div class="jumbotron masthead gradient">
-    <div class="container">
-      <h1> Vinnerator</h1>
-      <p> First there was Ellwood. Then there was Akerson. Now there's Vinnerator. </p>
-    </div>
-  </div>
-
-  <body class="container">
-  <!--   <div class=metanav> -->
-  <!--     {% if not session.logged_in %} -->
-  <!--     <a href="{{ url_for('login') }}">log in</a> -->
-  <!--     {% else %} -->
-  <!--     <a href="{{ url_for('logout') }}">log out</a> -->
-  <!--     {% endif %} -->
-  <!--   </div> -->
-  </body>
-  
+  <body>
+    
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container"><!-- Collapsable nav bar -->
@@ -64,6 +44,15 @@
     </div>
   </div>
 
+  <div class="jumbotron">
+    <div class="container">
+      <h1> Vinnerator </h1>
+      <p> First there was Ellwood. Then there was Akerson. Now there's Vinnerator. </p>
+      <!-- <p><a class="btn btn-primary btn-lg">Learn more &raquo;</a></p> -->
+    </div>
+  </div>
+
+  </body>
   {% block body %}
 
   {% endblock %}

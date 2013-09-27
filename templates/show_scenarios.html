@@ -89,11 +89,13 @@
     </div>
   </div>  
   {% endif %}
+  <div class="container">
   <ul class=entries>
   {% for scenario in scenarios %}
-    <li><h2>{{ scenario.title }}</h2>{{ scenario.text|safe }}
+    <li><h2>{{ scenario.title }}</h2>{{ scenario.cap_rate }}
   {% else %}
     <li><em>Unbelievable.  No scenarios here so far</em>
   {% endfor %}
   </ul>
+  </div>
 {% endblock %}

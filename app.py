@@ -38,7 +38,7 @@ class Scenario(db.Model):
     apprec_depr = db.Column(db.Float, unique=False)
     holding_period = db.Column(db.Float, unique=False)
 
-    #cap_rate = db.Column(db.Float, unique=False)
+    cap_rate = db.Column(db.Float, unique=False)
 
     def __init__(self, title, text, cash_on_cash, target_ltv, transfer_cost,
                  transfer_buyer_share, recordation_cost, recordation_buyer_share,
@@ -151,6 +151,7 @@ def add_scenario():
     c = CalcCapRate(scenario.__dict__)
     cap_rate = c.iterate_computation()
     print "===cap rate: " + str(cap_rate)
+    scenario.cap_rate = cap_rate
 
     db.session.add(scenario)
     db.session.commit()
