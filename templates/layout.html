@@ -2,56 +2,45 @@
 <title>Vinnerator</title>
 <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
 <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" />
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}" />
 <div class=page>
 
   <body>
-    
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container"><!-- Collapsable nav bar -->
-	<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-	</a>
-	
-	<!-- Your site name for the upper left corner of the site -->
-	<!-- <a class="brand">My Site</a> -->
-	
-	<!-- Start of the nav bar content -->
-	<div class="nav-collapse"><!-- Other nav bar content -->
-          <!-- The drop down menu -->
-          <ul class="nav pull-right">
-            <!-- <li><a href="/users/sign_up">Sign Up</a></li> -->
-            <li class="divider-vertical"></li>
-	    <li class=metanav>
-	      {% if not session.logged_in %}
-	      <a href="{{ url_for('login') }}">log in</a>
-	      {% else %}
-	      <a href="{{ url_for('logout') }}">log out</a>
-	      {% endif %}
-	    </li>
-	    
-            <!-- <li class="dropdown"> -->
-            <!--   <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a> -->
-            <!--   <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;"> -->
-            <!--     <\!-- Login form here -\-> -->
-            <!--   </div> -->
-            <!-- </li> -->
+   <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Vinnerator</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
           </ul>
-	</div>
+	  {% if not session.logged_in %}
+          <form class="navbar-form navbar-right" action="{{ url_for('login') }}" method=post>
+            <div class="form-group">
+              <input type="text" placeholder="Username" class="form-control" name=username>
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control" name=password>
+            </div>
+            <button type="submit" class="btn btn-success" value=Login>Sign in</button>
+          </form>
+	  {% else %}
+          <form class="navbar-form navbar-right" action="{{ url_for('logout') }}">
+            <button type="submit" class="btn btn-success" value=Login>Sign out</button>
+          </form>
+	  {% endif %}
+        </div><!--/.navbar-collapse -->
       </div>
     </div>
-  </div>
-
-  <div class="jumbotron">
-    <div class="container">
-      <h1> Vinnerator </h1>
-      <p> First there was Ellwood. Then there was Akerson. Now there's Vinnerator. </p>
-      <!-- <p><a class="btn btn-primary btn-lg">Learn more &raquo;</a></p> -->
-    </div>
-  </div>
-
+  
   </body>
   {% block body %}
 

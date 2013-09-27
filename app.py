@@ -20,8 +20,7 @@ db = SQLAlchemy(app)
 
 class Scenario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80), unique=True)
-    text = db.Column(db.String(120), unique=True)
+    title = db.Column(db.String(80), unique=False)
     cash_on_cash = db.Column(db.Float, unique=False)
     target_ltv = db.Column(db.Float, unique=False)
     transfer_cost = db.Column(db.Float, unique=False)
@@ -40,12 +39,11 @@ class Scenario(db.Model):
 
     cap_rate = db.Column(db.Float, unique=False)
 
-    def __init__(self, title, text, cash_on_cash, target_ltv, transfer_cost,
+    def __init__(self, title, cash_on_cash, target_ltv, transfer_cost,
                  transfer_buyer_share, recordation_cost, recordation_buyer_share,
                  finance, interest, amort, mezz_rate, mezz_interest_only,
                  mezz_secured, mezz_amort, apprec_depr, holding_period):
         self.title = title
-        self.text = text
         self.cash_on_cash = cash_on_cash
         self.target_ltv = target_ltv
         self.transfer_cost = transfer_cost
@@ -70,7 +68,6 @@ class Scenario(db.Model):
 def init_db():
     db.create_all()
     scenario = Scenario("default",  # title
-                        "default",  # text
                         10,  # cash_on_cash
                         80,  # target_ltv
                         2,  # transfer_cost
@@ -132,7 +129,6 @@ def add_scenario():
         abort(401)
     print request
     scenario = Scenario(request.form['title'],
-                        request.form['text'],
                         float(request.form['cash_on_cash']),
                         float(request.form['target_ltv']),
                         float(request.form['transfer_cost']),
