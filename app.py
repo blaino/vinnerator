@@ -18,23 +18,23 @@ db = SQLAlchemy(app)
 class Scenario(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), unique=True, default='Default title')
-    text = db.Column(db.String(120), unique=True)
+    text = db.Column(db.String(120), unique=True, default='Deafult text')
 
-    cash_on_cash = db.Column(db.Float, unique=True)
-    target_ltv = db.Column(db.Float, unique=True)
-    transfer_cost = db.Column(db.Float, unique=True)
-    transfer_buyer_share = db.Column(db.Float, unique=True)
-    recordation_cost = db.Column(db.Float, unique=True)
-    recordation_buyer_share = db.Column(db.Float, unique=True)
-    finance = db.Column(db.Float, unique=True)
-    interest = db.Column(db.Float, unique=True)
-    amort = db.Column(db.Float, unique=True)
-    mezz_rate = db.Column(db.Float, unique=True)
-    mezz_interest_only = db.Column(db.Boolean, unique=True)
-    mezz_secured = db.Column(db.Boolean, unique=True)
-    mezz_amort = db.Column(db.Float, unique=True)
-    apprec_depr = db.Column(db.Float, unique=True)
-    holding_period = db.Column(db.Float, unique=True)
+    cash_on_cash = db.Column(db.Float, unique=True, default=10.0)
+    target_ltv = db.Column(db.Float, unique=True, default=10.0)
+    transfer_cost = db.Column(db.Float, unique=True, default=10.0)
+    transfer_buyer_share = db.Column(db.Float, unique=True, default=10.0)
+    recordation_cost = db.Column(db.Float, unique=True, default=10.0)
+    recordation_buyer_share = db.Column(db.Float, unique=True, default=10.0)
+    finance = db.Column(db.Float, unique=True, default=10.0)
+    interest = db.Column(db.Float, unique=True, default=10.0)
+    amort = db.Column(db.Float, unique=True, default=10.0)
+    mezz_rate = db.Column(db.Float, unique=True, default=10.0)
+    mezz_interest_only = db.Column(db.Boolean, unique=True, default=True)
+    mezz_secured = db.Column(db.Boolean, unique=True, default=False)
+    mezz_amort = db.Column(db.Float, unique=True, default=10.0)
+    apprec_depr = db.Column(db.Float, unique=True, default=10.0)
+    holding_period = db.Column(db.Float, unique=True, default=10.0)
 
     def __init__(self, title, text):
         self.title = title
@@ -77,11 +77,9 @@ def index():
 
 @app.route('/show_scenarios')
 def show_scenarios():
-    if Scenario:
+    try:
         scenarios = Scenario.query.all()
-        print "Scenarios: " + str(scenarios)
-    else:
-        print "Scenario doesn't exist"
+    except:
         scenarios = []
     return render_template('show_scenarios.html', scenarios=scenarios)
 

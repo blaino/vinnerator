@@ -90,8 +90,8 @@
   </div>  
   {% endif %}
   <ul class=entries>
-  {% for entry in entries %}
-    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
+  {% for scenario in scenarios %}
+    <li><h2>{{ scenario.title }}</h2>{{ scenario.text|safe }}
   {% else %}
     <li><em>Unbelievable.  No scenarios here so far</em>
   {% endfor %}

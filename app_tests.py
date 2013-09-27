@@ -4,11 +4,6 @@ from app import db
 
 
 class VinneratorTestCase(unittest.TestCase):
-    SQLALCHEMY_DATABASE_URI = "sqlite://"
-
-    def create_app(self):
-        print "Initializing the database"
-        app.init_db()
 
     def setUp(self):
         self.app = app.app.test_client()  # this is really confusing, but works???
@@ -19,8 +14,9 @@ class VinneratorTestCase(unittest.TestCase):
         db.drop_all()
 
     def test_empty_db(self):
-        rv = self.app.get('/show_entries')
-        assert 'No entries here so far' in rv.data
+        self.tearDown()
+        rv = self.app.get('/show_scenarios')
+        assert 'No scenarios here so far' in rv.data
 
     def login(self, username, password):
         return self.app.post('/login', data=dict(
@@ -43,16 +39,14 @@ class VinneratorTestCase(unittest.TestCase):
         assert 'Invalid password' in rv.data
 
     def test_messages(self):
-        #self.create_app()
         self.login('admin', 'password')
         rv = self.app.post('/add', data=dict(
             title='<Hello>',
             text='<strong>HTML</strong> allowed here'
         ), follow_redirects=True)
-        assert 'No entries here so far' not in rv.data
+        assert 'No scenarios here so far' not in rv.data
         assert '&lt;Hello&gt;' in rv.data
         assert '<strong>HTML</strong> allowed here' in rv.data
 
 if __name__ == '__main__':
     unittest.main()
-
