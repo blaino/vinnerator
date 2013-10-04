@@ -3,7 +3,9 @@ from flask import Flask, send_from_directory, \
     request, session, redirect, url_for, abort, render_template, flash
 from flask.ext.sqlalchemy import SQLAlchemy
 from calc import CalcCapRate
-from copy import deepcopy
+from flask.ext.security import Security, SQLAlchemyUserDatastore, \
+    UserMixin, RoleMixin, login_required
+
 
 # initialization
 app = Flask(__name__)
@@ -14,8 +16,46 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
 app.config['USERNAME'] = "admin"
 app.config['PASSWORD'] = "password"
 app.config['TESTING'] = True
+app.config['DEBUG'] = True
 app.secret_key = ')\xd4\xa0\xbf@\xce\x81tol\xdbrae\xd0\xc6\x0b#\xf1\xc5\x11@\xdd\xcc'
+app.config['secret_key'] = ')\xd4\xa0\xbf@\xce\x81tol\xdbrae\xd0\xc6\x0b#\xf1\xc5\x11@\xdd\xcc'
+#app.config['SECURITY_LOGIN_URL'] = '/show_scenarios'
+app.config['SECURITY_POST_LOGIN_VIEW'] = '/show_scenarios'
 db = SQLAlchemy(app)
+
+
+# Models
+
+roles_users = db.Table('roles_users',
+                       db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
+                       db.Column('role_id', db.Integer(), db.ForeignKey('role.id')))
+
+
+class Role(db.Model, RoleMixin):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(80), unique=True)
+    description = db.Column(db.String(255))
+
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255), unique=True)
+    password = db.Column(db.String(255))
+    active = db.Column(db.Boolean())
+    confirmed_at = db.Column(db.DateTime())
+    roles = db.relationship('Role', secondary=roles_users,
+                            backref=db.backref('users', lazy='dynamic'))
+
+# Setup Flask-Security
+user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+security = Security(app, user_datastore)
+
+# Create a user to test with
+@app.before_first_request
+def create_user():
+    db.create_all()
+    user_datastore.create_user(email='matt@nobien.net', password='password')
+    db.session.commit()
 
 
 class Scenario(db.Model):
@@ -100,6 +140,7 @@ def page_not_found(e):
 
 
 @app.route('/paymentform')
+@login_required
 def paymentform():
     return render_template('paymentform.html')
 
@@ -155,8 +196,8 @@ def add_scenario():
     return redirect(url_for('show_scenarios'))
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+@app.route('/oldlogin', methods=['GET', 'POST'])
+def oldlogin():
     error = None
     if request.method == 'POST':
         if request.form['username'] != app.config['USERNAME']:
@@ -167,7 +208,7 @@ def login():
             session['logged_in'] = True
             flash('You were logged in')
             return redirect(url_for('show_scenarios'))
-    return render_template('login.html', error=error)
+    return render_template('oldlogin.html', error=error)
 
 
 @app.route('/logout')

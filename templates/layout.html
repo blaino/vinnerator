@@ -23,7 +23,7 @@
             <li><a href="#contact">Contact</a></li>
           </ul>
 	  {% if not session.logged_in %}
-          <form class="navbar-form navbar-right" action="{{ url_for('login') }}" method=post>
+          <form class="navbar-form navbar-right" action="{{ url_for('oldlogin') }}" method=post>
             <div class="form-group">
               <input type="text" placeholder="Username" class="form-control" name=username>
             </div>
@@ -33,7 +33,8 @@
             <button type="submit" class="btn btn-success" value=Login>Sign in</button>
           </form>
 	  {% else %}
-          <form class="navbar-form navbar-right" action="{{ url_for('logout') }}">
+            <form class="navbar-form navbar-right" action="{{ url_for('logout') }}">
+	    <!-- <form class="navbar-form navbar-right" action="{{ url_for_security('logout') }}"> -->
             <button type="submit" class="btn btn-success" value=Login>Sign out</button>
           </form>
 	  {% endif %}
