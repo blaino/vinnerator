@@ -4,94 +4,124 @@
   <div class="container">
     <div class="row">
       <form action="{{ url_for('add_scenario') }}" method=post class=add-entry>
-	<div class="col-md-6">
+	<div class="col-md-4">
 	  <table class="table table-striped">
 	    <tbody>
               <tr>
 		<td>Scenario name</td>
-		<td><input type=text size=30 name=title value={{scenarios[0].title}}></td>
+		<td><input type=text size=5 name=title value={{scenarios[0].title}}></td>
               </tr>
               <tr>
 		<td>Cash on cash requirement</td>
-		<td><input type=text size=30 name=cash_on_cash value={{scenarios[0].cash_on_cash}}></td>
+		<td><input type=text size=5 name=cash_on_cash value={{scenarios[0].cash_on_cash}}></td>
               </tr>
               <tr>
 		<td>Target loan-to-value</td>
-		<td><input type=text size=30 name=target_ltv value={{scenarios[0].target_ltv}}></td>
+		<td><input type=text size=5 name=target_ltv value={{scenarios[0].target_ltv}}></td>
               </tr>
 	      <tr>
 		<td>Transfer cost</td>
-		<td><input type=text size=30 name=transfer_cost value={{scenarios[0].transfer_cost}}></td>
+		<td><input type=text size=5 name=transfer_cost value={{scenarios[0].transfer_cost}}></td>
               </tr>
               <tr>
 		<td>Transfer buyer's share</td>
-		<td><input type=text size=30 name=transfer_buyer_share value={{scenarios[0].transfer_buyer_share}}></td>
+		<td><input type=text size=5 name=transfer_buyer_share value={{scenarios[0].transfer_buyer_share}}></td>
               </tr>
 	      <tr>
 		<td>Recordation cost</td>
-		<td><input type=text size=30 name=recordation_cost value={{scenarios[0].recordation_cost}}></td>
+		<td><input type=text size=5 name=recordation_cost value={{scenarios[0].recordation_cost}}></td>
               </tr>
               <tr>
 		<td>Recordation buyer's share</td>
-		<td><input type=text size=30 name=recordation_buyer_share value={{scenarios[0].recordation_buyer_share}}></td>
+		<td><input type=text size=5 name=recordation_buyer_share value={{scenarios[0].recordation_buyer_share}}></td>
               </tr>
               <tr>
 		<td>Finance</td>
-		<td><input type=text size=30 name=finance value={{scenarios[0].finance}}></td>
+		<td><input type=text size=5 name=finance value={{scenarios[0].finance}}></td>
               </tr>
               <tr>
 		<td>Interest</td>
-		<td><input type=text size=30 name=interest value={{scenarios[0].interest}}></td>
+		<td><input type=text size=5 name=interest value={{scenarios[0].interest}}></td>
               </tr>
 	      <tr>
 		<td>Amortization</td>
-		<td><input type=text size=30 name=amort value={{scenarios[0].amort}}></td>
+		<td><input type=text size=5 name=amort value={{scenarios[0].amort}}></td>
               </tr>
 	    </tbody>
 	  </table>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-4">
 	  <table class="table table-striped">
             <tr>
 	      <td>Mezzanine rate</td>
-	      <td><input type=text size=30 name=mezz_rate value={{scenarios[0].mezz_rate}}></td>
+	      <td><input type=text size=5 name=mezz_rate value={{scenarios[0].mezz_rate}}></td>
             </tr>
             <tr>
 	      <td>Mezzanine interest only</td>
-	      <td><input type=text size=30 name=mezz_interest_only value={{scenarios[0].mezz_interest_only}}></td>
+	      <td><input type=text size=5 name=mezz_interest_only value={{scenarios[0].mezz_interest_only}}></td>
             </tr>
             <tr>
 	      <td>Mezzanine secured</td>
-	      <td><input type=text size=30 name=mezz_secured value={{scenarios[0].mezz_secured}}></td>
+	      <td><input type=text size=5 name=mezz_secured value={{scenarios[0].mezz_secured}}></td>
             </tr>
 	    <tr>
 	      <td>Mezzanine amortization</td>
-	      <td><input type=text size=30 name=mezz_amort value={{scenarios[0].mezz_amort}}></td>
+	      <td><input type=text size=5 name=mezz_amort value={{scenarios[0].mezz_amort}}></td>
             </tr>
             <tr>
 	      <td>Appreciation/decpreciation</td>
-	      <td><input type=text size=30 name=apprec_depr value={{scenarios[0].apprec_depr}}></td>
+	      <td><input type=text size=5 name=apprec_depr value={{scenarios[0].apprec_depr}}></td>
             </tr>
 	    <tr>
 	      <td>Holding period</td>
-	      <td><input type=text size=30 name=holding_period value={{scenarios[0].holding_period}}></td>
+	      <td><input type=text size=5 name=holding_period value={{scenarios[0].holding_period}}></td>
             </tr>
 	  </table>
 	  <dl>
-	    <dd><input type=submit value="Capulator, please calculate my cap rate" class="btn btn-primary"></dd>
+	    <dd><input type=submit value="Capulate!" class="btn btn-primary"></dd>
 	  </dl>
+	</div>
+	<div class="col-md-4">
+	  <table class="table">
+            <tr>
+	      <td>1st Mort</td>
+	      <td><input type=text size=5 name=mezz_rate value={{results[0].mezz_rate}}></td>
+            </tr>
+            <tr>
+	      <td>Mezz</td>
+	      <td><input type=text size=5 name=mezz_interest_only value={{results[0].mezz_interest_only}}></td>
+            </tr>
+            <tr>
+	      <td>Yield</td>
+	      <td><input type=text size=5 name=mezz_secured value={{results[0].mezz_secured}}></td>
+            </tr>
+	    <tr>
+	      <td>Amort 1st Mort</td>
+	      <td><input type=text size=5 name=mezz_amort value={{results[0].mezz_amort}}></td>
+            </tr>
+            <tr>
+	      <td>Amort Mezz</td>
+	      <td><input type=text size=5 name=apprec_depr value={{results[0].apprec_depr}}></td>
+            </tr>
+	    <tr>
+	      <td>Appr</td>
+	      <td><input type=text size=5 name=holding_period value={{results[0].holding_period}}></td>
+            </tr>
+	  </table>
 	</div>
       </form>
     </div>
-  </div>  
-  {% endif %}
-  <div class="container">
-  <ul class=entries>
-  {% for scenario in scenarios %}
-    <li><h2>{{ scenario.title }}</h2>{{ scenario.cap_rate }}
-  {% else %}
-    <li><em>Unbelievable.  No scenarios here so far</em>
-  {% endfor %}
-  </ul>
   </div>
+
+  <div class="container">
+    <ul class=entries>
+      {% for scenario in scenarios %}
+      <li><h2>{{ scenario.title }}</h2>{{ scenario.cap_rate }}, {{results[5].cap_rate}}
+	{% else %}
+      <li><em>Unbelievable.  No scenarios here so far</em>
+	{% endfor %}
+    </ul>
+  </div>
+  
+  {% endif %}
 {% endblock %}

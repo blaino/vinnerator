@@ -156,15 +156,22 @@ def index():
 
 
 @app.route('/show_scenarios')
+@login_required
 def show_scenarios():
     try:
+        results = []
         scenarios = Scenario.query.all()
+        for s in scenarios:
+            c = CalcCapRate(s.__dict__)
+            results.append(c.iterate_computation())
     except:
         scenarios = []
-    return render_template('show_scenarios.html', scenarios=scenarios)
+        results = []
+    return render_template('show_scenarios.html', scenarios=scenarios, results=results)
 
 
 @app.route('/add', methods=['POST'])
+@login_required
 def add_scenario():
     if not session.get('logged_in'):
         abort(401)
@@ -186,7 +193,8 @@ def add_scenario():
                         float(request.form['apprec_depr']),
                         float(request.form['holding_period']))
     c = CalcCapRate(scenario.__dict__)
-    cap_rate = c.iterate_computation()
+    result = c.iterate_computation()
+    cap_rate = result['cap_rate']
     print "===cap rate: " + str(cap_rate)
     scenario.cap_rate = cap_rate
 
@@ -211,8 +219,8 @@ def oldlogin():
     return render_template('oldlogin.html', error=error)
 
 
-@app.route('/logout')
-def logout():
+@app.route('/oldlogout')
+def oldlogout():
     session.pop('logged_in', None)
     flash('You were logged out')
     return redirect(url_for('home'))
@@ -221,3 +229,5 @@ def logout():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
+
+

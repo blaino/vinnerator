@@ -48,9 +48,8 @@ class CalcTestCase(unittest.TestCase):
 
     def run_scenario(self, input, output):
         c = CalcCapRate(input)
-        print ""
-
-        cap_rate = c.iterate_computation()
+        result = c.iterate_computation()
+        cap_rate = result['cap_rate']
 
         self.assertAlmostEqual(cap_rate, output, 4)
 
