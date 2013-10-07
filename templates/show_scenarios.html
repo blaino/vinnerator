@@ -9,43 +9,43 @@
 	    <tbody>
               <tr>
 		<td>Scenario name</td>
-		<td><input type=text size=5 name=title value={{scenarios[0].title}}></td>
+		<td><input type=text size=5 name=title value={{scenarios[index].title}}></td>
               </tr>
               <tr>
 		<td>Cash on cash requirement</td>
-		<td><input type=text size=5 name=cash_on_cash value={{scenarios[0].cash_on_cash}}></td>
+		<td><input type=text size=5 name=cash_on_cash value={{scenarios[index].cash_on_cash}}></td>
               </tr>
               <tr>
 		<td>Target loan-to-value</td>
-		<td><input type=text size=5 name=target_ltv value={{scenarios[0].target_ltv}}></td>
+		<td><input type=text size=5 name=target_ltv value={{scenarios[index].target_ltv}}></td>
               </tr>
 	      <tr>
 		<td>Transfer cost</td>
-		<td><input type=text size=5 name=transfer_cost value={{scenarios[0].transfer_cost}}></td>
+		<td><input type=text size=5 name=transfer_cost value={{scenarios[index].transfer_cost}}></td>
               </tr>
               <tr>
 		<td>Transfer buyer's share</td>
-		<td><input type=text size=5 name=transfer_buyer_share value={{scenarios[0].transfer_buyer_share}}></td>
+		<td><input type=text size=5 name=transfer_buyer_share value={{scenarios[index].transfer_buyer_share}}></td>
               </tr>
 	      <tr>
 		<td>Recordation cost</td>
-		<td><input type=text size=5 name=recordation_cost value={{scenarios[0].recordation_cost}}></td>
+		<td><input type=text size=5 name=recordation_cost value={{scenarios[index].recordation_cost}}></td>
               </tr>
               <tr>
 		<td>Recordation buyer's share</td>
-		<td><input type=text size=5 name=recordation_buyer_share value={{scenarios[0].recordation_buyer_share}}></td>
+		<td><input type=text size=5 name=recordation_buyer_share value={{scenarios[index].recordation_buyer_share}}></td>
               </tr>
               <tr>
 		<td>Finance</td>
-		<td><input type=text size=5 name=finance value={{scenarios[0].finance}}></td>
+		<td><input type=text size=5 name=finance value={{scenarios[index].finance}}></td>
               </tr>
               <tr>
 		<td>Interest</td>
-		<td><input type=text size=5 name=interest value={{scenarios[0].interest}}></td>
+		<td><input type=text size=5 name=interest value={{scenarios[index].interest}}></td>
               </tr>
 	      <tr>
 		<td>Amortization</td>
-		<td><input type=text size=5 name=amort value={{scenarios[0].amort}}></td>
+		<td><input type=text size=5 name=amort value={{scenarios[index].amort}}></td>
               </tr>
 	    </tbody>
 	  </table>
@@ -54,27 +54,27 @@
 	  <table class="table table-striped">
             <tr>
 	      <td>Mezzanine rate</td>
-	      <td><input type=text size=5 name=mezz_rate value={{scenarios[0].mezz_rate}}></td>
+	      <td><input type=text size=5 name=mezz_rate value={{scenarios[index].mezz_rate}}></td>
             </tr>
             <tr>
 	      <td>Mezzanine interest only</td>
-	      <td><input type=text size=5 name=mezz_interest_only value={{scenarios[0].mezz_interest_only}}></td>
+	      <td><input type=text size=5 name=mezz_interest_only value={{scenarios[index].mezz_interest_only}}></td>
             </tr>
             <tr>
 	      <td>Mezzanine secured</td>
-	      <td><input type=text size=5 name=mezz_secured value={{scenarios[0].mezz_secured}}></td>
+	      <td><input type=text size=5 name=mezz_secured value={{scenarios[index].mezz_secured}}></td>
             </tr>
 	    <tr>
 	      <td>Mezzanine amortization</td>
-	      <td><input type=text size=5 name=mezz_amort value={{scenarios[0].mezz_amort}}></td>
+	      <td><input type=text size=5 name=mezz_amort value={{scenarios[index].mezz_amort}}></td>
             </tr>
             <tr>
 	      <td>Appreciation/decpreciation</td>
-	      <td><input type=text size=5 name=apprec_depr value={{scenarios[0].apprec_depr}}></td>
+	      <td><input type=text size=5 name=apprec_depr value={{scenarios[index].apprec_depr}}></td>
             </tr>
 	    <tr>
 	      <td>Holding period</td>
-	      <td><input type=text size=5 name=holding_period value={{scenarios[0].holding_period}}></td>
+	      <td><input type=text size=5 name=holding_period value={{scenarios[index].holding_period}}></td>
             </tr>
 	  </table>
 	  <dl>
@@ -85,27 +85,27 @@
 	  <table class="table">
             <tr>
 	      <td>1st Mort</td>
-	      <td><input type=text size=5 name=mezz_rate value={{results[0].mezz_rate}}></td>
+	      <td>{{results[index].first_mort}}</td>
             </tr>
             <tr>
 	      <td>Mezz</td>
-	      <td><input type=text size=5 name=mezz_interest_only value={{results[0].mezz_interest_only}}></td>
+	      <td>{{results[index].mezz}}</td>
             </tr>
             <tr>
 	      <td>Yield</td>
-	      <td><input type=text size=5 name=mezz_secured value={{results[0].mezz_secured}}></td>
+	      <td>{{results[index].calc_yield}}</td>
             </tr>
 	    <tr>
 	      <td>Amort 1st Mort</td>
-	      <td><input type=text size=5 name=mezz_amort value={{results[0].mezz_amort}}></td>
+	      <td>{{results[index].amort_first_mort}}</td>
             </tr>
             <tr>
 	      <td>Amort Mezz</td>
-	      <td><input type=text size=5 name=apprec_depr value={{results[0].apprec_depr}}></td>
+	      <td>{{results[index].amort_mezz}}</td>
             </tr>
 	    <tr>
 	      <td>Appr</td>
-	      <td><input type=text size=5 name=holding_period value={{results[0].holding_period}}></td>
+	      <td>{{results[index].appr}}</td>
             </tr>
 	  </table>
 	</div>
@@ -114,13 +114,17 @@
   </div>
 
   <div class="container">
-    <ul class=entries>
-      {% for scenario in scenarios %}
-      <li><h2>{{ scenario.title }}</h2>{{ scenario.cap_rate }}, {{results[5].cap_rate}}
-	{% else %}
-      <li><em>Unbelievable.  No scenarios here so far</em>
-	{% endfor %}
-    </ul>
+    <div class="form-group">
+      <label for="inputLogType" class="col-lg-2 control-label"> Saved Scenarios
+      </label>
+      {% for i in range(scenarios|length) %}
+      <div class="col-lg-10">
+	<input type="radio" name="blik" id="blue"> {{ scenarios[i].title }}, {{ results[i].cap_rate }}
+      </div>
+      {% else %}
+      <li><em>Unbelievable.  No saved scenarios here so far</em>
+      {% endfor %}
+    </div>	
   </div>
   
   {% endif %}

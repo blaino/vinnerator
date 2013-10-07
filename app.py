@@ -167,7 +167,10 @@ def show_scenarios():
     except:
         scenarios = []
         results = []
-    return render_template('show_scenarios.html', scenarios=scenarios, results=results)
+    return render_template('show_scenarios.html',
+                           scenarios=scenarios,
+                           results=results,
+                           index=0)
 
 
 @app.route('/add', methods=['POST'])
