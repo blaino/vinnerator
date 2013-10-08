@@ -1,16 +1,23 @@
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+<script>
+  function loadSavedScenario(x) {
+      window.location.replace("/show_scenarios/" + x.value);
+  }
+  
+</script>
+
+
 {% extends "layout.html" %}
 {% block body %}
   {% if session.logged_in %}
   <div class="container">
-    <div class="row">
-      <form action="{{ url_for('add_scenario') }}" method=post class=add-entry>
+    <form action="{{ url_for('add_scenario') }}" method=post class=add-entry>
+      <h3>Scenario <input type=text size=60 name=title value={{scenarios[index].title}}></h3>
+      <div class="row">
 	<div class="col-md-4">
 	  <table class="table table-striped">
 	    <tbody>
-              <tr>
-		<td>Scenario name</td>
-		<td><input type=text size=5 name=title value={{scenarios[index].title}}></td>
-              </tr>
               <tr>
 		<td>Cash on cash requirement</td>
 		<td><input type=text size=5 name=cash_on_cash value={{scenarios[index].cash_on_cash}}></td>
@@ -109,23 +116,33 @@
             </tr>
 	  </table>
 	</div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
 
-  <div class="container">
-    <div class="form-group">
-      <label for="inputLogType" class="col-lg-2 control-label"> Saved Scenarios
-      </label>
-      {% for i in range(scenarios|length) %}
-      <div class="col-lg-10">
-	<input type="radio" name="blik" id="blue"> {{ scenarios[i].title }}, {{ results[i].cap_rate }}
-      </div>
-      {% else %}
-      <li><em>Unbelievable.  No saved scenarios here so far</em>
-      {% endfor %}
-    </div>	
-  </div>
+  <form name="scenarioSelector">
+    <div class="container">
+      <div class="form-group">
+	<h4>Saved Scenarios</h4>
+	{% for i in range(scenarios|length) %}
+	<div class="col-lg-12">
+	  {% if i == index %}
+	  <input type="radio" name="scenario_radio" value="{{i}}" onchange="loadSavedScenario(this)" checked="checked">
+             {{ scenarios[i].title }}, {{ results[i].cap_rate }}
+          </input>
+	  {% else %}
+	  <input type="radio" name="scenario_radio" value="{{i}}" onchange="loadSavedScenario(this)">
+             {{ scenarios[i].title }}, {{ results[i].cap_rate }}
+          </input>
+	  {% endif %}
+	</div>
+	{% else %}
+	<li><em>Unbelievable.  No saved scenarios here so far</em>
+	  {% endfor %}
+      </div>	
+    </div>
+  </form>
   
   {% endif %}
 {% endblock %}
+

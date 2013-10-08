@@ -156,8 +156,10 @@ def index():
 
 
 @app.route('/show_scenarios')
+@app.route('/show_scenarios/<index>')
 @login_required
-def show_scenarios():
+def show_scenarios(index=0):
+    index = int(index)
     try:
         results = []
         scenarios = Scenario.query.all()
@@ -170,7 +172,7 @@ def show_scenarios():
     return render_template('show_scenarios.html',
                            scenarios=scenarios,
                            results=results,
-                           index=0)
+                           index=index)
 
 
 @app.route('/add', methods=['POST'])
