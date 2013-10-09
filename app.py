@@ -175,6 +175,21 @@ def show_scenarios(index=0):
                            index=index)
 
 
+@app.route('/delete/<index>')
+@login_required
+def delete(index):
+    index = int(index)
+    print index
+    try:
+        scenarios = Scenario.query.all()
+        db.session.delete(scenarios[index])
+        db.session.commit()
+    except:
+        print "Could not delete scenario %d" % index
+    print "about to redirect"
+    return redirect(url_for('show_scenarios'))
+
+
 @app.route('/add', methods=['POST'])
 @login_required
 def add_scenario():

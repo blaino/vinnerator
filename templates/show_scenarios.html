@@ -4,10 +4,15 @@
   function loadSavedScenario(x) {
       window.location.replace("/show_scenarios/" + x.value);
   }
+
+  function deleteSelected() {
+      var y = $("input:radio[name=scenario_radio]:radio:checked").val()
+      window.location.replace("/delete/" + y);
+  }
   
 </script>
 
-
+<div id="wrap">
 {% extends "layout.html" %}
 {% block body %}
   {% if session.logged_in %}
@@ -151,8 +156,16 @@
 	  {% endfor %}
       </div>	
     </div>
+
+    <div id="footer">
+      <div class="container">
+	<input type="button" class="btn btn-primary" value="Delete selected" onclick="deleteSelected()">
+      </div>
+    </div>
+
   </form>
+  
   
   {% endif %}
 {% endblock %}
-
+</div>
