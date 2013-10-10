@@ -4,7 +4,7 @@ from flask import Flask, send_from_directory, \
 from flask.ext.sqlalchemy import SQLAlchemy
 from calc import CalcCapRate
 from flask.ext.security import Security, SQLAlchemyUserDatastore, \
-    UserMixin, RoleMixin, login_required
+    UserMixin, RoleMixin, login_required, current_user
 
 
 # initialization
@@ -15,12 +15,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
 
 app.config['USERNAME'] = "admin"
 app.config['PASSWORD'] = "password"
-app.config['TESTING'] = True
+app.config['TESTING'] = False
 app.config['DEBUG'] = True
 app.secret_key = ')\xd4\xa0\xbf@\xce\x81tol\xdbrae\xd0\xc6\x0b#\xf1\xc5\x11@\xdd\xcc'
 app.config['secret_key'] = ')\xd4\xa0\xbf@\xce\x81tol\xdbrae\xd0\xc6\x0b#\xf1\xc5\x11@\xdd\xcc'
-#app.config['SECURITY_LOGIN_URL'] = '/show_scenarios'
+app.config['SECURITY_LOGIN_URL'] = '/login'
 app.config['SECURITY_POST_LOGIN_VIEW'] = '/show_scenarios'
+app.config['SECURITY_POST_LOGOUT_VIEW'] = '/'
 db = SQLAlchemy(app)
 
 
@@ -46,16 +47,10 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 
+
 # Setup Flask-Security
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
-
-# Create a user to test with
-@app.before_first_request
-def create_user():
-    db.create_all()
-    user_datastore.create_user(email='matt@nobien.net', password='password')
-    db.session.commit()
 
 
 class Scenario(db.Model):
@@ -107,6 +102,7 @@ class Scenario(db.Model):
 
 def init_db():
     db.create_all()
+    user_datastore.create_user(email='matt@nobien.net', password='password')
     scenario = Scenario("default",  # title
                         10,  # cash_on_cash
                         80,  # target_ltv
@@ -146,12 +142,8 @@ def paymentform():
 
 
 @app.route('/')
-def home():
-    return render_template('home.html')
-
-
 @app.route('/index')
-def index():
+def home():
     return render_template('home.html')
 
 
@@ -224,30 +216,7 @@ def add_scenario():
     return redirect(url_for('show_scenarios'))
 
 
-@app.route('/oldlogin', methods=['GET', 'POST'])
-def oldlogin():
-    error = None
-    if request.method == 'POST':
-        if request.form['username'] != app.config['USERNAME']:
-            error = 'Invalid username'
-        elif request.form['password'] != app.config['PASSWORD']:
-            error = 'Invalid password'
-        else:
-            session['logged_in'] = True
-            flash('You were logged in')
-            return redirect(url_for('show_scenarios'))
-    return render_template('oldlogin.html', error=error)
-
-
-@app.route('/oldlogout')
-def oldlogout():
-    session.pop('logged_in', None)
-    flash('You were logged out')
-    return redirect(url_for('home'))
-
 # launch
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
-
-

@@ -6,9 +6,7 @@
 <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/sticky-footer.css') }}" />
 
 
-
 <div class=page>
-
   <body>
    <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -26,18 +24,17 @@
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
-	  {% if not session.logged_in %}
-          <form class="navbar-form navbar-right" action="{{ url_for('oldlogin') }}" method=post>
-            <div class="form-group">
-              <input type="text" placeholder="Username" class="form-control" name=username>
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control" name=password>
-            </div>
+	  {% if not current_user.is_authenticated() %}
+	  <form class="navbar-form navbar-right" action="{{ url_for_security('login') }}">
+            <!-- <div class="form-group"> -->
+            <!--   <input type="text" placeholder="Username" class="form-control" name=username> -->
+            <!-- </div> -->
+            <!-- <div class="form-group"> -->
+            <!--   <input type="password" placeholder="Password" class="form-control" name=password> -->
+            <!-- </div> -->
             <button type="submit" class="btn btn-success" value=Login>Sign in</button>
           </form>
 	  {% else %}
-            <!-- <form class="navbar-form navbar-right" action="{{ url_for('oldlogout') }}"> -->
 	    <form class="navbar-form navbar-right" action="{{ url_for_security('logout') }}">
             <button type="submit" class="btn btn-success" value=Login>Sign out</button>
           </form>
@@ -47,6 +44,7 @@
     </div>
   
   </body>
+  
   {% block body %}
 
   {% endblock %}
