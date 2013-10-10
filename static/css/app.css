@@ -8,13 +8,9 @@ body {
   }
 }
 
-<style type="text/css">
-   blik {
-       text-align: right;
-   }
-   input {
-       text-align: right;
-   }
+.right {
+    text-align: right;
+}
 
-</style>
+
 

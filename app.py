@@ -153,17 +153,15 @@ def home():
 def show_scenarios(index=0):
     index = int(index)
     try:
-        results = []
         scenarios = Scenario.query.all()
-        for s in scenarios:
-            c = CalcCapRate(s.__dict__)
-            results.append(c.iterate_computation())
+        c = CalcCapRate(scenarios[index].__dict__)
+        result = c.iterate_computation()
     except:
         scenarios = []
-        results = []
+        result = {}
     return render_template('show_scenarios.html',
                            scenarios=scenarios,
-                           results=results,
+                           result=result,
                            index=index)
 
 
