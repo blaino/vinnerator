@@ -162,6 +162,8 @@ def show_scenarios(index=0):
         scenarios = Scenario.query.all()
         c = CalcCapRate(scenarios[index].__dict__)
         result = c.iterate_computation()
+        # Convert to percentages for output
+        result.update((i, j*100) for i, j in result.items())
     except:
         scenarios = []
         result = {}
