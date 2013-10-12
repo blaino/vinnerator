@@ -2,13 +2,6 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<script>
-    function loadBasic() {
-        $("#contentArea").load("/basic");
-    }
-
-</script>
-
 <div class="jumbotron">
   <div class="container">
     <h1> Capulator </h1>
@@ -21,7 +14,7 @@
     <div class="col-lg-4">
       <div class="hero-unit">
 	<p id="contentArea">What if you could calculate cap rates without forecasting future value?
-	  <a href='javascript:loadBasic()'> Click here to find out. </a>
+	  <a href="/basic" target="_self"> Click here to find out. </a>
 	</p>
       </div>
     </div>
@@ -29,7 +22,3 @@
 </div>
 
 {% endblock %}
-
-
-
-

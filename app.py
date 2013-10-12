@@ -142,7 +142,8 @@ def page_not_found(e):
 
 
 @app.route('/')
-@app.route('/index')
+@app.route('/index/')
+@app.route('/home/')
 def home():
     return render_template('home.html')
 
