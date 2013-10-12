@@ -35,7 +35,7 @@ class CalcCapRate():
             self.mezz_const = self.mezz_rate
         else:
             self.mezz_const = (self.mezz_rate / 12 / (1 - (1 / (1 + self.mezz_rate / 12) **
-                                                           (self.mezz.amort * 12))) * 12)
+                                                           (self.mezz_amort * 12))) * 12)
 
         self.per_mezz_loan_repaid = ((self.mezz_const - self.mezz_rate) /
                                      (self.mezz_rate /12 / (1 - (1 / (1 + self.mezz_rate / 12) **
