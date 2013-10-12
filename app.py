@@ -80,10 +80,10 @@ class Scenario(db.Model):
 
     cap_rate = db.Column(db.Float, unique=False)
 
-    def __init__(self, title, cash_on_cash, target_ltv, transfer_cost,
-                 transfer_buyer_share, recordation_cost, recordation_buyer_share,
-                 finance, interest, amort, mezz_rate, mezz_interest_only,
-                 mezz_secured, mezz_amort, apprec_depr, holding_period):
+    def __init__(self, title='empty', cash_on_cash=0, target_ltv=0, transfer_cost=0,
+                 transfer_buyer_share=0, recordation_cost=0, recordation_buyer_share=0,
+                 finance=0, interest=0, amort=0, mezz_rate=0, mezz_interest_only=False,
+                 mezz_secured=False, mezz_amort=0, apprec_depr=0, holding_period=0):
         self.title = title
         self.cash_on_cash = cash_on_cash
         self.target_ltv = target_ltv
@@ -129,7 +129,7 @@ def init_db():
     db.session.commit()
 
 
-# controllers
+# routes
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
@@ -141,12 +141,6 @@ def page_not_found(e):
     return render_template('404.html'), 404
 
 
-@app.route('/paymentform')
-@login_required
-def paymentform():
-    return render_template('paymentform.html')
-
-
 @app.route('/')
 @app.route('/index')
 def home():
@@ -154,23 +148,59 @@ def home():
 
 
 @app.route('/basic')
-@app.route('/basic/<index>')
-@login_required
-def basic(index=0):
-    index = int(index)
-    try:
-        scenarios = Scenario.query.all()
-        c = CalcCapRate(scenarios[index].__dict__)
-        result = c.iterate_computation()
-        # Convert to percentages for output
-        result.update((i, j*100) for i, j in result.items())
-    except:
-        scenarios = []
-        result = {}
+def basic():
+    scenario = Scenario("empty",  # title
+                        10,  # cash_on_cash
+                        80,  # target_ltv
+                        2,  # transfer_cost
+                        50,  # transfer_buyer_share
+                        5,  # recordation_cost
+                        50,  # recordation_buyer_share
+                        1,  # finance
+                        6,  # interest
+                        30,  # amort
+                        8,  # mezz_rate
+                        False,  # mezz_interest_only
+                        False,  # mezz_secured
+                        30,  # mezz_amort
+                        0,  # apprec_depr
+                        5)  # holding_period
+
+    c = CalcCapRate(scenario.__dict__)
+    result = c.iterate_computation()
+    # Convert to percentages for output
+    result.update((i, j*100) for i, j in result.items())
     return render_template('basic.html',
-                           scenarios=scenarios,
-                           result=result,
-                           index=index)
+                           scenario=scenario,
+                           result=result)
+
+
+@app.route('/basic_calc', methods=['POST'])
+def basic_calc():
+    scenario = Scenario("empty",
+                        float(request.form['cash_on_cash']),
+                        float(request.form['target_ltv']),
+                        1,
+                        1,
+                        1,
+                        1,
+                        1,
+                        float(request.form['interest']),
+                        float(request.form['amort']),
+                        1,
+                        False,
+                        False,
+                        1,
+                        1,
+                        1)
+
+    c = CalcCapRate(scenario.__dict__)
+    result = c.iterate_computation()
+    cap_rate = result['cap_rate']
+    scenario.cap_rate = cap_rate
+    return render_template('basic.html',
+                           scenario=scenario,
+                           result=result)
 
 
 @app.route('/show_scenarios')
@@ -215,9 +245,6 @@ def delete(index):
 @app.route('/add', methods=['POST'])
 @login_required
 def add_scenario():
-    if not session.get('logged_in'):
-        abort(401)
-    print request
     scenario = Scenario(request.form['title'],
                         float(request.form['cash_on_cash']),
                         float(request.form['target_ltv']),

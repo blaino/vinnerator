@@ -3,47 +3,33 @@
 {% block body %}
 
 <script>
-    function loadSomePageFcn() {
+    function loadBasic() {
         $("#contentArea").load("/basic");
     }
 
-    <!-- $("#loadSomePage").click(function(){ -->
-    <!--     alert('blik'); -->
-    <!--     $("#contentArea").load("/show_scenarios"); -->
-        
-    <!-- }); -->
 </script>
 
+<div class="jumbotron">
+  <div class="container">
+    <h1> Capulator </h1>
+    <p> First there was Ellwood. Then there was Akerson. Now there's Capulator. </p>
+  </div>
+</div>
 
-  <div class="jumbotron">
-    <div class="container">
-      <h1> Capulator </h1>
-      <p> First there was Ellwood. Then there was Akerson. Now there's Capulator. </p>
-      <!-- <p><a class="btn btn-primary btn-lg">Learn more &raquo;</a></p> -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="hero-unit">
+	<p id="contentArea">What if you could calculate cap rates without forecasting future value?
+	  <a href='javascript:loadBasic()'> Click here to find out. </a>
+	</p>
+      </div>
     </div>
   </div>
+</div>
 
-  <div class="container">
-     <div class="row">
-        <div class="col-lg-4">
-	  <div class="hero-unit">
-	    <p id="contentArea">What if you could calculate cap rates without forecasting future value?
-	    <a href='javascript:loadSomePageFcn()'> Click me to find out. </a>
-	    </p>
-	  </div>
-	</div>
-     </div>
-  </div>
-
-  <!-- <div id="contentArea"></div> -->
-
-  <script>
-
-  </script>
-
-      
 {% endblock %}
 
 
 
-  
+

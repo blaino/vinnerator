@@ -3,25 +3,25 @@
 {% block body %}
   {% if session.logged_in %}
   <div class="container">
-    <form action="{{ url_for('add_scenario') }}" method=post class=add-entry>
+    <form action="{{ url_for('basic_calc') }}" method=post class=add-entry>
       <div class="row">
 	<div class="col-md-6">
 	  <table class="table table-striped">
 	    <tbody>
               <tr>
 		<td>Cash on cash requirement</td>
-		<td><input type=text class="right" size=3 name=cash_on_cash value={{scenarios[index].cash_on_cash}}></td>
+		<td><input type=text class="right" size=3 name=cash_on_cash value={{scenario.cash_on_cash}}></td>
               </tr>
               <tr>
 		<td>Target loan-to-value</td>
-		<td><input type=text class="right" size=3 name=target_ltv value={{scenarios[index].target_ltv}}></td>
+		<td><input type=text class="right" size=3 name=target_ltv value={{scenario.target_ltv}}></td>
               </tr>
 		<td>Interest</td>
-		<td><input type=text class="right" size=3 name=interest value={{scenarios[index].interest}}></td>
+		<td><input type=text class="right" size=3 name=interest value={{scenario.interest}}></td>
               </tr>
 	      <tr>
 		<td>Amortization</td>
-		<td><input type=text class="right" size=3 name=amort value={{scenarios[index].amort}}></td>
+		<td><input type=text class="right" size=3 name=amort value={{scenario.amort}}></td>
               </tr>
 	    </tbody>
 	  </table>
