@@ -1,51 +1,56 @@
 <div id="wrap">
 {% extends "layout.html" %}
 {% block body %}
-  {% if session.logged_in %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1> Capulator </h1>
-      <p> First there was Ellwood. Then there was Akerson. Now there's Capulator. </p>
-    </div>
-  </div>
-
+{% if session.logged_in %}
+<div class="jumbotron">
   <div class="container">
-    <form action="{{ url_for('basic_calc') }}" method=post class=add-entry>
-      <div class="row">
-	<div class="col-md-6">
-	  <table class="table table-striped">
-	    <tbody>
-              <tr>
-		<td>Cash on cash requirement</td>
-		<td><input type=text class="right" size=3 name=cash_on_cash value={{scenario.cash_on_cash}}></td>
-              </tr>
-              <tr>
-		<td>Target loan-to-value</td>
-		<td><input type=text class="right" size=3 name=target_ltv value={{scenario.target_ltv}}></td>
-              </tr>
-		<td>Interest</td>
-		<td><input type=text class="right" size=3 name=interest value={{scenario.interest}}></td>
-              </tr>
-	      <tr>
-		<td>Amortization</td>
-		<td><input type=text class="right" size=3 name=amort value={{scenario.amort}}></td>
-              </tr>
-	    </tbody>
-	  </table>
-        </div>
+    <h1> Capulator </h1>
+    <p> First there was Ellwood. Then there was Akerson. Now there's Capulator. </p>
+  </div>
+</div>
 
+<div class="container">
+  <form action="{{ url_for('basic_calc') }}" method=post class=add-entry>
+    <div class="row">
+      <div class="col-md-6">
+	<table class="table table-striped">
+	  <tbody>
+            <tr>
+	      <td>Cash on cash requirement</td>
+	      <td><input type=text class="right" size=3 name=cash_on_cash value={{scenario.cash_on_cash}}></td>
+            </tr>
+            <tr>
+	      <td>Target loan-to-value</td>
+	      <td><input type=text class="right" size=3 name=target_ltv value={{scenario.target_ltv}}></td>
+            </tr>
+	    <tr>
+	      <td>Interest</td>
+	      <td><input type=text class="right" size=3 name=interest value={{scenario.interest}}></td>
+	    </tr>
+	    <tr>
+	      <td>Amortization</td>
+	      <td><input type=text class="right" size=3 name=amort value={{scenario.amort}}></td>
+	    </tr>
+	  </tbody>
+	</table>
+      </div>
 
-	<div class="col-md-6">
-	  <div class="panel panel-default">
-	    <div class="panel-body">
-	      <h4 align="center">Cap Rate: {{ '%.3f' % result.cap_rate}}</h4>
-	      <p align="center"><input type=submit value="Capulate!" class="btn btn-primary"></p>
-	    </div>
+      <div class="col-md-6">
+	<div class="panel panel-default">
+	  <div class="panel-body">
+	    <h4 align="center">Cap Rate: {{ '%.3f' % result.cap_rate}}</h4>
+	    <p align="center"><input type=submit value="Capulate!" class="btn btn-primary"></p>
 	  </div>
 	</div>
       </div>
-    </form>
-  </div>
-  {% endif %}
+    </div>
+  </form>
+
+  <p>This is the basic calculation. If you want Capulator to consider mezzanine debt, transfer and
+    recordation costs, appreciation, and hold periods or if you want to see a breakout of returns
+    between amortization, cash yields, and asset appreciation, <a href="/register" target="_self">sign up.</a></p>
+</div>
+
+{% endif %}
 {% endblock %}
 </div>

@@ -22,11 +22,12 @@
          </div>
          <div class="navbar-collapse collapse">
            <ul class="nav navbar-nav">
-             <li class="active"><a href="/">Home</a></li>
+             <li ><a href="/">Home</a></li>
+	     <li ><a href="/basic">Basic</a></li>
+	     <li ><a href="/show_scenarios">Advanced</a></li>
              <li><a href="#about">About</a></li>
              <li><a href="#contact">Contact</a></li>
            </ul>
-
 
     	  {% if not current_user.is_authenticated() %}
     	  <form class="navbar-form navbar-right" action="{{ url_for_security('login') }}">
@@ -42,8 +43,7 @@
             <button type="submit" class="btn btn-success" value=register >Sign Up</button>
           </form>
 
-
-         </div><!--/.navbar-collapse -->
+         </div>
        </div>
      </div>
   </body>
