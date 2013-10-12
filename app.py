@@ -1,9 +1,9 @@
 import os
 from flask import Flask, send_from_directory, \
-    request, session, redirect, url_for, abort, render_template, flash
+    request, redirect, url_for, render_template, flash
 from flask.ext.mail import Mail
 from flask.ext.security import Security, SQLAlchemyUserDatastore, \
-    UserMixin, RoleMixin, login_required
+    UserMixin, RoleMixin, login_required, current_user
 from flask.ext.sqlalchemy import SQLAlchemy
 from calc import CalcCapRate
 
@@ -232,20 +232,21 @@ def show_scenarios(index=0):
 @login_required
 def delete(index):
     index = int(index)
-    print index
     try:
         scenarios = Scenario.query.all()
         db.session.delete(scenarios[index])
         db.session.commit()
     except:
         print "Could not delete scenario %d" % index
-    print "about to redirect"
     return redirect(url_for('show_scenarios'))
 
 
 @app.route('/add', methods=['POST'])
 @login_required
 def add_scenario():
+    print '######'
+    print dir(current_user)
+
     scenario = Scenario(request.form['title'],
                         float(request.form['cash_on_cash']),
                         float(request.form['target_ltv']),
