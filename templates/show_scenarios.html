@@ -15,10 +15,9 @@
 <div id="wrap">
 {% extends "layout.html" %}
 {% block body %}
-  {% if session.logged_in %}
   <div class="container">
-    <form action="{{ url_for('add_scenario') }}" method=post class=add-entry>
-      <h3>Scenario <input type="text" size=60 name=title value={{scenarios[index].title}}></h3>
+    <form action="{{ url_for('add_scenario' ) }}" method=post class=add-entry>
+      <h3>Scenario <input type="text" size=60 name=title value="{{scenarios[index].title}}"></h3>
       <div class="row">
 	<div class="col-md-4">
 	  <table class="table table-striped">
@@ -165,7 +164,5 @@
 
   </form>
   
-  
-  {% endif %}
 {% endblock %}
 </div>

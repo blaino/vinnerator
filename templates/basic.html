@@ -1,0 +1,44 @@
+<div id="wrap">
+{% extends "layout.html" %}
+{% block body %}
+  {% if session.logged_in %}
+  <div class="container">
+    <form action="{{ url_for('add_scenario') }}" method=post class=add-entry>
+      <div class="row">
+	<div class="col-md-6">
+	  <table class="table table-striped">
+	    <tbody>
+              <tr>
+		<td>Cash on cash requirement</td>
+		<td><input type=text class="right" size=3 name=cash_on_cash value={{scenarios[index].cash_on_cash}}></td>
+              </tr>
+              <tr>
+		<td>Target loan-to-value</td>
+		<td><input type=text class="right" size=3 name=target_ltv value={{scenarios[index].target_ltv}}></td>
+              </tr>
+		<td>Interest</td>
+		<td><input type=text class="right" size=3 name=interest value={{scenarios[index].interest}}></td>
+              </tr>
+	      <tr>
+		<td>Amortization</td>
+		<td><input type=text class="right" size=3 name=amort value={{scenarios[index].amort}}></td>
+              </tr>
+	    </tbody>
+	  </table>
+        </div>
+
+
+	<div class="col-md-6">
+	  <div class="panel panel-default">
+	    <div class="panel-body">
+	      <h4 align="center">Cap Rate: {{ '%.3f' % result.cap_rate}}</h4>
+	      <p align="center"><input type=submit value="Capulate!" class="btn btn-primary"></p>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </form>
+  </div>
+  {% endif %}
+{% endblock %}
+</div>

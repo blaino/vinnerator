@@ -153,13 +153,37 @@ def home():
     return render_template('home.html')
 
 
+@app.route('/basic')
+@app.route('/basic/<index>')
+@login_required
+def basic(index=0):
+    index = int(index)
+    try:
+        scenarios = Scenario.query.all()
+        c = CalcCapRate(scenarios[index].__dict__)
+        result = c.iterate_computation()
+        # Convert to percentages for output
+        result.update((i, j*100) for i, j in result.items())
+    except:
+        scenarios = []
+        result = {}
+    return render_template('basic.html',
+                           scenarios=scenarios,
+                           result=result,
+                           index=index)
+
+
 @app.route('/show_scenarios')
 @app.route('/show_scenarios/<index>')
 @login_required
 def show_scenarios(index=0):
-    index = int(index)
     try:
         scenarios = Scenario.query.all()
+        if index != 0:
+            index = int(index)
+        else:
+            index = len(scenarios) - 1
+
         c = CalcCapRate(scenarios[index].__dict__)
         result = c.iterate_computation()
         # Convert to percentages for output
