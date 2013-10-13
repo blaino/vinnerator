@@ -52,6 +52,9 @@ class User(db.Model, UserMixin):
     confirmed_at = db.Column(db.DateTime())
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
+    scenarios = db.relationship('Scenario',
+                                backref=db.backref('user', lazy='joined'),
+                                lazy='dynamic')
 
 
 # Setup Flask-Security
@@ -80,6 +83,8 @@ class Scenario(db.Model):
 
     cap_rate = db.Column(db.Float, unique=False)
 
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
     def __init__(self, title='empty', cash_on_cash=0, target_ltv=0, transfer_cost=0,
                  transfer_buyer_share=0, recordation_cost=0, recordation_buyer_share=0,
                  finance=0, interest=0, amort=0, mezz_rate=0, mezz_interest_only=False,
@@ -100,7 +105,6 @@ class Scenario(db.Model):
         self.mezz_amort = mezz_amort
         self.apprec_depr = apprec_depr
         self.holding_period = holding_period
-
 
     def __repr__(self):
         return '<Title %r>' % self.title
@@ -127,6 +131,11 @@ def init_db():
                         5)  # holding_period
     db.session.add(scenario)
     db.session.commit()
+
+
+def tear_down_db():
+    db.session.remove()
+    db.drop_all()
 
 
 # routes
