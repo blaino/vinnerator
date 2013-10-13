@@ -88,7 +88,8 @@ class Scenario(db.Model):
     def __init__(self, title='empty', cash_on_cash=0, target_ltv=0, transfer_cost=0,
                  transfer_buyer_share=0, recordation_cost=0, recordation_buyer_share=0,
                  finance=0, interest=0, amort=0, mezz_rate=0, mezz_interest_only=False,
-                 mezz_secured=False, mezz_amort=0, apprec_depr=0, holding_period=0):
+                 mezz_secured=False, mezz_amort=0, apprec_depr=0, holding_period=0,
+                 user_id=0):
         self.title = title
         self.cash_on_cash = cash_on_cash
         self.target_ltv = target_ltv
@@ -105,6 +106,7 @@ class Scenario(db.Model):
         self.mezz_amort = mezz_amort
         self.apprec_depr = apprec_depr
         self.holding_period = holding_period
+        self.user_id = user_id
 
     def __repr__(self):
         return '<Title %r>' % self.title
@@ -113,6 +115,9 @@ class Scenario(db.Model):
 def init_db():
     db.create_all()
     user_datastore.create_user(email='matt@nobien.net', password='password')
+    db.session.commit()
+    users = User.query.all()
+    user_id = users[0].id
     scenario = Scenario("default",  # title
                         10,  # cash_on_cash
                         80,  # target_ltv
@@ -128,7 +133,8 @@ def init_db():
                         False,  # mezz_secured
                         30,  # mezz_amort
                         0,  # apprec_depr
-                        5)  # holding_period
+                        5,
+                        user_id)  # holding_period
     db.session.add(scenario)
     db.session.commit()
 
