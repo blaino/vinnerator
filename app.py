@@ -144,6 +144,25 @@ def tear_down_db():
     db.drop_all()
 
 
+def default_scenario():
+    return Scenario("default",  # title
+                    10,  # cash_on_cash
+                    80,  # target_ltv
+                    2,  # transfer_cost
+                    50,  # transfer_buyer_share
+                    5,  # recordation_cost
+                    50,  # recordation_buyer_share
+                    1,  # finance
+                    6,  # interest
+                    30,  # amort
+                    8,  # mezz_rate
+                    False,  # mezz_interest_only
+                    False,  # mezz_secured
+                    30,  # mezz_amort
+                    0,  # apprec_depr
+                    5)  # holding_period
+
+
 # routes
 @app.route('/favicon.ico')
 def favicon():
@@ -165,23 +184,7 @@ def home():
 
 @app.route('/basic')
 def basic():
-    scenario = Scenario("empty",  # title
-                        10,  # cash_on_cash
-                        80,  # target_ltv
-                        2,  # transfer_cost
-                        50,  # transfer_buyer_share
-                        5,  # recordation_cost
-                        50,  # recordation_buyer_share
-                        1,  # finance
-                        6,  # interest
-                        30,  # amort
-                        8,  # mezz_rate
-                        False,  # mezz_interest_only
-                        False,  # mezz_secured
-                        30,  # mezz_amort
-                        0,  # apprec_depr
-                        5)  # holding_period
-
+    scenario = default_scenario()
     c = CalcCapRate(scenario.__dict__)
     result = c.iterate_computation()
     # Convert to percentages for output
@@ -193,7 +196,7 @@ def basic():
 
 @app.route('/basic_calc', methods=['POST'])
 def basic_calc():
-    scenario = Scenario("empty",
+    scenario = Scenario("basic",
                         float(request.form['cash_on_cash']),
                         float(request.form['target_ltv']),
                         1,
@@ -212,6 +215,8 @@ def basic_calc():
 
     c = CalcCapRate(scenario.__dict__)
     result = c.iterate_computation()
+    # Convert to percentages for output
+    result.update((i, j*100) for i, j in result.items())
     cap_rate = result['cap_rate']
     scenario.cap_rate = cap_rate
     return render_template('basic.html',
@@ -224,7 +229,10 @@ def basic_calc():
 @login_required
 def show_scenarios(index=0):
     try:
-        scenarios = Scenario.query.all()
+        user_id = current_user.id
+        scenarios = Scenario.query.filter_by(user_id=user_id).all()
+        if len(scenarios) == 0:
+            scenarios.append(default_scenario())
         if index != 0:
             index = int(index)
         else:
@@ -259,9 +267,6 @@ def delete(index):
 @app.route('/add', methods=['POST'])
 @login_required
 def add_scenario():
-    print '######'
-    print dir(current_user)
-
     scenario = Scenario(request.form['title'],
                         float(request.form['cash_on_cash']),
                         float(request.form['target_ltv']),
@@ -277,7 +282,8 @@ def add_scenario():
                         request.form['mezz_secured'],
                         float(request.form['mezz_amort']),
                         float(request.form['apprec_depr']),
-                        float(request.form['holding_period']))
+                        float(request.form['holding_period']),
+                        current_user.id)
     c = CalcCapRate(scenario.__dict__)
     result = c.iterate_computation()
     cap_rate = result['cap_rate']
