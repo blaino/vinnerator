@@ -6,7 +6,8 @@
   }
 
   function deleteSelected() {
-      var y = $("input:radio[name=scenario_radio]:radio:checked").val()
+      var y = $('#saved :selected').val()
+      alert(y);
       window.location.replace("/delete/" + y);
   }
   
@@ -17,75 +18,175 @@
 {% block body %}
   <div class="container">
     <form action="{{ url_for('add_scenario' ) }}" method=post class=add-entry>
-      <h3>Scenario <input type="text" size=60 name=title value="{{scenarios[index].title}}"></h3>
       <div class="row">
+	<div class="col-md-12">
+	  <h3>Scenario <input type="text" size=30 name=title value="{{scenarios[index].title}}"></h3>
+	  <div class="row">
+	  </div>
+	</div>
 	<div class="col-md-4">
-	  <table class="table table-striped">
+	  <table class="table">
 	    <tbody>
               <tr>
-		<td>Cash on cash requirement</td>
-		<td><input type=text class="right" size=3 name=cash_on_cash value={{scenarios[index].cash_on_cash}}></td>
+		<td>Cash on cash</td>
+		<td>
+		  <div class="input-group basic-input">
+		    <span class="input-group-addon mono">&nbsp</span>
+		    <input type=text class="form-control right" name=cash_on_cash value={{scenarios[index].cash_on_cash}}>
+		    <span class="input-group-addon mono">%</span>
+		  </div>
+		</td>
               </tr>
               <tr>
-		<td>Target loan-to-value</td>
-		<td><input type=text class="right" size=3 name=target_ltv value={{scenarios[index].target_ltv}}></td>
+		<td>Loan-to-value</td>
+		<td>
+		  <div class="input-group basic-input">
+		    <span class="input-group-addon mono">&nbsp</span>
+		    <input type=text class="form-control right" name=target_ltv value={{scenarios[index].target_ltv}}>
+		    <span class="input-group-addon mono">%</span>
+		  </div>
+		</td>
               </tr>
 	      <tr>
 		<td>Transfer cost</td>
-		<td><input type=text class="right" size=3 name=transfer_cost value={{scenarios[index].transfer_cost}}></td>
+		<td>
+		  <div class="input-group basic-input">
+		    <span class="input-group-addon mono">&nbsp</span>
+		    <input type=text class="form-control right" name=transfer_cost value={{scenarios[index].transfer_cost}}>
+		    <span class="input-group-addon mono">%</span>
+		  </div>
+
+		</td>
               </tr>
               <tr>
 		<td>Transfer buyer's share</td>
-		<td><input type=text class="right" size=3 name=transfer_buyer_share value={{scenarios[index].transfer_buyer_share}}></td>
+		<td>
+		  <div class="input-group basic-input">
+		    <span class="input-group-addon mono">&nbsp</span>
+
+		    <input type=text class="form-control right" name=transfer_buyer_share value={{scenarios[index].transfer_buyer_share}}>
+		    <span class="input-group-addon mono">%</span>
+		  </div>
+
+		</td>
               </tr>
 	      <tr>
 		<td>Recordation cost</td>
-		<td><input type=text class="right" size=3 name=recordation_cost value={{scenarios[index].recordation_cost}}></td>
+		<td>
+		  <div class="input-group basic-input">
+		    <span class="input-group-addon mono">$</span>
+		    <input type=text class="form-control right" name=recordation_cost value={{scenarios[index].recordation_cost}}>
+		    <span class="input-group-addon mono">&nbsp</span>
+		  </div>
+		</td>
               </tr>
               <tr>
 		<td>Recordation buyer's share</td>
-		<td><input type=text class="right" size=3 name=recordation_buyer_share value={{scenarios[index].recordation_buyer_share}}></td>
-              </tr>
-              <tr>
+		<td>
+		  <div class="input-group basic-input">
+		    <span class="input-group-addon mono">&nbsp</span>
+		    <input type=text class="form-control right" name=recordation_buyer_share value={{scenarios[index].recordation_buyer_share}}>
+		    <span class="input-group-addon mono">%</span>
+		  </div>
+		</td>
+	      </tr>
+	      <tr>
 		<td>Finance</td>
-		<td><input type=text class="right" size=3 name=finance value={{scenarios[index].finance}}></td>
-              </tr>
-              <tr>
+		<td>
+		  <div class="input-group basic-input">
+		    <span class="input-group-addon mono">&nbsp</span>
+		    <input type=text class="form-control right" name=finance value={{scenarios[index].finance}}>
+		    <span class="input-group-addon mono">%</span>
+		  </div>
+
+		</td>
+	      </tr>
+	      <tr>
 		<td>Interest</td>
-		<td><input type=text class="right" size=3 name=interest value={{scenarios[index].interest}}></td>
-              </tr>
+		<td>
+		  <div class="input-group basic-input">
+		    <span class="input-group-addon mono">&nbsp</span>
+		    <input type=text class="form-control right" name=interest value={{scenarios[index].interest}}>
+		    <span class="input-group-addon mono">%</span>
+		  </div>
+
+		</td>
+	      </tr>
 	      <tr>
 		<td>Amortization</td>
-		<td><input type=text class="right" size=3 name=amort value={{scenarios[index].amort}}></td>
+		<td>
+		  <div class="input-group basic-input">
+		    <span class="input-group-addon mono">&nbsp</span>
+		    <input type=text class="form-control right" name=amort value={{scenarios[index].amort}}>
+		    <span class="input-group-addon mono">y</span>
+		  </div>
+
+		</td>
               </tr>
 	    </tbody>
 	  </table>
 	</div>
 	<div class="col-md-4">
-	  <table class="table table-striped">
+	  <table class="table">
             <tr>
 	      <td>Mezzanine rate</td>
-	      <td><input type=text class="right" size=3 name=mezz_rate value={{scenarios[index].mezz_rate}}></td>
+	      <td>
+		  <div class="input-group basic-input">
+		    <span class="input-group-addon mono">&nbsp</span>
+		<input type=text class="form-control right" name=mezz_rate value={{scenarios[index].mezz_rate}}>
+		    <span class="input-group-addon mono">%</span>
+		  </div>
+	      </td>
             </tr>
             <tr>
 	      <td>Mezzanine interest only</td>
-	      <td><input type=text class="right" size=3 name=mezz_interest_only value={{scenarios[index].mezz_interest_only}}></td>
+	      <td>
+		  <div class="input-group basic-input">
+		    <span class="input-group-addon mono">&nbsp</span>
+		<input type=text class="form-control right" name=mezz_interest_only value={{scenarios[index].mezz_interest_only}}>
+		    <span class="input-group-addon mono">&nbsp</span>
+		  </div>
+	      </td>
             </tr>
             <tr>
 	      <td>Mezzanine secured</td>
-	      <td><input type=text class="right" size=3 name=mezz_secured value={{scenarios[index].mezz_secured}}></td>
+	      <td>
+		  <div class="input-group basic-input">
+		    <span class="input-group-addon mono">&nbsp</span>
+		<input type=text class="form-control right" name=mezz_secured value={{scenarios[index].mezz_secured}}>
+		    <span class="input-group-addon mono">&nbsp</span>
+		  </div>
+	      </td>
             </tr>
 	    <tr>
 	      <td>Mezzanine amortization</td>
-	      <td><input type=text class="right" size=3 name=mezz_amort value={{scenarios[index].mezz_amort}}></td>
+	      <td>
+		  <div class="input-group basic-input">
+		    <span class="input-group-addon mono">&nbsp</span>
+		<input type=text class="form-control right" name=mezz_amort value={{scenarios[index].mezz_amort}}>
+		    <span class="input-group-addon mono">%</span>
+		  </div>
+	      </td>
             </tr>
             <tr>
 	      <td>Appreciation/decpreciation</td>
-	      <td><input type=text class="right" size=3 name=apprec_depr value={{scenarios[index].apprec_depr}}></td>
+	      <td>
+		  <div class="input-group basic-input">
+		    <span class="input-group-addon mono">&nbsp</span>
+		<input type=text class="form-control right" name=apprec_depr value={{scenarios[index].apprec_depr}}>
+		    <span class="input-group-addon mono">%</span>
+		  </div>
+	      </td>
             </tr>
 	    <tr>
 	      <td>Holding period</td>
-	      <td><input type=text class="right" size=3 name=holding_period value={{scenarios[index].holding_period}}></td>
+	      <td>
+		  <div class="input-group basic-input">
+		    <span class="input-group-addon mono">&nbsp</span>
+		<input type=text class="form-control right" name=holding_period value={{scenarios[index].holding_period}}>
+		    <span class="input-group-addon mono">y</span>
+		  </div>
+	      </td>
             </tr>
 	  </table>
 
@@ -138,21 +239,16 @@
     <div class="container">
       <div class="form-group">
 	<h4>Saved Scenarios</h4>
+	<select id='saved' onchange="loadSavedScenario(this)"> 
 	{% for i in range(scenarios|length) %}
-	<div class="col-lg-12">
 	  {% if i == index %}
-	  <input type="radio" name="scenario_radio" value="{{i}}" onchange="loadSavedScenario(this)" checked="checked">
-             {{ scenarios[i].title }}
-          </input>
+	  <option value="{{i}}" selected>{{ scenarios[i].title }}</option>
 	  {% else %}
-	  <input type="radio" name="scenario_radio" value="{{i}}" onchange="loadSavedScenario(this)">
-             {{ scenarios[i].title }}
-          </input>
+	  <option value="{{i}}">{{ scenarios[i].title }}</option>
 	  {% endif %}
-	</div>
 	{% else %}
-	<li><em>Unbelievable.  No saved scenarios here so far</em>
-	  {% endfor %}
+	  <li><em>Unbelievable.  No saved scenarios here so far</em>
+	{% endfor %}
       </div>
       <input type="button" class="btn btn-primary" value="Delete selected" onclick="deleteSelected()">
     </div>

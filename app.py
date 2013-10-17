@@ -57,7 +57,7 @@ class User(db.Model, UserMixin):
                                 lazy='dynamic')
 
 
-# Setup Flask-Security
+# Setup Flsak-Security
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
 
@@ -293,7 +293,7 @@ def add_scenario():
 
     db.session.add(scenario)
     db.session.commit()
-    flash('New scenario was successfully posted')
+    flash('New scenario was successfully posted', 'alert alert-info')
     return redirect(url_for('show_scenarios'))
 
 
@@ -301,3 +301,16 @@ def add_scenario():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
+
+
+
+
+
+
+
+
+
+
+
+
+
