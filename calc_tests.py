@@ -21,12 +21,26 @@ class CalcTestCase(unittest.TestCase):
                             'mezz_amort': 30,
                             'apprec_depr': 0,
                             'holding_period': 5}
-        self.test1_cap_rate = .078
+
+        self.test1_output = {'first_mort': 0.0564,
+                             'mezz': 0.000,
+                             'calc_yield': 0.0298,
+                             'amort_first_mort': -0.0083,
+                             'amort_mezz': 0.000,
+                             'appr': 0.000,
+                             'cap_rate': 0.078}
 
         # Same as test1 but cash_on_cash is 20%
         self.test2_input = deepcopy(self.test1_input)
         self.test2_input['cash_on_cash'] = 20
-        self.test2_cap_rate = .0996
+        self.test2_output = {'first_mort': 0.056428,
+                             'mezz': 0.000,
+                             'calc_yield': 0.050019,
+                             'amort_first_mort': -0.006876,
+                             'amort_mezz': 0.000,
+                             'appr': 0.000,
+                             'cap_rate': 0.099571}
+
 
     def test_init_scenario_1(self):
         c = CalcCapRate(self.test1_input)
@@ -41,17 +55,21 @@ class CalcTestCase(unittest.TestCase):
         self.assertAlmostEqual(c.per_mezz_loan_repaid, 0.0, 2)
 
     def test_scenario_1(self):
-        self.run_scenario(self.test1_input, self.test1_cap_rate)
+        self.run_scenario(self.test1_input, self.test1_output)
 
     def test_scenario_2(self):
-        self.run_scenario(self.test2_input, self.test2_cap_rate)
+        self.run_scenario(self.test2_input, self.test2_output)
 
     def run_scenario(self, input, output):
         c = CalcCapRate(input)
-        result = c.iterate_computation()
-        cap_rate = result['cap_rate']
-
-        self.assertAlmostEqual(cap_rate, output, 4)
+        r = c.iterate_computation()
+        self.assertAlmostEqual(r['first_mort'], output['first_mort'], 4)
+        self.assertAlmostEqual(r['mezz'], output['mezz'], 4)
+        self.assertAlmostEqual(r['calc_yield'], output['calc_yield'], 4)
+        self.assertAlmostEqual(r['amort_first_mort'], output['amort_first_mort'], 4)
+        self.assertAlmostEqual(r['amort_mezz'], output['amort_mezz'], 4)
+        self.assertAlmostEqual(r['appr'], output['appr'], 4)
+        self.assertAlmostEqual(r['cap_rate'], output['cap_rate'], 4)
 
 
 if __name__ == '__main__':

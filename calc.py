@@ -41,17 +41,17 @@ class CalcCapRate():
                                      (self.mezz_rate /12 / (1 - (1 / (1 + self.mezz_rate / 12) **
                                                                  (self.holding_period * 12))) * 12 - self.mezz_rate))
         self.irr = 0.10  # Initial seed
-        self.sinking_fund_factor = self.irr / ((1 + self.irr) ** self.holding_period - 1)
-        self.appr_depr_factor = self.apprec_depr * self.sinking_fund_factor
 
     def compute_cap_rate(self):
         r = {}
+        r['sinking_fund_factor'] = self.irr / ((1 + self.irr) ** self.holding_period - 1)
+        r['appr_depr_factor'] = self.apprec_depr * r['sinking_fund_factor']
         r['first_mort'] = self.first_mort * self.const
         r['mezz'] = self.mezz_debt * self.mezz_const
         r['calc_yield'] = self.equity * self.irr
-        r['amort_first_mort'] = - (self.first_mort * self.per_loan_repaid * self.sinking_fund_factor)
-        r['amort_mezz'] = - (self.mezz_debt * self.per_mezz_loan_repaid * self.sinking_fund_factor)
-        r['appr'] = self.appr_depr_factor
+        r['amort_first_mort'] = - (self.first_mort * self.per_loan_repaid * r['sinking_fund_factor'])
+        r['amort_mezz'] = - (self.mezz_debt * self.per_mezz_loan_repaid * r['sinking_fund_factor'])
+        r['appr'] = r['appr_depr_factor']
 
         self.irr = (self.cash_on_cash * self.equity - r['amort_first_mort'] -
                     r['amort_mezz'] - r['appr']) / self.equity
@@ -65,6 +65,8 @@ class CalcCapRate():
         cap_rate = self.compute_cap_rate()
         cap_rate = self.compute_cap_rate()
         cap_rate = self.compute_cap_rate()
+        cap_rate = self.compute_cap_rate()
+
         return cap_rate
 
     def compute_offer_prices_cap_rate():
