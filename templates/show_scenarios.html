@@ -28,7 +28,7 @@
 	<div class="col-md-4">
 	  <table class="table">
             <tr>
-	      <td>Cash on cash</td>
+	      <td><p class="myfont">Cash on cash</p></td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -43,6 +43,16 @@
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
 		  <input type=text class="form-control right" name=target_ltv value={{scenarios[index].target_ltv}}>
+		  <span class="input-group-addon mono">%</span>
+		</div>
+	      </td>
+            </tr>
+	    <tr>
+	      <td>Mezzanine Debt</td>
+	      <td>
+		<div class="input-group basic-input">
+		  <span class="input-group-addon mono">&nbsp</span>
+		  <input type=text class="form-control right" name=mezz_debt value={{scenarios[index].mezz_debt}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 	      </td>

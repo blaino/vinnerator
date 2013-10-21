@@ -67,6 +67,7 @@ class Scenario(db.Model):
     title = db.Column(db.String(80), unique=False)
     cash_on_cash = db.Column(db.Float, unique=False)
     target_ltv = db.Column(db.Float, unique=False)
+    mezz_debt = db.Column(db.Float, unique=False)
     transfer_cost = db.Column(db.Float, unique=False)
     transfer_buyer_share = db.Column(db.Float, unique=False)
     recordation_cost = db.Column(db.Float, unique=False)
@@ -85,14 +86,15 @@ class Scenario(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, title='empty', cash_on_cash=0, target_ltv=0, transfer_cost=0,
-                 transfer_buyer_share=0, recordation_cost=0, recordation_buyer_share=0,
-                 finance=0, interest=0, amort=0, mezz_rate=0, mezz_interest_only=False,
-                 mezz_secured=False, mezz_amort=0, apprec_depr=0, holding_period=0,
-                 user_id=0):
+    def __init__(self, title='empty', cash_on_cash=0, target_ltv=0, mezz_debt=0,
+                 transfer_cost=0, transfer_buyer_share=0, recordation_cost=0,
+                 recordation_buyer_share=0, finance=0, interest=0, amort=0, mezz_rate=0,
+                 mezz_interest_only=False, mezz_secured=False, mezz_amort=0, apprec_depr=0,
+                 holding_period=0, user_id=0):
         self.title = title
         self.cash_on_cash = cash_on_cash
         self.target_ltv = target_ltv
+        self.mezz_debt = mezz_debt
         self.transfer_cost = transfer_cost
         self.transfer_buyer_share = transfer_buyer_share
         self.recordation_cost = recordation_cost
@@ -121,6 +123,7 @@ def init_db():
     scenario = Scenario("default",  # title
                         10,  # cash_on_cash
                         80,  # target_ltv
+                        0,  # mezz_debt
                         2,  # transfer_cost
                         50,  # transfer_buyer_share
                         5,  # recordation_cost
@@ -133,8 +136,8 @@ def init_db():
                         False,  # mezz_secured
                         30,  # mezz_amort
                         0,  # apprec_depr
-                        5,
-                        user_id)  # holding_period
+                        5, # holding_period
+                        user_id)  
     db.session.add(scenario)
     db.session.commit()
 
@@ -148,6 +151,7 @@ def default_scenario():
     return Scenario("default",  # title
                     10,  # cash_on_cash
                     80,  # target_ltv
+                    0,  # mezz_debt
                     2,  # transfer_cost
                     50,  # transfer_buyer_share
                     5,  # recordation_cost
@@ -200,19 +204,20 @@ def basic_calc():
     scenario = Scenario("basic",
                         float(request.form['cash_on_cash']),
                         float(request.form['target_ltv']),
-                        1,
-                        1,
-                        1,
-                        1,
+                        0,
+                        2,
+                        50,
+                        5,
+                        50,
                         1,
                         float(request.form['interest']),
                         float(request.form['amort']),
-                        1,
+                        8,
                         False,
                         False,
-                        1,
-                        1,
-                        1)
+                        30,
+                        0,
+                        5)
 
     c = CalcCapRate(scenario.__dict__)
     result = c.iterate_computation()
@@ -271,6 +276,7 @@ def add_scenario():
     scenario = Scenario(request.form['title'],
                         float(request.form['cash_on_cash']),
                         float(request.form['target_ltv']),
+                        float(request.form['mezz_debt']),
                         float(request.form['transfer_cost']),
                         float(request.form['transfer_buyer_share']),
                         float(request.form['recordation_cost']),

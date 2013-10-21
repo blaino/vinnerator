@@ -6,6 +6,7 @@ class CalcCapRate():
     def __init__(self, s):
         self.cash_on_cash = s['cash_on_cash'] / 100
         self.target_ltv = s['target_ltv'] / 100
+        self.mezz_debt = s['mezz_debt'] / 100
         self.transfer_cost = s['transfer_cost'] / 100
         self.transfer_buyer_share = s['transfer_buyer_share'] / 100
         self.recordation_cost = s['recordation_cost']
@@ -25,7 +26,6 @@ class CalcCapRate():
                            (1 + self.transfer_cost * self.transfer_buyer_share +
                             self.recordation_cost * self.recordation_buyer_share
                             / 1000 * self.target_ltv + self.finance * self.target_ltv))
-        self.mezz_debt = 0
         self.equity = 1 - self.first_mort - self.mezz_debt
         self.const = self.interest / 12 / (1 - (1 / (1 + self.interest / 12) ** (self.amort * 12))) * 12
         self.per_loan_repaid = ((self.const - self.interest) /
