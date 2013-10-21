@@ -59,6 +59,18 @@ class CalcCapRate():
         r['cap_rate'] = (r['first_mort'] + r['mezz'] + r['calc_yield'] +
                          r['amort_first_mort'] + r['amort_mezz'] + r['appr'])
 
+        def calc_secured_factor():
+            if self.mezz_secured == True:
+                return self.recordation_cost * self.transfer_buyer_share / 1000 * self.mezz_debt
+            else:
+                return 0
+        
+        r['op_cap_rate'] = r['cap_rate'] * (
+            1 + self.transfer_cost * self.transfer_buyer_share +
+            self.recordation_cost * self.transfer_buyer_share / 1000 * self.first_mort +
+            self.finance * self.first_mort + self.finance * self.mezz_debt +
+            calc_secured_factor())
+
         return r
 
     def iterate_computation(self):

@@ -31,7 +31,8 @@ class CalcTestCase(unittest.TestCase):
                              'appr': 0.000,
                              'cap_rate': 0.078,
                              'sinking_fund_factor': .1518,
-                             'appr_depr_factor': 0.000}
+                             'appr_depr_factor': 0.000,
+                             'op_cap_rate': 0.07955}
 
         # Same as test1 but cash_on_cash is 20%
         self.test2_input = deepcopy(self.test1_input)
@@ -44,7 +45,8 @@ class CalcTestCase(unittest.TestCase):
                              'appr': 0.000,
                              'cap_rate': 0.099571,
                              'sinking_fund_factor': .1262,
-                             'appr_depr_factor': 0.000}
+                             'appr_depr_factor': 0.000,
+                             'op_cap_rate': 0.1015}
 
         # Same as test1 but mezz_debt is 5%
         self.test3_input = deepcopy(self.test1_input)
@@ -57,9 +59,8 @@ class CalcTestCase(unittest.TestCase):
                              'appr': 0.000,
                              'cap_rate': 0.076999,
                              'sinking_fund_factor': .1486,
-                             'appr_depr_factor': 0.000}
-        
-
+                             'appr_depr_factor': 0.000,
+                             'op_cap_rate': 0.0786}
 
 
     def test_init_scenario_1(self):
@@ -95,6 +96,7 @@ class CalcTestCase(unittest.TestCase):
         self.assertAlmostEqual(r['cap_rate'], output['cap_rate'], 4)
         self.assertAlmostEqual(r['sinking_fund_factor'], output['sinking_fund_factor'], 4)
         self.assertAlmostEqual(r['appr_depr_factor'], output['appr_depr_factor'], 4)
+        self.assertAlmostEqual(r['op_cap_rate'], output['op_cap_rate'], 4)
 
 if __name__ == '__main__':
     unittest.main()
