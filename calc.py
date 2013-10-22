@@ -44,6 +44,8 @@ class CalcCapRate():
 
     def compute_cap_rate(self):
         r = {}
+        print self.irr
+        
         r['sinking_fund_factor'] = self.irr / ((1 + self.irr) ** self.holding_period - 1)
         r['appr_depr_factor'] = self.apprec_depr * r['sinking_fund_factor']
         r['first_mort'] = self.first_mort * self.const
@@ -74,12 +76,15 @@ class CalcCapRate():
         return r
 
     def iterate_computation(self):
-        cap_rate = self.compute_cap_rate()
-        cap_rate = self.compute_cap_rate()
-        cap_rate = self.compute_cap_rate()
-        cap_rate = self.compute_cap_rate()
+        delta = 999
+        old = self.compute_cap_rate()
+        epsilon = .000001
+        while abs(delta) > epsilon:
+            new = self.compute_cap_rate()
+            delta = new['cap_rate'] - old['cap_rate']
+            old = new
 
-        return cap_rate
+        return new
 
     def compute_offer_prices_cap_rate():
         pass

@@ -201,23 +201,23 @@ def basic():
 
 @app.route('/basic_calc', methods=['POST'])
 def basic_calc():
-    scenario = Scenario("basic",
-                        float(request.form['cash_on_cash']),
-                        float(request.form['target_ltv']),
-                        0,
-                        2,
-                        50,
-                        5,
-                        50,
-                        1,
-                        float(request.form['interest']),
-                        float(request.form['amort']),
-                        8,
-                        False,
-                        False,
-                        30,
-                        0,
-                        5)
+    scenario =  Scenario("basic",  # title
+                         float(request.form['cash_on_cash']),
+                         float(request.form['target_ltv']),
+                         0,  # mezz_debt
+                         0,  # transfer_cost
+                         50,  # transfer_buyer_share
+                         0,  # recordation_cost
+                         50,  # recordation_buyer_share
+                         0,  # finance
+                         float(request.form['interest']),
+                         float(request.form['amort']),
+                         8,  # mezz_rate
+                         False,  # mezz_interest_only
+                         False,  # mezz_secured
+                         30,  # mezz_amort
+                         0,  # apprec_depr
+                         5)  # holding_period
 
     c = CalcCapRate(scenario.__dict__)
     result = c.iterate_computation()
