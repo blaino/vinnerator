@@ -7,8 +7,7 @@ from flask.ext.security import Security, SQLAlchemyUserDatastore, \
 from flask.ext.sqlalchemy import SQLAlchemy
 from calc import CalcCapRate
 
-
-# initialization
+# Initialization
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://localhost/vinnerator_db"
 # Need to: export DATABASE_URL="postgresql://localhost/vinnerator_db for following to work:"
@@ -136,7 +135,7 @@ def init_db():
                         False,  # mezz_secured
                         30,  # mezz_amort
                         0,  # apprec_depr
-                        5, # holding_period
+                        5,  # holding_period
                         user_id)  
     db.session.add(scenario)
     db.session.commit()
@@ -166,8 +165,6 @@ def default_scenario():
                     0,  # apprec_depr
                     5)  # holding_period
 
-
-# routes
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
@@ -301,7 +298,6 @@ def add_scenario():
     db.session.commit()
     flash('New scenario was successfully posted', 'alert alert-info')
     return redirect(url_for('show_scenarios'))
-
 
 # launch
 if __name__ == "__main__":
