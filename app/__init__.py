@@ -9,21 +9,8 @@ from calc import CalcCapRate
 
 # Initialization
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://localhost/vinnerator_db"
-# Need to: export DATABASE_URL="postgresql://localhost/vinnerator_db for following to work:"
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ["DATABASE_URL"]
-app.config['USERNAME'] = "admin"
-app.config['PASSWORD'] = "password"
-app.config['TESTING'] = False
-app.config['DEBUG'] = True
-app.secret_key = ')\xd4\xa0\xbf@\xce\x81tol\xdbrae\xd0\xc6\x0b#\xf1\xc5\x11@\xdd\xcc'
-app.config['secret_key'] = ')\xd4\xa0\xbf@\xce\x81tol\xdbrae\xd0\xc6\x0b#\xf1\xc5\x11@\xdd\xcc'
-app.config['SECURITY_LOGIN_URL'] = '/login'
-app.config['SECURITY_POST_LOGIN_VIEW'] = '/show_scenarios'
-app.config['SECURITY_POST_LOGOUT_VIEW'] = '/'
-app.config['SECURITY_REGISTERABLE'] = True
-app.config['SECURITY_POST_REGISTER_VIEW'] = '/show_scenarios'
-app.config['SECURITY_SEND_REGISTER_EMAIL'] = False
+app.config.from_object('config')
+
 
 db = SQLAlchemy(app)
 mail = Mail(app)
@@ -299,8 +286,3 @@ def add_scenario():
     flash('New scenario was successfully posted', 'alert alert-info')
     return redirect(url_for('show_scenarios'))
 
-# launch
-if __name__ == "__main__":
-    #port = int(os.environ.get("PORT", 5000))
-    port = int(os.environ.get("PORT", 33507))
-    app.run(host='0.0.0.0', port=port)
