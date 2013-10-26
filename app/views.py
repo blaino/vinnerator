@@ -1,4 +1,11 @@
-import app
+import os
+from app import app, db
+from flask import send_from_directory, \
+    request, redirect, url_for, render_template, flash
+from flask.ext.security import login_required, current_user
+from calc import CalcCapRate
+from app.models import Scenario
+
 
 @app.route('/favicon.ico')
 def favicon():
@@ -33,23 +40,23 @@ def basic():
 
 @app.route('/basic_calc', methods=['POST'])
 def basic_calc():
-    scenario =  Scenario("basic",  # title
-                         float(request.form['cash_on_cash']),
-                         float(request.form['target_ltv']),
-                         0,  # mezz_debt
-                         0,  # transfer_cost
-                         50,  # transfer_buyer_share
-                         0,  # recordation_cost
-                         50,  # recordation_buyer_share
-                         0,  # finance
-                         float(request.form['interest']),
-                         float(request.form['amort']),
-                         8,  # mezz_rate
-                         False,  # mezz_interest_only
-                         False,  # mezz_secured
-                         30,  # mezz_amort
-                         0,  # apprec_depr
-                         5)  # holding_period
+    scenario = Scenario("basic",  # title
+                        float(request.form['cash_on_cash']),
+                        float(request.form['target_ltv']),
+                        0,  # mezz_debt
+                        0,  # transfer_cost
+                        50,  # transfer_buyer_share
+                        0,  # recordation_cost
+                        50,  # recordation_buyer_share
+                        0,  # finance
+                        float(request.form['interest']),
+                        float(request.form['amort']),
+                        8,  # mezz_rate
+                        False,  # mezz_interest_only
+                        False,  # mezz_secured
+                        30,  # mezz_amort
+                        0,  # apprec_depr
+                        5)  # holding_period
 
     c = CalcCapRate(scenario.__dict__)
     result = c.iterate_computation()
@@ -133,3 +140,39 @@ def add_scenario():
     db.session.commit()
     flash('New scenario was successfully posted', 'alert alert-info')
     return redirect(url_for('show_scenarios'))
+
+
+def default_scenario():
+    return Scenario("default",  # title
+                    10,  # cash_on_cash
+                    80,  # target_ltv
+                    0,  # mezz_debt
+                    2,  # transfer_cost
+                    50,  # transfer_buyer_share
+                    5,  # recordation_cost
+                    50,  # recordation_buyer_share
+                    1,  # finance
+                    6,  # interest
+                    30,  # amort
+                    8,  # mezz_rate
+                    False,  # mezz_interest_only
+                    False,  # mezz_secured
+                    30,  # mezz_amort
+                    0,  # apprec_depr
+                    5)  # holding_period
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
