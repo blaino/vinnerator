@@ -10,7 +10,7 @@
 </div>
 
 <div class="container">
-  <form action="{{ url_for('basic_calc') }}" method=post class=add-entry>
+  <form action="{{ url_for('basic_calc') }}" id="basicForm" method=post>
     <div class="row">
       <div class="col-md-6">
 	<table class="table table-striped">
@@ -20,7 +20,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right"  name=cash_on_cash value={{scenario.cash_on_cash}}>
+		  <input type="text" class="form-control right"  name=cash_on_cash value={{scenario.cash_on_cash}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 	      </td>
@@ -30,7 +30,8 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right"  name=target_ltv value={{scenario.target_ltv}}>
+
+		  <input type="text" class="form-control right"  name="target_ltv" id="target_ltv" value={{scenario.target_ltv}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 	      </td>
@@ -69,6 +70,9 @@
       </div>
     </div>
   </form>
+  <script>
+    cap.validate("#basicForm");
+  </script>
 
   {% if not current_user.is_authenticated() %}
   <p>This is the basic calculation. If you want Capulator to consider mezzanine debt, transfer and
