@@ -20,7 +20,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type="text" class="form-control right"  name=cash_on_cash value={{scenario.cash_on_cash}}>
+		  <input type="text" class="percentage form-control right"  name="cash_on_cash" id="cash_on_cash" value={{scenario.cash_on_cash}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 	      </td>
@@ -30,8 +30,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-
-		  <input type="text" class="form-control right"  name="target_ltv" id="target_ltv" value={{scenario.target_ltv}}>
+		  <input type="text" class="percentage form-control right"  name="target_ltv" id="target_ltv" value={{scenario.target_ltv}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 	      </td>
@@ -41,7 +40,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right"  name=interest value={{scenario.interest}}>
+		  <input type=text class="percentage form-control right"  name="interest" id="interest" value={{scenario.interest}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 	      </td>
@@ -51,7 +50,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right"  name=amort value={{scenario.amort}}>
+		  <input type=text class="percentage form-control right"  name="amort" id="amort" value={{scenario.amort}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 	      </td>
@@ -71,6 +70,7 @@
     </div>
   </form>
   <script>
+    cap.setupValidation();
     cap.validate("#basicForm");
   </script>
 

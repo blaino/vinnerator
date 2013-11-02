@@ -16,10 +16,10 @@
 {% extends "layout.html" %}
 {% block body %}
   <div class="container">
-    <form action="{{ url_for('add_scenario' ) }}" method=post class=add-entry>
+    <form action="{{ url_for('add_scenario' ) }}" method=post id="advancedForm">
       <div class="row">
 	<div class="col-md-12">
-	  <h3>Scenario <input type="text" size=30 name=title value="{{scenarios[index].title}}"></h3>
+	  <h3>Scenario <input class="scenario" type="text" size=30 name="title" id="title" value="{{scenarios[index].title}}"></h3>
 	  <div class="row">
 	  </div>
 	</div>
@@ -28,11 +28,11 @@
 	<div class="col-md-4">
 	  <table class="table">
             <tr>
-	      <td><p class="myfont">Cash on cash</p></td>
+	      <td>Cash on cash</td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right" name=cash_on_cash value={{scenarios[index].cash_on_cash}}>
+		  <input type=text class="percentage form-control right" name="cash_on_cash" id="cash_on_cash" value={{scenarios[index].cash_on_cash}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 	      </td>
@@ -42,7 +42,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right" name=target_ltv value={{scenarios[index].target_ltv}}>
+		  <input type=text class="percentage form-control right" name="target_ltv" id="target_ltv" value={{scenarios[index].target_ltv}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 	      </td>
@@ -52,7 +52,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right" name=mezz_debt value={{scenarios[index].mezz_debt}}>
+		  <input type=text class="percentage form-control right" name="mezz_debt" id="mezz_debt" value={{scenarios[index].mezz_debt}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 	      </td>
@@ -62,7 +62,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right" name=transfer_cost value={{scenarios[index].transfer_cost}}>
+		  <input type=text class="percentage form-control right" name="transfer_cost" id="transfer_cost" value={{scenarios[index].transfer_cost}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 
@@ -74,7 +74,7 @@
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
 
-		  <input type=text class="form-control right" name=transfer_buyer_share value={{scenarios[index].transfer_buyer_share}}>
+		  <input type=text class="percentage form-control right" name="transfer_buyer_share" id="transfer_buyer_share" value={{scenarios[index].transfer_buyer_share}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 
@@ -85,7 +85,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">$</span>
-		  <input type=text class="form-control right" name=recordation_cost value={{scenarios[index].recordation_cost}}>
+		  <input type=text class="dollar form-control right" name="recordation_cost" id="recordation_cost" value={{scenarios[index].recordation_cost}}>
 		  <span class="input-group-addon mono">&nbsp</span>
 		</div>
 	      </td>
@@ -95,7 +95,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right" name=recordation_buyer_share value={{scenarios[index].recordation_buyer_share}}>
+		  <input type=text class="percentage form-control right" name="recordation_buyer_share" id="recordation_buyer_share" value={{scenarios[index].recordation_buyer_share}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 	      </td>
@@ -105,7 +105,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right" name=finance value={{scenarios[index].finance}}>
+		  <input type=text class="percentage form-control right" name="finance" id="finance" value={{scenarios[index].finance}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 
@@ -116,7 +116,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right" name=interest value={{scenarios[index].interest}}>
+		  <input type=text class="number form-control right" name="interest" id="interest" value={{scenarios[index].interest}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 
@@ -127,7 +127,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right" name=amort value={{scenarios[index].amort}}>
+		  <input type=text class="number form-control right" name="amort" id="amort" value={{scenarios[index].amort}}>
 		  <span class="input-group-addon mono">y</span>
 		</div>
 	      </td>
@@ -141,7 +141,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right" name=mezz_rate value={{scenarios[index].mezz_rate}}>
+		  <input type=text class="percentage form-control right" name="mezz_rate" id="mezz_rate" value={{scenarios[index].mezz_rate}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 	      </td>
@@ -151,7 +151,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right" name=mezz_interest_only value={{scenarios[index].mezz_interest_only}}>
+		  <input type=text class="form-control right" name="mezz_interest_only" id="mezz_interest_only" value={{scenarios[index].mezz_interest_only}}>
 		  <span class="input-group-addon mono">&nbsp</span>
 		</div>
 	      </td>
@@ -161,7 +161,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right" name=mezz_secured value={{scenarios[index].mezz_secured}}>
+		  <input type=text class="form-control right" name="mezz_secured" id="mezz_secured" value={{scenarios[index].mezz_secured}}>
 		  <span class="input-group-addon mono">&nbsp</span>
 		</div>
 	      </td>
@@ -171,7 +171,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right" name=mezz_amort value={{scenarios[index].mezz_amort}}>
+		  <input type=text class="percentage form-control right" name="mezz_amort" id="mezz_amort" value={{scenarios[index].mezz_amort}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 	      </td>
@@ -181,7 +181,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right" name=apprec_depr value={{scenarios[index].apprec_depr}}>
+		  <input type=text class="percentage form-control right" name="apprec_depr" id="apprec_depr" value={{scenarios[index].apprec_depr}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
 	      </td>
@@ -191,7 +191,7 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right" name=holding_period value={{scenarios[index].holding_period}}>
+		  <input type=text class="number form-control right" name="holding_period" id="holding_period" value={{scenarios[index].holding_period}}>
 		  <span class="input-group-addon mono">y</span>
 		</div>
 	      </td>
@@ -235,6 +235,10 @@
 	</div>
       </div>
     </form>
+    <script>
+      cap.setupValidation();
+      cap.validate("#advancedForm");
+    </script>
   </div>
 
   <form name="scenarioSelector">

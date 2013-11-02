@@ -1,12 +1,22 @@
 cap = {
+    setupValidation: function() {
+	$.validator.addClassRules({
+	    percentage: {
+		required: true,
+		range: [0, 100]
+	    },
+	    number: {
+		required: true,
+		min: 0
+	    },
+	    scenario: {
+		required: true,
+		maxlength: 30
+	    }
+	});
+    },
     validate: function(form) {
 	$(form).validate({
-	    rules: {
-		target_ltv: {
-		    required: true,
-		    range: [99, 100]
-		}
-	    },
 	    showErrors: function(errorMap, errorList) {
 		$.each(this.successList, function(index, value) {
 		    return $(value).popover("hide");
