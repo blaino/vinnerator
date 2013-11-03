@@ -5,7 +5,7 @@ from flask import send_from_directory, \
 from flask.ext.security import login_required, current_user
 from calc import CalcCapRate
 from app.models import Scenario
-
+from forms import ScenarioForm
 
 @app.route('/favicon.ico')
 def favicon():
@@ -33,7 +33,9 @@ def basic():
     result = c.iterate_computation()
     # Convert to percentages for output
     result.update((i, j*100) for i, j in result.items())
+    form = ScenarioForm(request.form)
     return render_template('basic.html',
+                           form=form,
                            scenario=scenario,
                            result=result)
 
@@ -57,17 +59,28 @@ def basic_calc():
                         30,  # mezz_amort
                         0,  # apprec_depr
                         5)  # holding_period
-
-    c = CalcCapRate(scenario.__dict__)
-    result = c.iterate_computation()
-    # Convert to percentages for output
-    result.update((i, j*100) for i, j in result.items())
-    cap_rate = result['cap_rate']
-    scenario.cap_rate = cap_rate
-    return render_template('basic.html',
-                           scenario=scenario,
-                           result=result)
-
+    
+    form = ScenarioForm(obj=scenario)
+    form.title.data = "basic"  # For some reason, not picking this up from scenario
+    
+    if form.validate():
+        print "Validated."
+        c = CalcCapRate(scenario.__dict__)
+        result = c.iterate_computation()
+        # Convert to percentages for output
+        result.update((i, j*100) for i, j in result.items())
+        cap_rate = result['cap_rate']
+        scenario.cap_rate = cap_rate
+        return render_template('basic.html',
+                               form=form,
+                               scenario=scenario,
+                               result=result)
+    else:
+        print "Not Validated."
+        print form.errors
+        return redirect(url_for('basic'))
+    
+    
 
 @app.route('/show_scenarios')
 @app.route('/show_scenarios/<index>')

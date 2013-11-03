@@ -9,4 +9,4 @@ db = SQLAlchemy(app)
 mail = Mail(app)
 app.extensions['mail'] = mail
 
-from app import models, views
+from app import models, views, forms
