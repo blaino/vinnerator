@@ -64,7 +64,6 @@ def basic_calc():
     form.title.data = "basic"  # For some reason, not picking this up from scenario
     
     if form.validate():
-        print "Validated."
         c = CalcCapRate(scenario.__dict__)
         result = c.iterate_computation()
         # Convert to percentages for output
@@ -103,7 +102,9 @@ def show_scenarios(index=0):
     except:
         scenarios = []
         result = {}
+    form = ScenarioForm(request.form)
     return render_template('show_scenarios.html',
+                           form=form,
                            scenarios=scenarios,
                            result=result,
                            index=index)
@@ -143,16 +144,24 @@ def add_scenario():
                         float(request.form['apprec_depr']),
                         float(request.form['holding_period']),
                         current_user.id)
-    c = CalcCapRate(scenario.__dict__)
-    result = c.iterate_computation()
-    cap_rate = result['cap_rate']
-    print "===cap rate: " + str(cap_rate)
-    scenario.cap_rate = cap_rate
 
-    db.session.add(scenario)
-    db.session.commit()
-    flash('New scenario was successfully posted', 'alert alert-info')
-    return redirect(url_for('show_scenarios'))
+    form = ScenarioForm(obj=scenario)
+
+    if form.validate():
+        c = CalcCapRate(scenario.__dict__)
+        result = c.iterate_computation()
+        cap_rate = result['cap_rate']
+        print "===cap rate: " + str(cap_rate)
+        scenario.cap_rate = cap_rate
+        
+        db.session.add(scenario)
+        db.session.commit()
+        flash('New scenario was successfully posted', 'alert alert-info')
+        return redirect(url_for('show_scenarios'))
+    else:
+        print "Advanced calc input not validated."
+        print form.errors
+        return redirect(url_for('show_scenarios'))
 
 
 def default_scenario():
