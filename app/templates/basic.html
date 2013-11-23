@@ -14,10 +14,15 @@
     {{ form.hidden_tag() }}
     <div class="row">
       <div class="col-md-6">
-	<table class="table table-striped">
+	<table class="table">
 	  <tbody>
             <tr>
-	      <td>Cash on cash requirement</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="What does cash on cash requirement mean? Expressed as a percentage of shazbat">
+		  Cash on cash requirement  
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -27,7 +32,12 @@
 	      </td>
             </tr>
             <tr>
-	      <td>Target loan-to-value</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Loan to value of acquisition price (target)">
+		  Target loan-to-value  
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -37,7 +47,12 @@
 	      </td>
             </tr>
 	    <tr>
-	      <td>Interest</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Interest rate of the first mortgage">
+		  Interest
+		</a>
+		</td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -47,12 +62,17 @@
 	      </td>
 	    </tr>
 	    <tr>
-	      <td>Amortization</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Amortization period of first mortgage expressed in years.">
+		  Amortization
+		</a>
+		</td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="percentage form-control right"  name="amort" id="amort" value={{scenario.amort}}>
-		  <span class="input-group-addon mono">%</span>
+		  <input type=text class="number form-control right"  name="amort" id="amort" value={{scenario.amort}}>
+		  <span class="input-group-addon mono">y</span>
 		</div>
 	      </td>
 	    </tr>
@@ -70,9 +90,12 @@
       </div>
     </div>
   </form>
+
+
   <script>
     cap.setupValidation();
     cap.validate("#basicForm");
+    $(".has_popover").popover({offset: 10, trigger: 'hover'});
   </script>
 
   {% if not current_user.is_authenticated() %}
