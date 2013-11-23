@@ -1,6 +1,6 @@
 import os
 
-# Need to: export DATABASE_URL="postgresql://localhost/vinnerator_db" for use locally
+# For local use: export DATABASE_URL="postgresql://localhost/vinnerator_db"
 # (That's what heroku sets)
 SQLALCHEMY_DATABASE_URI = os.environ["DATABASE_URL"]
 USERNAME = "admin"

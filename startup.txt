@@ -1,0 +1,10 @@
+Set the virtualenv:
+. venv/bin/activate
+
+Make database work locally, by setting heroku key locally:
+export DATABASE_URL="postgresql://localhost/vinnerator_db"
+
+Ensure postgres is up and running
+
+Start the capulator:
+python runserver.py

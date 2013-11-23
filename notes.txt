@@ -1,0 +1,188 @@
+11/23
+
+
+
+
+9/26
+
+* Need to not have to init the db when you run...
+if entry blah
+else init_db()
+something like that?
+
+* default values?  Didn't go well.
+
+
+done* put a scenario[0] in just to get going.
+done* mod the html file to show those values
+done* mod __init__ to take all the scenario values
+  * could say if x then assign x ow assign default?
+done* mod add_scenario() to take all the request form vars
+* replace text with cap rate
+  * You have a Scenario, but CalcTestCase takes a dictionary
+  * option: do the __dict__ trick, but then you have to change dict format
+  * option: pass in a Scenario, and change calc to use those
+
+TIME TO REPEAT YOURSELF!!!
+
+
+
+9/25
+
+* Port calculations
+  * Something is off; the irr is not the same...
+* Display inputs and output
+  * jQgrid?
+* Get real login working
+  * https://github.com/maxcountryman/flask-login/   ?
+
+
+9/24
+
+* The nav bar is not responsive, i.e. it disappears when squeezed.
+  But, it works fine mobile.
+
+bnelson@Blaines-MacBook:~/Projects/vinnerator (master):$ heroku addons:add heroku-postgresql:dev
+Adding heroku-postgresql:dev on vinnerator... done, v13 (free)
+Attached as HEROKU_POSTGRESQL_AQUA_URL
+Database has been created and is available
+ ! This database is empty. If upgrading, you can transfer
+ ! data from another database with pgbackups:restore.
+Use `heroku addons:docs heroku-postgresql` to view documentation.
+
+
+9/23
+
+done* Since you're using alchemy, there shouldn't be sql queries; can just
+  do things in python.  So you need to convert the query to python.
+
+* Do you even need the before_request and teardown_request bits?
+  Flask-SQLAlchemy does stuff for you...
+
+done* Conversion to alchemy complete, what next?
+
+done* Get the unit test working again.  Tricky b/c you don't yet
+  understand new db sessions in alchemy.  The old tester made a new db
+  or db session each time.  You need the same thing.  * login/logout
+  work, but posting doesn't.  Is this b/c the db is not up and running
+  in the test env?  Probably.  But, ...  Nope: wrong password.  But
+  you're still not sure it's not using sqllite....
+
+* Do stuff to make it look like bootstrap and good.
+
+done* Deploy to heroku - the db home will need to change...
+
+
+9/22
+
+* Do you need an SQLAlchemy engine?  See the postgres.app doc.
+
+9/21
+
+* 2 Goals: Migrate app to postgres locally & deploy
+* For the latter, heroku's foreman will be key
+* For the former, you'll need 
+
+
+9/20
+
+* Need to switch from sql lite to postgresql.  
+* You don't understand switching from one db to a remote one.
+* username: admin password: default psql flask stuff
+* should I install a different postgresql somewhere else? or just a a db to this postgres?
+   (the latter...)
+* duh.  there isn't postgresql on the mac - only on your vm
+* or did the mac come with it?  
+
+
+Postgresql cheat sheet 1:
+
+change to postgres user and open psql prompt
+
+sudo -u postgres psql postgres
+list databases
+
+postgres=# \l
+list roles
+
+postgres=# \du
+create role
+
+postgres=#CREATE ROLE demorole1 WITH LOGIN ENCRYPTED PASSWORD 'password1' CREATEDB;
+alter role
+
+postgres=#ALTER ROLE demorole1 CREATEROLE CREATEDB REPLICATION SUPERUSER;
+drop role
+
+postgres=#DROP ROLE demorole1;
+create database
+
+postgres=#CREATE DATABASE demodb1 WITH OWNER demorole1 ENCODING 'UTF8';
+grant privileges to new user
+
+GRANT ALL PRIVILEGES ON DATABASE demodb1 TO demorole1;
+drop database
+
+postgres=#DROP DATABASE demodb1;
+connect to database
+
+\c <databasename>
+list tables in connected database
+
+\dt
+list columns on table
+
+\d <tablename>
+backup database
+
+pg_dump <databasename> > <outfile>
+change to postgres user and open psql prompt
+
+sudo -u postgres psql postgres
+list databases
+
+postgres=# \l
+list roles
+
+postgres=# \du
+create role
+
+postgres=#CREATE ROLE demorole1 WITH LOGIN ENCRYPTED PASSWORD 'password1' CREATEDB;
+alter role
+
+postgres=#ALTER ROLE demorole1 CREATEROLE CREATEDB REPLICATION SUPERUSER;
+drop role
+
+postgres=#DROP ROLE demorole1;
+create database
+
+postgres=#CREATE DATABASE demodb1 WITH OWNER demorole1 ENCODING 'UTF8';
+grant privileges to new user
+
+GRANT ALL PRIVILEGES ON DATABASE demodb1 TO demorole1;
+drop database
+
+postgres=#DROP DATABASE demodb1;
+connect to database
+
+\c <databasename>
+list tables in connected database
+
+\dt
+list columns on table
+
+\d <tablename>
+backup database
+
+pg_dump <databasename> > <outfile>
+
+
+9/18
+
+* Need git repo
+* Then follow: http://ryaneshea.com/lightweight-python-apps-with-flask-twitter-bootstrap-and-heroku
+
+
+Flask and App Engine
+* Download and install app engine sdk
+* Do you even want app engine?

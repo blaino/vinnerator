@@ -45,7 +45,7 @@ class CalcCapRate():
     def compute_cap_rate(self):
         r = {}
         print self.irr
-        
+
         r['sinking_fund_factor'] = self.irr / ((1 + self.irr) ** self.holding_period - 1)
         r['appr_depr_factor'] = self.apprec_depr * r['sinking_fund_factor']
         r['first_mort'] = self.first_mort * self.const
@@ -66,7 +66,7 @@ class CalcCapRate():
                 return self.recordation_cost * self.transfer_buyer_share / 1000 * self.mezz_debt
             else:
                 return 0
-        
+
         r['op_cap_rate'] = r['cap_rate'] * (
             1 + self.transfer_cost * self.transfer_buyer_share +
             self.recordation_cost * self.transfer_buyer_share / 1000 * self.first_mort +

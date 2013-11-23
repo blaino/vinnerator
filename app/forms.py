@@ -2,6 +2,7 @@ from flask_wtf import Form
 from wtforms.validators import DataRequired
 from wtforms import TextField, DecimalField, IntegerField, BooleanField, validators
 
+
 class MyForm(Form):
     name = TextField('name', validators=[DataRequired()])
     level = IntegerField('User Level', [validators.NumberRange(min=0, max=10)])

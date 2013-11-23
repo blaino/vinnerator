@@ -7,6 +7,7 @@ from calc import CalcCapRate
 from app.models import Scenario
 from forms import ScenarioForm
 
+
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
@@ -59,10 +60,10 @@ def basic_calc():
                         30,  # mezz_amort
                         0,  # apprec_depr
                         5)  # holding_period
-    
+
     form = ScenarioForm(obj=scenario)
     form.title.data = "basic"  # For some reason, not picking this up from scenario
-    
+
     if form.validate():
         c = CalcCapRate(scenario.__dict__)
         result = c.iterate_computation()
@@ -78,8 +79,8 @@ def basic_calc():
         print "Not Validated."
         print form.errors
         return redirect(url_for('basic'))
-    
-    
+
+
 
 @app.route('/show_scenarios')
 @app.route('/show_scenarios/<index>')
@@ -153,7 +154,7 @@ def add_scenario():
         cap_rate = result['cap_rate']
         print "===cap rate: " + str(cap_rate)
         scenario.cap_rate = cap_rate
-        
+
         db.session.add(scenario)
         db.session.commit()
         flash('New scenario was successfully posted', 'alert alert-info')
@@ -182,19 +183,3 @@ def default_scenario():
                     30,  # mezz_amort
                     0,  # apprec_depr
                     5)  # holding_period
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
