@@ -23,20 +23,11 @@ class ScenarioForm(Form):
     amort = DecimalField('cash_on_cash', [validators.NumberRange(min=0, max=100)])
     mezz_rate = DecimalField('cash_on_cash', [validators.NumberRange(min=0, max=100)])
 
-    # mezz_interest_only = BooleanField('cash_on_cash', [validators.Required()])
-    # mezz_secured = BooleanField('mezz_secured', [validators.Required()])
+    mezz_interest_only = BooleanField('cash_on_cash', [validators.Required()])
+    mezz_secured = BooleanField('mezz_secured', [validators.Required()])
     mezz_interest_only = BooleanField('cash_on_cash')
     mezz_secured = BooleanField('mezz_secured')
 
     mezz_amort = DecimalField('mezz_amort', [validators.NumberRange(min=0, max=100)])
     apprec_depr = DecimalField('cash_on_cash', [validators.NumberRange(min=0, max=100)])
     holding_period = DecimalField('cash_on_cash', [validators.NumberRange(min=0, max=100)])
-
-
-
-
-
-
-
-
-

@@ -11,9 +11,21 @@ cap = {
 	    },
 	    scenario: {
 		required: true,
-		maxlength: 30
+		maxlength: 12
+	    },
+	    yesno: {
+		required: true,
+		yesnoRegex: "^[YyNn].{0,2}$"
 	    }
 	});
+	$.validator.addMethod(
+            "yesnoRegex",
+            function(value, element, regexp) {
+		var re = new RegExp(regexp);
+		return this.optional(element) || re.test(value);
+            },
+            "Please enter yes or no."
+	);
     },
     validate: function(form) {
 	$(form).validate({

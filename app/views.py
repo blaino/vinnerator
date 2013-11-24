@@ -1,4 +1,5 @@
 import os
+import re
 from app import app, db
 from flask import send_from_directory, \
     request, redirect, url_for, render_template, flash
@@ -81,7 +82,6 @@ def basic_calc():
         return redirect(url_for('basic'))
 
 
-
 @app.route('/show_scenarios')
 @app.route('/show_scenarios/<index>')
 @login_required
@@ -124,9 +124,19 @@ def delete(index):
     return redirect(url_for('show_scenarios'))
 
 
+def to_boolean(yesno):
+    ''' Not validating here, just converting'''
+    if re.match('[Yy].{0,2}', yesno):
+        return True
+    else:
+        return False
+
+
 @app.route('/add', methods=['POST'])
 @login_required
 def add_scenario():
+    is_intr_only = to_boolean(request.form['mezz_interest_only'])
+    is_secured = to_boolean(request.form['mezz_secured'])
     scenario = Scenario(request.form['title'],
                         float(request.form['cash_on_cash']),
                         float(request.form['target_ltv']),
@@ -139,8 +149,8 @@ def add_scenario():
                         float(request.form['interest']),
                         float(request.form['amort']),
                         float(request.form['mezz_rate']),
-                        request.form['mezz_interest_only'],
-                        request.form['mezz_secured'],
+                        is_intr_only,
+                        is_secured,
                         float(request.form['mezz_amort']),
                         float(request.form['apprec_depr']),
                         float(request.form['holding_period']),

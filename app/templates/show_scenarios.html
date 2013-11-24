@@ -236,7 +236,8 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right" name="mezz_interest_only" id="mezz_interest_only" value={{scenarios[index].mezz_interest_only}}>
+		  <input type=text class="yesno form-control right" name="mezz_interest_only" id="mezz_interest_only"
+			 value={% if scenarios[index].mezz_interest_only %}Yes{% else %}No{% endif %}>
 		  <span class="input-group-addon mono">&nbsp</span>
 		</div>
 	      </td>
@@ -251,7 +252,8 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="form-control right" name="mezz_secured" id="mezz_secured" value={{scenarios[index].mezz_secured}}>
+		  <input type=text class="yesno form-control right" name="mezz_secured" id="mezz_secured"
+			 value={% if scenarios[index].mezz_secured %}Yes{% else %}No{% endif %}>
 		  <span class="input-group-addon mono">&nbsp</span>
 		</div>
 	      </td>
@@ -304,7 +306,7 @@
             </tr>
 	  </table>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-4">
 	  <div class="panel panel-default">
 	    <div class="panel-body">
 	      <table class="table">
