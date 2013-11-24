@@ -20,7 +20,7 @@
       {{ form.hidden_tag() }}
       <div class="row">
 	<div class="col-md-12">
-	  <h3>Scenario <input class="scenario" type="text" size=30 name="title" id="title" value="{{scenarios[index].title}}"></h3>
+	  <h3>Scenario <input class="scenario" type="text" size=12 name="title" id="title" value="{{scenarios[index].title}}"></h3>
 	  <div class="row">
 	  </div>
 	</div>
@@ -28,8 +28,21 @@
       <div class="row">
 	<div class="col-md-4">
 	  <table class="table">
+	    <tr>
+	      <td>
+		<h4>Some Heading</h4>
+	      </td>
+	      <td>
+		<div class="input-group basic-input"></div>
+	      </td>
+	    </tr>
             <tr>
-	      <td>Cash on cash</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="What does cash on cash requirement mean? Expressed as a percentage of shazbat">
+		  Cash on cash requirement  
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -39,7 +52,12 @@
 	      </td>
             </tr>
             <tr>
-	      <td>Loan-to-value</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Loan to value of acquisition price (target)">
+		  Target loan-to-value  
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -49,7 +67,12 @@
 	      </td>
             </tr>
 	    <tr>
-	      <td>Mezzanine Debt</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Mezzanine debt percentage of capital stack">
+		  Mezzanine Debt
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -59,7 +82,12 @@
 	      </td>
             </tr>
 	    <tr>
-	      <td>Transfer cost</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Transfer costs of acquisition">
+		  Transfer cost
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -70,7 +98,12 @@
 	      </td>
             </tr>
             <tr>
-	      <td>Transfer buyer's share</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Buyer's percentage share of transfer costs">
+		  Buyer's share of transfer
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -82,7 +115,12 @@
 	      </td>
             </tr>
 	    <tr>
-	      <td>Recordation cost</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Recordation costs of mortgages per $1000">
+		  Recordation cost (per $1K)
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">$</span>
@@ -92,7 +130,12 @@
 	      </td>
             </tr>
             <tr>
-	      <td>Recordation buyer's share</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Buyer's percentage share of recordation costs">
+		  Buyer's share of recordation
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -102,7 +145,12 @@
 	      </td>
 	    </tr>
 	    <tr>
-	      <td>Finance</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Finance Fees (e.g., appraisal, Phae I, Lender Fees, Legal, etc.)">
+		  Finance fees
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -112,8 +160,25 @@
 
 	      </td>
 	    </tr>
+	  </table>
+	</div>
+	<div class="col-md-4">
+	  <table class="table">
 	    <tr>
-	      <td>Interest</td>
+	      <td>
+		<h4>First Mortgage</h4>
+	      </td>
+	      <td>
+		<div class="input-group basic-input"></div>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Interest rate of the first mortgage">
+		  Interest
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -124,7 +189,12 @@
 	      </td>
 	    </tr>
 	    <tr>
-	      <td>Amortization</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Amortization period of first mortgage expressed in years.">
+		  Amortization
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -133,12 +203,21 @@
 		</div>
 	      </td>
             </tr>
-	  </table>
-	</div>
-	<div class="col-md-5">
-	  <table class="table">
+	    <tr>
+	      <td>
+		<h4>Mezzanine</h4>
+	      </td>
+	      <td>
+		<div class="input-group basic-input"></div>
+	      </td>
+	    </tr>
             <tr>
-	      <td>Mezzanine rate</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Interest rate for mezzanine loan">
+		  Mezzanine rate
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -148,7 +227,12 @@
 	      </td>
             </tr>
             <tr>
-	      <td>Mezzanine interest only</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Interest only (yes or no)">
+		  Mezzanine interest only
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -158,7 +242,12 @@
 	      </td>
             </tr>
             <tr>
-	      <td>Mezzanine secured</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Secured loan (yes or no)">
+		  Mezzanine secured
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -168,17 +257,28 @@
 	      </td>
             </tr>
 	    <tr>
-	      <td>Mezzanine amortization</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Amortization period of mezzanine loan expressed in years">
+		  Mezzanine amortization
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
 		  <input type=text class="percentage form-control right" name="mezz_amort" id="mezz_amort" value={{scenarios[index].mezz_amort}}>
-		  <span class="input-group-addon mono">%</span>
+		  <span class="input-group-addon mono">y</span>
 		</div>
 	      </td>
             </tr>
             <tr>
-	      <td>Appreciation/decpreciation</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Percentage Appreciation or Depreciation of Asset Over Hold Period
+				 (1% appreciation per year of hold period reasonable default, e.g., 5 year hold, 5% appreciation)">
+		  Appreciation/decpreciation
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -188,7 +288,12 @@
 	      </td>
             </tr>
 	    <tr>
-	      <td>Holding period</td>
+	      <td>
+		<a href="#" class="btn large primary has_popover" rel="popover"
+		   data-content="Projected hold period expressed in years">
+		  Holding period
+		</a>
+	      </td>
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
@@ -239,6 +344,7 @@
     <script>
       cap.setupValidation();
       cap.validate("#advancedForm");
+      $(".has_popover").popover({offset: 10, trigger: 'hover'});
     </script>
   </div>
 
