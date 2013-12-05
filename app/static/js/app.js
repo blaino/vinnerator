@@ -11,7 +11,7 @@ cap = {
 	    },
 	    scenario: {
 		required: true,
-		maxlength: 12
+		maxlength: 30
 	    },
 	    yesno: {
 		required: true,
@@ -35,9 +35,13 @@ cap = {
 		});
 		return $.each(errorList, function(index, value) {
 		    var _popover;
+		    var placement = "top";
+		    if (value.element.name == 'title') {
+			placement = "bottom";
+		    }
 		    _popover = $(value.element).popover({
 			trigger: "manual",
-			placement: "top",
+			placement: placement,
 			content: value.message,
 			template: "<div class=\"popover\"><div class=\"arrow\"></div><div class=\"popover-inner\"><div class=\"popover-content\"><p></p></div></div></div>"
 		    });

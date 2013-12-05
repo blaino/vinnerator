@@ -16,13 +16,12 @@
 {% extends "layout.html" %}
 {% block body %}
   <div class="container">
-    <form action="{{ url_for('add_scenario' ) }}" method=post id="advancedForm">
+    <form action="{{ url_for('add_scenario' ) }}" method=post id="advancedForm" class="form-horizontal">
       {{ form.hidden_tag() }}
-      <div class="row">
-	<div class="col-md-12">
-	  <h3>Scenario <input class="scenario" type="text" size=12 name="title" id="title" value="{{scenarios[index].title}}"></h3>
-	  <div class="row">
-	  </div>
+      <div class="form-group">
+	<h4><label for="inputEmail3" class="col-md-1 control-label">Scenario</label></h4>
+	<div class="col-md-3">
+	  <input class="form-control scenario" type="text" size=12 name="title" id="title" value="{{scenarios[index].title}}">
 	</div>
       </div>
       <div class="row">
@@ -33,7 +32,7 @@
 		<h4>Some Heading</h4>
 	      </td>
 	      <td>
-		<div class="input-group basic-input"></div>
+	    	<div class="input-group basic-input"></div>
 	      </td>
 	    </tr>
             <tr>
@@ -107,11 +106,9 @@
 	      <td>
 		<div class="input-group basic-input">
 		  <span class="input-group-addon mono">&nbsp</span>
-
 		  <input type=text class="percentage form-control right" name="transfer_buyer_share" id="transfer_buyer_share" value={{scenarios[index].transfer_buyer_share}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
-
 	      </td>
             </tr>
 	    <tr>
@@ -157,7 +154,6 @@
 		  <input type=text class="percentage form-control right" name="finance" id="finance" value={{scenarios[index].finance}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
-
 	      </td>
 	    </tr>
 	  </table>
@@ -185,7 +181,6 @@
 		  <input type=text class="number form-control right" name="interest" id="interest" value={{scenarios[index].interest}}>
 		  <span class="input-group-addon mono">%</span>
 		</div>
-
 	      </td>
 	    </tr>
 	    <tr>
@@ -350,24 +345,28 @@
     </script>
   </div>
 
-  <form name="scenarioSelector">
-    <div class="container">
+  <div class="container">  
+    <form name="scenarioSelector" class="form-horizontal">
       <div class="form-group">
-	<h4>Saved Scenarios</h4>
-	<select id='saved' onchange="loadSavedScenario(this)"> 
-	  {% for i in range(scenarios|length) %}
-	  {% if i == index %}
-	  <option value="{{i}}" selected>{{ scenarios[i].title }}</option>
-	  {% else %}
-	  <option value="{{i}}">{{ scenarios[i].title }}</option>
-	  {% endif %}
-	  {% else %}
-	  <li><em>Unbelievable.  No saved scenarios here so far</em>
-	    {% endfor %}
+	<div class="col-md-4">
+	  <h4>Saved Scenarios</h4>
+	  <select id='saved' onchange="loadSavedScenario(this)" class="form-control"> 
+	    {% for i in range(scenarios|length) %}
+	    {% if i == index %}
+	    <option value="{{i}}" selected>{{ scenarios[i].title }}</option>
+	    {% else %}
+	    <option value="{{i}}">{{ scenarios[i].title }}</option>
+	    {% endif %}
+	    {% else %}
+	    <li><em>Unbelievable.  No saved scenarios here so far</em>
+	      {% endfor %}
+	  </select>
+	</div>
       </div>
       <input type="button" class="btn btn-primary" value="Delete selected" onclick="deleteSelected()">
-    </div>
-  </form>
-  
-  {% endblock %}
+    </form>
+  </div>
+</container>
+{% endblock %}
 </div>
+
