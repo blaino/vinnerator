@@ -8,3 +8,17 @@ Ensure postgres is up and running
 
 Start the capulator:
 python runserver.py
+
+
+Okay, new way:
+
+Start the capulator:
+gunicorn runserver:app
+(and, go to 0.0.0.0:8000)
+
+Or:
+foreman start
+(and, go to 0.0.0.0:5000)
+
+
+
