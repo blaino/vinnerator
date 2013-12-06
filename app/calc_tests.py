@@ -62,7 +62,6 @@ class CalcTestCase(unittest.TestCase):
                              'appr_depr_factor': 0.000,
                              'op_cap_rate': 0.0786}
 
-
     def test_init_scenario_1(self):
         c = CalcCapRate(self.test1_input)
         self.assertEqual(c.cash_on_cash, 0.10)
@@ -97,9 +96,14 @@ class CalcTestCase(unittest.TestCase):
         self.assertAlmostEqual(r['sinking_fund_factor'], output['sinking_fund_factor'], 4)
         self.assertAlmostEqual(r['appr_depr_factor'], output['appr_depr_factor'], 4)
         self.assertAlmostEqual(r['op_cap_rate'], output['op_cap_rate'], 4)
+        sum = r['yield_per'] + r['amort_first_mort_per'] + r['amort_mezz_per'] + r['appr_per']
+        self.assertAlmostEqual(sum, 1.0, 4)
 
 if __name__ == '__main__':
     unittest.main()
+
+
+
 
 
 

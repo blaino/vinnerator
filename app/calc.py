@@ -73,6 +73,12 @@ class CalcCapRate():
             self.finance * self.first_mort + self.finance * self.mezz_debt +
             calc_secured_factor())
 
+        total = r['calc_yield'] + r['amort_first_mort'] + r['amort_mezz'] + r['appr']
+        r['yield_per'] = total / r['calc_yield']
+        r['amort_first_mort_per'] = 0 - r['amort_first_mort'] / r['calc_yield']
+        r['amort_mezz_per'] = 0 - r['amort_mezz'] / r['calc_yield']
+        r['appr_per'] = 0 - r['appr'] / r['calc_yield']
+
         return r
 
     def iterate_computation(self):
