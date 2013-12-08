@@ -132,12 +132,31 @@ def to_boolean(yesno):
         return False
 
 
+def check_title(input_title):
+    try:
+        user_id = current_user.id
+        scenarios = Scenario.query.filter_by(user_id=user_id).all()
+    except:
+        scenarios = []
+    match = [s.title for s in scenarios if s.title == input_title]
+    if match:
+        i = 0
+        m = re.search('(.*)\<(.*)\>', input_title)
+        if m:  # If this name has already been used more than once
+            input_title = m.group(1)
+            i = int(m.group(2))
+        return "%s<%d>" % (input_title, i+1)
+    else:
+        return input_title
+
+
 @app.route('/add', methods=['POST'])
 @login_required
 def add_scenario():
+    checked_title = check_title(request.form['title'])
     is_intr_only = to_boolean(request.form['mezz_interest_only'])
     is_secured = to_boolean(request.form['mezz_secured'])
-    scenario = Scenario(request.form['title'],
+    scenario = Scenario(checked_title,
                         float(request.form['cash_on_cash']),
                         float(request.form['target_ltv']),
                         float(request.form['mezz_debt']),
