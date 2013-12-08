@@ -303,8 +303,16 @@
 	</div>
 	<div class="col-md-4">
 	  <div class="panel panel-default">
+	  <table class="table">
+	    <tr>
+	      <td>
+		<h4>Results</h4>
+	      </td>
+	    </tr>
+	  </table>
 	    <div class="panel-body">
 	      <table class="table">
+		<tr>
 		  <td>Yield</td>
 		  <td align="right">{{ '%.0f' % result.yield_per}}%</td>
 		</tr>
@@ -326,6 +334,25 @@
 	      <p align="center"><input type=submit value="Capulate!" class="btn btn-primary"></p>
 	    </div>
 	  </div>
+	  <form name="scenarioSelector" class="form-inline" role="form">
+	    <h4>Saved Scenarios</h4>
+	    <div class="form-group col-xs-10">
+	      <select id='saved' onchange="loadSavedScenario(this)" class="form-control"> 
+		{% for i in range(scenarios|length) %}
+		{% if i == index %}
+		<option value="{{i}}" selected>{{ scenarios[i].title }}</option>
+		{% else %}
+		<option value="{{i}}">{{ scenarios[i].title }}</option>
+		{% endif %}
+		{% else %}
+		<li><em>Unbelievable.  No saved scenarios here so far</em>
+		  {% endfor %}
+	      </select>
+	    </div>
+	    <div class="form-group">
+	      <input type="button" class="btn btn-default" value="Delete" onclick="deleteSelected()">
+	    </div>
+	  </form>
 	</div>
       </div>
     </form>
@@ -337,26 +364,9 @@
   </div>
 
   <div class="container">  
-    <form name="scenarioSelector" class="form-horizontal">
-      <div class="form-group">
-	<div class="col-md-4">
-	  <h4>Saved Scenarios</h4>
-	  <select id='saved' onchange="loadSavedScenario(this)" class="form-control"> 
-	    {% for i in range(scenarios|length) %}
-	    {% if i == index %}
-	    <option value="{{i}}" selected>{{ scenarios[i].title }}</option>
-	    {% else %}
-	    <option value="{{i}}">{{ scenarios[i].title }}</option>
-	    {% endif %}
-	    {% else %}
-	    <li><em>Unbelievable.  No saved scenarios here so far</em>
-	      {% endfor %}
-	  </select>
-	</div>
-      </div>
-      <input type="button" class="btn btn-primary" value="Delete selected" onclick="deleteSelected()">
-    </form>
+    <!-- old place for form above -->
   </div>
+
 </container>
 {% endblock %}
 </div>
