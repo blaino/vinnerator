@@ -37,9 +37,13 @@ class CalcCapRate():
             self.mezz_const = (self.mezz_rate / 12 / (1 - (1 / (1 + self.mezz_rate / 12) **
                                                            (self.mezz_amort * 12))) * 12)
 
-        self.per_mezz_loan_repaid = ((self.mezz_const - self.mezz_rate) /
-                                     (self.mezz_rate /12 / (1 - (1 / (1 + self.mezz_rate / 12) **
-                                                                 (self.holding_period * 12))) * 12 - self.mezz_rate))
+        if (self.mezz_rate > 0):
+            self.per_mezz_loan_repaid = ((self.mezz_const - self.mezz_rate) /
+                                         (self.mezz_rate / 12 / (1 - (1 / (1 + self.mezz_rate / 12) **
+                                                                      (self.holding_period * 12))) * 12 - self.mezz_rate))
+        else:
+            self.per_mezz_loan_repaid = 0
+
         self.irr = 0.10  # Initial seed
 
     def compute_cap_rate(self):
@@ -47,7 +51,7 @@ class CalcCapRate():
         print self.irr
 
         r['sinking_fund_factor'] = self.irr / ((1 + self.irr) ** self.holding_period - 1)
-        r['appr_depr_factor'] = self.apprec_depr * r['sinking_fund_factor']
+        r['appr_depr_factor'] = 0 - self.apprec_depr * r['sinking_fund_factor']
         r['first_mort'] = self.first_mort * self.const
         r['mezz'] = self.mezz_debt * self.mezz_const
         r['calc_yield'] = self.equity * self.irr
