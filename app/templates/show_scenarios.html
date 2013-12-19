@@ -38,8 +38,8 @@
             <tr>
 	      <td>
 		<a class="btn large primary has_popover" rel="popover"
-		   data-content="What does cash on cash requirement mean? Expressed as a percentage of shazbat">
-		  Cash on cash
+		   data-content="Year 1 Cash on Cash is the Year 1 Net Cash Flow divided by Equity Investment">
+		  Year 1 Cash on Cash
 		</a>
 	      </td>
 	      <td align="right">
@@ -54,7 +54,7 @@
 	      <td>
 		<a class="btn large primary has_popover" rel="popover"
 		   data-content="Loan to value of acquisition price (target)">
-		  loan-to-value  
+		  Loan-to-Value  
 		</a>
 	      </td>
 	      <td align="right">
@@ -84,7 +84,7 @@
 	      <td>
 		<a class="btn large primary has_popover" rel="popover"
 		   data-content="Transfer costs of acquisition">
-		  Transfer cost
+		  Transfer Cost
 		</a>
 	      </td>
 	      <td align="right">
@@ -100,7 +100,7 @@
 	      <td>
 		<a class="btn large primary has_popover" rel="popover"
 		   data-content="Buyer's percentage share of transfer costs">
-		  Buyer's share
+		  Buyer's Share
 		</a>
 	      </td>
 	      <td align="right">
@@ -130,7 +130,7 @@
 	      <td>
 		<a class="btn large primary has_popover" rel="popover"
 		   data-content="Buyer's percentage share of recordation costs">
-		  Buyer's share
+		  Buyer's Share
 		</a>
 	      </td>
 	      <td align="right">
@@ -145,7 +145,7 @@
 	      <td>
 		<a class="btn large primary has_popover" rel="popover"
 		   data-content="Finance Fees (e.g., appraisal, Phae I, Lender Fees, Legal, etc.)">
-		  Finance fees
+		  Finance Fees
 		</a>
 	      </td>
 	      <td align="right">
@@ -210,7 +210,7 @@
 	      <td>
 		<a class="btn large primary has_popover" rel="popover"
 		   data-content="Interest rate for mezzanine loan">
-		  Mezzanine rate
+		  Mezzanine Rate
 		</a>
 	      </td>
 	      <td align="right">
@@ -225,7 +225,7 @@
 	      <td>
 		<a class="btn large primary has_popover" rel="popover"
 		   data-content="Interest only (yes or no)">
-		  interest only
+		  Interest Only
 		</a>
 	      </td>
 	      <td align="right">
@@ -241,7 +241,7 @@
 	      <td>
 		<a class="btn large primary has_popover" rel="popover"
 		   data-content="Secured loan (yes or no)">
-		  secured
+		  Secured
 		</a>
 	      </td>
 	      <td align="right">
@@ -257,7 +257,7 @@
 	      <td>
 		<a class="btn large primary has_popover" rel="popover"
 		   data-content="Amortization period of mezzanine loan expressed in years">
-		  amortization
+		  Amortization
 		</a>
 	      </td>
 	      <td align="right">
@@ -288,7 +288,7 @@
 	      <td>
 		<a class="btn large primary has_popover" rel="popover"
 		   data-content="Projected hold period expressed in years">
-		  Holding period
+		  Holding Period
 		</a>
 	      </td>
 	      <td align="right">
@@ -313,19 +313,19 @@
 	    <div class="panel-body">
 	      <table class="table">
 		<tr>
-		  <td>Yield</td>
+		  <td>Cash Flow</td>
 		  <td align="right">{{ '%.0f' % result.yield_per}}%</td>
 		</tr>
 		<tr>
-		  <td>Amort 1st Mort</td>
+		  <td>Loan Paydown</td>
 		  <td align="right">{{ '%.0f' % result.amort_first_mort_per}}%</td>
 		</tr>
 		<tr>
-		  <td>Amort Mezz</td>
+		  <td>Loan Paydown - Mezz</td>
 		  <td align="right">{{ '%.0f' % result.amort_mezz_per}}%</td>
 		</tr>
 		<tr>
-		  <td>Appr</td>
+		  <td>Gain on Sale</td>
 		  <td align="right">{{ '%.0f' % result.appr_per}}%</td>
 		</tr>
 	      </table>
