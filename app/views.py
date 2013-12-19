@@ -31,6 +31,7 @@ def home():
 def about():
     return render_template('about.html')
 
+
 @app.route('/basic')
 def basic():
     print "In basic route"
