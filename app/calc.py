@@ -61,6 +61,7 @@ class CalcCapRate():
 
         self.irr = (self.cash_on_cash * self.equity - r['amort_first_mort'] -
                     r['amort_mezz'] - r['appr']) / self.equity
+        r['irr'] = self.irr
 
         r['cap_rate'] = (r['first_mort'] + r['mezz'] + r['calc_yield'] +
                          r['amort_first_mort'] + r['amort_mezz'] + r['appr'])

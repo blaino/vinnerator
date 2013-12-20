@@ -29,7 +29,7 @@
 	  <table class="table">
 	    <tr>
 	      <td>
-		<h4>Some Heading</h4>
+		<h4>Equity Requirement</h4>
 	      </td>
 	      <td>
 	    	<div class="input-group basic-input"></div>
@@ -65,21 +65,14 @@
 		</div>
 	      </td>
             </tr>
-	    <tr>
+            <tr>
 	      <td>
-		<a class="btn large primary has_popover" rel="popover"
-		   data-content="Mezzanine debt percentage of capital stack">
-		  Mezzanine Debt
-		</a>
+		<h4>Transfer Costs</h4>
 	      </td>
-	      <td align="right">
-		<div class="input-group basic-input">
-		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="percentage form-control right" name="mezz_debt" id="mezz_debt" value={{scenarios[index].mezz_debt}}>
-		  <span class="input-group-addon mono">%</span>
-		</div>
+	      <td>
+		<div class="input-group basic-input"></div>
 	      </td>
-            </tr>
+	    </tr>
 	    <tr>
 	      <td>
 		<a class="btn large primary has_popover" rel="popover"
@@ -209,6 +202,21 @@
             <tr>
 	      <td>
 		<a class="btn large primary has_popover" rel="popover"
+		   data-content="Mezzanine debt percentage of capital stack">
+		  Mezzanine Debt
+		</a>
+	      </td>
+	      <td align="right">
+		<div class="input-group basic-input">
+		  <span class="input-group-addon mono">&nbsp</span>
+		  <input type=text class="percentage form-control right" name="mezz_debt" id="mezz_debt" value={{scenarios[index].mezz_debt}}>
+		  <span class="input-group-addon mono">%</span>
+		</div>
+	      </td>
+            </tr>
+            <tr>
+	      <td>
+		<a class="btn large primary has_popover" rel="popover"
 		   data-content="Interest rate for mezzanine loan">
 		  Mezzanine Rate
 		</a>
@@ -268,6 +276,14 @@
 		</div>
 	      </td>
             </tr>
+	    <tr>
+	      <td>
+		<h4>Appreciation and Hold</h4>
+	      </td>
+	      <td>
+		<div class="input-group basic-input"></div>
+	      </td>
+	    </tr>
             <tr>
 	      <td>
 		<a class="btn large primary has_popover" rel="popover"
@@ -329,8 +345,20 @@
 		  <td align="right">{{ '%.0f' % result.appr_per}}%</td>
 		</tr>
 	      </table>
-	      <h4 align="center">Cap Rate: {{ '%.1f' % result.cap_rate}}%</h4>
-	      <h4 align="center">Offer Price Cap Rate: {{ '%.1f' % result.op_cap_rate}}%</h4>
+	      <table class="table">
+		<tr>
+		  <td><strong>IRR</strong></td>
+		  <td align="right"><strong>{{ '%.2f' % result.irr}}%</strong></td>
+		</tr>
+		<tr>
+		  <td><strong>Cap Rate</strong></td>
+		  <td align="right"><strong>{{ '%.2f' % result.cap_rate}}%</strong></td>
+		</tr>
+		<tr>
+		  <td><strong>Offer Price Cap Rate</strong></td>
+		  <td align="right"><strong>{{ '%.2f' % result.op_cap_rate}}%</strong></td>
+		</tr>
+	      </table>
 	      <p align="center"><input type=submit value="Capulate!" class="btn btn-primary"></p>
 	    </div>
 	  </div>
