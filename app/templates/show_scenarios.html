@@ -67,94 +67,6 @@
             </tr>
             <tr>
 	      <td>
-		<h4>Transfer Costs</h4>
-	      </td>
-	      <td>
-		<div class="input-group basic-input"></div>
-	      </td>
-	    </tr>
-	    <tr>
-	      <td>
-		<a class="btn large primary has_popover" rel="popover"
-		   data-content="Transfer costs of acquisition">
-		  Transfer Cost
-		</a>
-	      </td>
-	      <td align="right">
-		<div class="input-group basic-input">
-		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="percentage form-control right" name="transfer_cost" id="transfer_cost" value={{scenarios[index].transfer_cost}}>
-		  <span class="input-group-addon mono">%</span>
-		</div>
-
-	      </td>
-            </tr>
-            <tr>
-	      <td>
-		<a class="btn large primary has_popover" rel="popover"
-		   data-content="Buyer's percentage share of transfer costs">
-		  Buyer's Share
-		</a>
-	      </td>
-	      <td align="right">
-		<div class="input-group basic-input">
-		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="percentage form-control right" name="transfer_buyer_share" id="transfer_buyer_share" value={{scenarios[index].transfer_buyer_share}}>
-		  <span class="input-group-addon mono">%</span>
-		</div>
-	      </td>
-            </tr>
-	    <tr>
-	      <td>
-		<a class="btn large primary has_popover" rel="popover"
-		   data-content="Recordation costs of mortgages per $1000">
-		  Recordation
-		</a>
-	      </td>
-	      <td align="right">
-		<div class="input-group basic-input">
-		  <span class="input-group-addon mono">$</span>
-		  <input type=text class="dollar form-control right" name="recordation_cost" id="recordation_cost" value={{scenarios[index].recordation_cost}}>
-		  <span class="input-group-addon mono">&nbsp</span>
-		</div>
-	      </td>
-            </tr>
-            <tr>
-	      <td>
-		<a class="btn large primary has_popover" rel="popover"
-		   data-content="Buyer's percentage share of recordation costs">
-		  Buyer's Share
-		</a>
-	      </td>
-	      <td align="right">
-		<div class="input-group basic-input">
-		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="percentage form-control right" name="recordation_buyer_share" id="recordation_buyer_share" value={{scenarios[index].recordation_buyer_share}}>
-		  <span class="input-group-addon mono">%</span>
-		</div>
-	      </td>
-	    </tr>
-	    <tr>
-	      <td>
-		<a class="btn large primary has_popover" rel="popover"
-		   data-content="Finance Fees (e.g., appraisal, Phae I, Lender Fees, Legal, etc.)">
-		  Finance Fees
-		</a>
-	      </td>
-	      <td align="right">
-		<div class="input-group basic-input">
-		  <span class="input-group-addon mono">&nbsp</span>
-		  <input type=text class="percentage form-control right" name="finance" id="finance" value={{scenarios[index].finance}}>
-		  <span class="input-group-addon mono">%</span>
-		</div>
-	      </td>
-	    </tr>
-	  </table>
-	</div>
-	<div class="col-md-4">
-	  <table class="table">
-	    <tr>
-	      <td>
 		<h4>First Mortgage</h4>
 	      </td>
 	      <td>
@@ -191,7 +103,7 @@
 		</div>
 	      </td>
             </tr>
-	    <tr>
+            	    <tr>
 	      <td>
 		<h4>Mezzanine</h4>
 	      </td>
@@ -276,6 +188,94 @@
 		</div>
 	      </td>
             </tr>
+	  </table>
+	</div>
+	<div class="col-md-4">
+	  <table class="table">
+            <tr>
+	      <td>
+		<h4>Transaction Costs</h4>
+	      </td>
+	      <td>
+		<div class="input-group basic-input"></div>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<a class="btn large primary has_popover" rel="popover"
+		   data-content="Transfer costs of acquisition">
+		  Transfer Cost
+		</a>
+	      </td>
+	      <td align="right">
+		<div class="input-group basic-input">
+		  <span class="input-group-addon mono">&nbsp</span>
+		  <input type=text class="percentage form-control right" name="transfer_cost" id="transfer_cost" value={{scenarios[index].transfer_cost}}>
+		  <span class="input-group-addon mono">%</span>
+		</div>
+
+	      </td>
+            </tr>
+            <tr>
+	      <td>
+		<a class="btn large primary has_popover" rel="popover"
+		   data-content="Buyer's percentage share of transfer costs">
+		  Buyer's Share
+		</a>
+	      </td>
+	      <td align="right">
+		<div class="input-group basic-input">
+		  <span class="input-group-addon mono">&nbsp</span>
+		  <input type=text class="percentage form-control right" name="transfer_buyer_share" id="transfer_buyer_share" value={{scenarios[index].transfer_buyer_share}}>
+		  <span class="input-group-addon mono">%</span>
+		</div>
+	      </td>
+            </tr>
+	    <tr>
+	      <td>
+		<a class="btn large primary has_popover" rel="popover"
+		   data-content="Recordation costs of mortgages per $1000">
+		  Recordation
+		</a>
+	      </td>
+	      <td align="right">
+		<div class="input-group basic-input">
+		  <span class="input-group-addon mono">$</span>
+		  <input type=text class="dollar form-control right" name="recordation_cost" id="recordation_cost" value={{scenarios[index].recordation_cost}}>
+		  <span class="input-group-addon mono">&nbsp</span>
+		</div>
+	      </td>
+            </tr>
+            <tr>
+	      <td>
+		<a class="btn large primary has_popover" rel="popover"
+		   data-content="Buyer's percentage share of recordation costs">
+		  Buyer's Share
+		</a>
+	      </td>
+	      <td align="right">
+		<div class="input-group basic-input">
+		  <span class="input-group-addon mono">&nbsp</span>
+		  <input type=text class="percentage form-control right" name="recordation_buyer_share" id="recordation_buyer_share" value={{scenarios[index].recordation_buyer_share}}>
+		  <span class="input-group-addon mono">%</span>
+		</div>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>
+		<a class="btn large primary has_popover" rel="popover"
+		   data-content="Finance Fees (e.g., appraisal, Phae I, Lender Fees, Legal, etc.)">
+		  Finance Fees
+		</a>
+	      </td>
+	      <td align="right">
+		<div class="input-group basic-input">
+		  <span class="input-group-addon mono">&nbsp</span>
+		  <input type=text class="percentage form-control right" name="finance" id="finance" value={{scenarios[index].finance}}>
+		  <span class="input-group-addon mono">%</span>
+		</div>
+	      </td>
+	    </tr>
 	    <tr>
 	      <td>
 		<h4>Appreciation and Hold</h4>
@@ -347,15 +347,30 @@
 	      </table>
 	      <table class="table">
 		<tr>
-		  <td><strong>IRR</strong></td>
+		  <td>
+                    <a class="btn large primary has_popover" rel="popover"
+		       data-content="For the purposes of this tool, IRR calculation holds equity yield cash on cash constant over the hold period">
+                      <strong>IRR</strong>
+		    </a>
+                  </td>
 		  <td align="right"><strong>{{ '%.2f' % result.irr}}%</strong></td>
 		</tr>
 		<tr>
-		  <td><strong>Cap Rate</strong></td>
+		  <td>
+                    <a class="btn large primary has_popover" rel="popover"
+		       data-content="Yadda yadda yadda">
+                      <strong>Cap Rate</strong>
+		    </a>
+                  </td>
 		  <td align="right"><strong>{{ '%.2f' % result.cap_rate}}%</strong></td>
 		</tr>
 		<tr>
-		  <td><strong>Offer Price Cap Rate</strong></td>
+		  <td>
+                    <a class="btn large primary has_popover" rel="popover"
+		       data-content="Offer Price Cap Rate accounts for transaction costs while maintaining year 1 cash on cash requirement">
+                      <strong>Offer Price Cap Rate</strong>
+		    </a>
+                  </td>
 		  <td align="right"><strong>{{ '%.2f' % result.op_cap_rate}}%</strong></td>
 		</tr>
 	      </table>
