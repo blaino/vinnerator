@@ -50,7 +50,36 @@ cap = {
 		});
 	    }
 	});
-    }
+    },
+    toggleMezzanine: function() {
+        mezz = parseInt($("#mezz_debt").val());
+        if (mezz > 0) {
+            $("#mezz_rate").attr("disabled", false)
+            $("#mezz_interest_only").attr("disabled", false)
+            $("#mezz_secured").attr("disabled", false)
+            $("#mezz_amort").attr("disabled", false)
+        } else {
+            $("#mezz_rate").attr("disabled", true)
+            $("#mezz_interest_only").attr("disabled", true)
+            $("#mezz_secured").attr("disabled", true)
+            $("#mezz_amort").attr("disabled", true)
+        }
+        
+        $('#mezz_debt').on("change", function() {
+            mezz = parseInt($("#mezz_debt").val());
+            if (mezz > 0) {
+                $("#mezz_rate").attr("disabled", false)
+                $("#mezz_interest_only").attr("disabled", false)
+                $("#mezz_secured").attr("disabled", false)
+                $("#mezz_amort").attr("disabled", false)
+            } else {
+                $("#mezz_rate").attr("disabled", true)
+                $("#mezz_interest_only").attr("disabled", true)
+                $("#mezz_secured").attr("disabled", true)
+                $("#mezz_amort").attr("disabled", true)
+            }
+        });
+    }                
 };
 
 
