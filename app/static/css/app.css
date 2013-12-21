@@ -23,3 +23,11 @@ body {
 .popover-content {
     font-size: small;
 }
+
+#table1 td {
+    border-top: 0px;
+}
+
+#table2 td {
+    border-top: 0px;
+}
