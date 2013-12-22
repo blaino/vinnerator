@@ -148,19 +148,22 @@ def check_title(input_title):
         m = re.search('(.*)\<(.*)\>', input_title)
         if m:  # If this name has already been used more than once
             input_title = m.group(1)
-            last_index = get_last_scenario(scenarios, input_title)
+        last_index = get_last_scenario(scenarios, input_title)
         return "%s<%d>" % (input_title, last_index+1)
     else:
         return input_title
 
 
 def get_last_scenario(scenarios, title_text):
-    '''
+    """
     Gets the last rev of a scenario.  Say there's x<1>, x<2>, x<13>.  Returns 13
-    '''
+    """
     matches = [s.title for s in scenarios if re.search(title_text + '<', s.title)]
     indices = [int(re.search('(.*)\<(.*)\>', m).group(2)) for m in matches]
-    return max(indices)
+    if indices:
+        return max(indices)
+    else:
+        return 0
 
 
 @app.route('/add', methods=['POST'])
