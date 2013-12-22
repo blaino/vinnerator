@@ -34,7 +34,6 @@ def about():
 
 @app.route('/basic')
 def basic():
-    print "In basic route"
     scenario = default_scenario()
     c = CalcCapRate(scenario.__dict__)
     result = c.iterate_computation()

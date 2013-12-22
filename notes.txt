@@ -176,6 +176,11 @@ backup database
 
 pg_dump <databasename> > <outfile>
 
+SELECT * from scenario;
+
+To delete all rows in table:
+DELETE from scenario;
+
 
 9/18
 
