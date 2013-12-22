@@ -144,14 +144,23 @@ def check_title(input_title):
         scenarios = []
     match = [s.title for s in scenarios if s.title == input_title]
     if match:
-        i = 0
+        last_index = 0
         m = re.search('(.*)\<(.*)\>', input_title)
         if m:  # If this name has already been used more than once
             input_title = m.group(1)
-            i = int(m.group(2))
-        return "%s<%d>" % (input_title, i+1)
+            last_index = get_last_scenario(scenarios, input_title)
+        return "%s<%d>" % (input_title, last_index+1)
     else:
         return input_title
+
+
+def get_last_scenario(scenarios, title_text):
+    '''
+    Gets the last rev of a scenario.  Say there's x<1>, x<2>, x<13>.  Returns 13
+    '''
+    matches = [s.title for s in scenarios if re.search(title_text + '<', s.title)]
+    indices = [int(re.search('(.*)\<(.*)\>', m).group(2)) for m in matches]
+    return max(indices)
 
 
 @app.route('/add', methods=['POST'])
@@ -198,7 +207,7 @@ def add_scenario():
 
         db.session.add(scenario)
         db.session.commit()
-        flash('New scenario was successfully posted', 'alert alert-info')
+        #flash('New scenario was successfully posted', 'alert alert-info')
         return redirect(url_for('show_scenarios'))
     else:
         print "Advanced calc input not validated."
@@ -224,18 +233,3 @@ def default_scenario():
                     30.0,  # mezz_amort
                     0.0,  # apprec_depr
                     5.0)  # holding_period
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

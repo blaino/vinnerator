@@ -1,5 +1,18 @@
-11/23
 
+12/22
+
+db deletion problems.  
+
+add x, x1, x2, delete x1: works
+back to x, add x1: x x2 x1
+delete x2: works: x x1
+delete x1: and it gets rid of x not x1
+
+Can't replicate that.
+
+Can add two of the same index...  how to prevent?
+Now, we check for the title being the same to something already in the list.  We don't
+check if the new name is already in the list.  
 
 
 
