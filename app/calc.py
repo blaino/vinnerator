@@ -48,7 +48,6 @@ class CalcCapRate():
 
     def compute_cap_rate(self):
         r = {}
-        print self.irr
 
         r['sinking_fund_factor'] = self.irr / ((1 + self.irr) ** self.holding_period - 1)
         r['appr_depr_factor'] = 0 - self.apprec_depr * r['sinking_fund_factor']

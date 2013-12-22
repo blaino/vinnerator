@@ -159,8 +159,16 @@ def check_title(input_title):
 @login_required
 def add_scenario():
     checked_title = check_title(request.form['title'])
-    is_intr_only = to_boolean(request.form['mezz_interest_only'])
-    is_secured = to_boolean(request.form['mezz_secured'])
+    if float(request.form['mezz_debt']) > 0:
+        is_intr_only = to_boolean(request.form['mezz_interest_only'])
+        is_secured = to_boolean(request.form['mezz_secured'])
+        mezz_rate = float(request.form['mezz_rate'])
+        mezz_amort = float(request.form['mezz_amort'])
+    else:
+        is_intr_only = to_boolean('no')
+        is_secured = to_boolean('no')
+        mezz_rate = 1
+        mezz_amort = 1
     scenario = Scenario(checked_title,
                         float(request.form['cash_on_cash']),
                         float(request.form['target_ltv']),
@@ -172,10 +180,10 @@ def add_scenario():
                         float(request.form['finance']),
                         float(request.form['interest']),
                         float(request.form['amort']),
-                        float(request.form['mezz_rate']),
+                        mezz_rate,
                         is_intr_only,
                         is_secured,
-                        float(request.form['mezz_amort']),
+                        mezz_amort,
                         float(request.form['apprec_depr']),
                         float(request.form['holding_period']),
                         current_user.id)
