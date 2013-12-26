@@ -205,7 +205,7 @@ def add_scenario():
         c = CalcCapRate(scenario.__dict__)
         result = c.iterate_computation()
         cap_rate = result['cap_rate']
-        print "===cap rate: " + str(cap_rate)
+        #print "===cap rate: " + str(cap_rate)
         scenario.cap_rate = cap_rate
 
         db.session.add(scenario)

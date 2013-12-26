@@ -7,6 +7,9 @@
 #
 # To enable this hook, rename this file to "pre-commit".
 
+VIRTUAL_ENV=/Users/bnelson/Projects/vinnerator/venv
+PATH=$VIRTUAL_ENV/bin:$PATH
+
 python app_tests.py || exit 1
 
 if git rev-parse --verify HEAD >/dev/null 2>&1
