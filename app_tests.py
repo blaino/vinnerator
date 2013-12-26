@@ -121,17 +121,19 @@ class MyappTestCase(unittest.TestCase):
         rv = self.delete('2')
         assert 'default' in rv.data
         assert 'default&lt;2&gt;' not in rv.data  # default<2> shoudln't be there
+        # blik blik     
 
+    # def test_add_3_then_delete_first(self):
+    #     self.register('blue@blue.com', 'password')
+    #     self.add()
+    #     self.add()
+    #     rv = self.add()
+    #     rv = self.delete('0')
+    #     assert 'default' in rv.data
+    #     #print rv.data
+    #     assert '<option value="0">default</option>' not in rv.data  # default shoudln't be there
+    #     # And neither should default<1> when mapped to value=0
+    #     assert '<option value="0">default&lt;1&gt;</option>' not in rv.data
 
 if __name__ == '__main__':
     unittest.main()
-
-
-
-
-
-
-
-
-
-
