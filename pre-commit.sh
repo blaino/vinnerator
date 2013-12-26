@@ -10,7 +10,11 @@
 VIRTUAL_ENV=/Users/bnelson/Projects/vinnerator/venv
 PATH=$VIRTUAL_ENV/bin:$PATH
 
+# Test (only) staged changes
+git stash -q --keep-index
 python app_tests.py || exit 1
+git stash pop -q
+
 
 if git rev-parse --verify HEAD >/dev/null 2>&1
 then
