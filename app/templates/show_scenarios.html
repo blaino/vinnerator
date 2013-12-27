@@ -383,9 +383,9 @@
 	      <select id='saved' onchange="loadSavedScenario(this)" class="form-control"> 
 		{% for i in range(scenarios|length) %}
 		{% if i == index %}
-		<option value="{{i}}" selected>{{ scenarios[i].title }}</option>
+		<option value="{{ scenarios[i].id }}" selected>{{ scenarios[i].title }}</option>
 		{% else %}
-		<option value="{{i}}">{{ scenarios[i].title }}</option>
+		<option value="{{ scenarios[i].id }}">{{ scenarios[i].title }}</option>
 		{% endif %}
 		{% else %}
 		<li><em>Unbelievable.  No saved scenarios here so far</em>

@@ -87,18 +87,26 @@ def basic_calc():
 
 
 @app.route('/show_scenarios')
-@app.route('/show_scenarios/<index>')
+@app.route('/show_scenarios/<db_id>')
 @login_required
-def show_scenarios(index=0):
+def show_scenarios(db_id=0):
+    index = 0
+    s_map = []
     try:
+        db_id = int(db_id)
         user_id = current_user.id
         scenarios = Scenario.query.filter_by(user_id=user_id).all()
-        if len(scenarios) == 0:
+        s_len = len(scenarios)
+
+        if s_len == 0:
             scenarios.append(default_scenario())
-        if index != 0:
-            index = int(index)
+        elif db_id > 0:
+            #print "db_id: %s" % db_id
+            s_map = [(scenarios[i].id, i) for i in range(s_len)]
+            print s_map
+            index = [s[1] for s in s_map if s[0] == db_id][0]
         else:
-            index = len(scenarios) - 1
+            index = s_len - 1
 
         c = CalcCapRate(scenarios[index].__dict__)
         result = c.iterate_computation()
@@ -115,16 +123,18 @@ def show_scenarios(index=0):
                            index=index)
 
 
-@app.route('/delete/<index>')
+@app.route('/delete/<db_id>')
 @login_required
-def delete(index):
-    index = int(index)
+def delete(db_id):
+    db_id = int(db_id)
     try:
         scenarios = Scenario.query.all()
+        s_map = [(scenarios[i].id, i) for i in range(len(scenarios))]
+        index = [s[1] for s in s_map if s[0] == db_id][0]
         db.session.delete(scenarios[index])
         db.session.commit()
     except:
-        print "Could not delete scenario %d" % index
+        print "Could not delete scenario %d" % db_id
     return redirect(url_for('show_scenarios'))
 
 
