@@ -9,6 +9,10 @@ cap = {
 		required: true,
 		min: 0
 	    },
+            greaterThanZero: {
+		required: true,
+		min: .001
+	    },
 	    scenario: {
 		required: true,
 		maxlength: 30
