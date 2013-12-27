@@ -7,6 +7,8 @@
 #
 # To enable this hook, rename this file to "pre-commit".
 
+
+# Unit/Integration Testing
 VIRTUAL_ENV=/Users/bnelson/Projects/vinnerator/venv
 PATH=$VIRTUAL_ENV/bin:$PATH
 
@@ -16,6 +18,7 @@ python app_tests.py || exit 1
 git stash pop -q
 
 
+# Whitespace jazz from the default pre-commit
 if git rev-parse --verify HEAD >/dev/null 2>&1
 then
 	against=HEAD
