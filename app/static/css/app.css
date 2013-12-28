@@ -30,6 +30,6 @@ body {
 
 .popover-content, .popover-content .body {
     font-size: small;
-    width: 90%;
+    width: 100%;
     text-align: left;
 }
