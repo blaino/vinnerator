@@ -126,15 +126,16 @@ def show_scenarios(db_id=0):
 @app.route('/delete/<db_id>')
 @login_required
 def delete(db_id):
-    db_id = int(db_id)
-    try:
-        scenarios = Scenario.query.all()
-        s_map = [(scenarios[i].id, i) for i in range(len(scenarios))]
-        index = [s[1] for s in s_map if s[0] == db_id][0]
-        db.session.delete(scenarios[index])
-        db.session.commit()
-    except:
-        print "Could not delete scenario %d" % db_id
+    if db_id != 'None':  # It's 'None' for the default scenario
+        db_id = int(db_id)
+        try:
+            scenarios = Scenario.query.all()
+            s_map = [(scenarios[i].id, i) for i in range(len(scenarios))]
+            index = [s[1] for s in s_map if s[0] == db_id][0]
+            db.session.delete(scenarios[index])
+            db.session.commit()
+        except:
+            print "Could not delete scenario %d" % db_id
     return redirect(url_for('show_scenarios'))
 
 

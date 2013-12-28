@@ -97,41 +97,40 @@ class MyappTestCase(unittest.TestCase):
         yesno = 'garbage'
         assert views.to_boolean(yesno) is False
 
-    def test_add_3_scenarios_with_same_name(self):
+    def add3(self):
         self.register('blue@blue.com', 'password')
         self.add()
         self.add()
-        rv = self.add()
+        return self.add()
+
+    def test_add_3_scenarios_with_same_name(self):
+        rv = self.add3()
         assert 'default&lt;2&gt;' in rv.data  # default<2>
 
     def test_add_3_then_delete_second(self):
-        self.register('blue@blue.com', 'password')
-        self.add()
-        self.add()
-        rv = self.add()
+        rv = self.add3()
         rv = self.delete('2')
         assert 'default' in rv.data
         assert 'default&lt;1&gt;' not in rv.data  # default<1> shoudln't be there
 
     def test_add_3_then_delete_last(self):
-        self.register('blue@blue.com', 'password')
-        self.add()
-        self.add()
-        rv = self.add()
+        rv = self.add3()
         rv = self.delete('3')
         assert 'default' in rv.data
         assert 'default&lt;2&gt;' not in rv.data  # default<2> shoudln't be there
 
     def test_add_3_then_delete_first(self):
-        self.register('blue@blue.com', 'password')
-        self.add()
-        self.add()
-        rv = self.add()
+        rv = self.add3()
         rv = self.delete('1')
         assert 'default' in rv.data
         assert '<option value="1">default</option>' not in rv.data  # default shoudln't be there
         # And neither should default<1> when mapped to value=0
         assert '<option value="0">default&lt;1&gt;</option>' not in rv.data
+
+    def test_delete_default(self):
+        self.register('blue@blue.com', 'password')
+        rv = self.delete('None')
+        assert '<option value="None" selected>default</option>' in rv.data
 
 if __name__ == '__main__':
     unittest.main()
