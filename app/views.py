@@ -222,7 +222,7 @@ def add_scenario():
         db.session.add(scenario)
         db.session.commit()
         #flash('New scenario was successfully posted', 'alert alert-info')
-        return redirect(url_for('show_scenarios'))
+        return redirect(url_for('show_scenarios') + '#results-column')
     else:
         print "Advanced calc input not validated."
         print form.errors
