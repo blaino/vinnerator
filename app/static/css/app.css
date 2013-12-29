@@ -28,6 +28,10 @@ body {
     border-top: 0px;
 }
 
+#basic-table td {
+    border-top: 0px;
+}
+
 .popover-content, .popover-content .body {
     font-size: small;
     width: 100%;

@@ -1,7 +1,12 @@
+12/28
+
+heroku credentials:
+Bull Dog
+
 
 12/22
 
-db deletion problems.  
+db deletion problems.
 
 add x, x1, x2, delete x1: works
 back to x, add x1: x x2 x1
@@ -12,7 +17,7 @@ Can't replicate that.
 
 Can add two of the same index...  how to prevent?
 Now, we check for the title being the same to something already in the list.  We don't
-check if the new name is already in the list.  
+check if the new name is already in the list.
 
 
 
@@ -94,18 +99,18 @@ done* Deploy to heroku - the db home will need to change...
 
 * 2 Goals: Migrate app to postgres locally & deploy
 * For the latter, heroku's foreman will be key
-* For the former, you'll need 
+* For the former, you'll need
 
 
 9/20
 
-* Need to switch from sql lite to postgresql.  
+* Need to switch from sql lite to postgresql.
 * You don't understand switching from one db to a remote one.
 * username: admin password: default psql flask stuff
 * should I install a different postgresql somewhere else? or just a a db to this postgres?
    (the latter...)
 * duh.  there isn't postgresql on the mac - only on your vm
-* or did the mac come with it?  
+* or did the mac come with it?
 
 
 Postgresql cheat sheet 1:
