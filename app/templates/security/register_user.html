@@ -25,5 +25,14 @@
   </div>
 </div>
 
+<!-- Should be a better way to non-invasively style the flask-security templates -->
+<script>
+$(document).ready(function(){
+  $('#email').addClass("form-control")
+  $('#password').addClass("form-control")
+  $('#password_confirm').addClass("form-control")
+  $('#submit').addClass("btn btn-primary pull-right")
+});
+</script>
 {% endblock %}
 	
