@@ -15,6 +15,7 @@ PATH=$VIRTUAL_ENV/bin:$PATH
 # Test (only) staged changes
 git stash -q --keep-index
 python app_tests.py || exit 1
+python app/calc_tests.py || exit 1
 git stash pop -q
 
 
