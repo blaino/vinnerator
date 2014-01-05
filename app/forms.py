@@ -25,6 +25,6 @@ class ScenarioForm(Form):
     mezz_interest_only = BooleanField('mezz_interest_only')
     mezz_secured = BooleanField('mezz_secured')
     mezz_amort = DecimalField('mezz_amort', [validators.NumberRange(min=0, max=100)])
-
+    income_appr = DecimalField('apprec_depr', [validators.NumberRange(min=0, max=100)])
     apprec_depr = DecimalField('apprec_depr', [validators.NumberRange(min=0, max=100)])
     holding_period = DecimalField('holding_period', [validators.NumberRange(min=0, max=100)])
