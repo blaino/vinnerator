@@ -49,6 +49,7 @@ class Scenario(db.Model):
     mezz_interest_only = db.Column(db.Boolean, unique=False)
     mezz_secured = db.Column(db.Boolean, unique=False)
     mezz_amort = db.Column(db.Float, unique=False)
+    income_appr = db.Column(db.Float, unique=False)
     apprec_depr = db.Column(db.Float, unique=False)
     holding_period = db.Column(db.Float, unique=False)
 
@@ -59,7 +60,8 @@ class Scenario(db.Model):
     def __init__(self, title='empty', cash_on_cash=0, target_ltv=0, mezz_debt=0,
                  transfer_cost=0, transfer_buyer_share=0, recordation_cost=0,
                  recordation_buyer_share=0, finance=0, interest=0, amort=0, mezz_rate=0,
-                 mezz_interest_only=False, mezz_secured=False, mezz_amort=0, apprec_depr=0,
+                 mezz_interest_only=False, mezz_secured=False, mezz_amort=0,
+                 income_appr=0, apprec_depr=0,
                  holding_period=0, user_id=0):
         self.title = title
         self.cash_on_cash = cash_on_cash
@@ -76,6 +78,7 @@ class Scenario(db.Model):
         self.mezz_interest_only = mezz_interest_only
         self.mezz_secured = mezz_secured
         self.mezz_amort = mezz_amort
+        self.income_appr = income_appr
         self.apprec_depr = apprec_depr
         self.holding_period = holding_period
         self.user_id = user_id
@@ -105,6 +108,7 @@ def init_db():
                         True,  # mezz_interest_only
                         False,  # mezz_secured
                         30,  # mezz_amort
+                        0,  # income_appr
                         0,  # apprec_depr
                         5,  # holding_period
                         user_id)

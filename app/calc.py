@@ -18,6 +18,7 @@ class CalcCapRate():
         self.mezz_interest_only = s['mezz_interest_only']
         self.mezz_secured = s['mezz_secured']
         self.mezz_amort = s['mezz_amort']
+        self.income_appr = s['income_appr'] / 100
         self.apprec_depr = s['apprec_depr'] / 100
         self.holding_period = s['holding_period']
 
@@ -51,12 +52,18 @@ class CalcCapRate():
 
         r['sinking_fund_factor'] = self.irr / ((1 + self.irr) ** self.holding_period - 1)
         r['appr_depr_factor'] = 0 - self.apprec_depr * r['sinking_fund_factor']
-        r['first_mort'] = self.first_mort * self.const
-        r['mezz'] = self.mezz_debt * self.mezz_const
-        r['calc_yield'] = self.equity * self.irr
-        r['amort_first_mort'] = - (self.first_mort * self.per_loan_repaid * r['sinking_fund_factor'])
-        r['amort_mezz'] = - (self.mezz_debt * self.per_mezz_loan_repaid * r['sinking_fund_factor'])
-        r['appr'] = r['appr_depr_factor']
+        r['j_factor'] = ((self.holding_period /
+                          (1 - (1 + self.irr) ** (- self.holding_period)) - 1 / self.irr) *
+                         r['sinking_fund_factor'])
+        income_correction = (1 / (1 + self.income_appr * r['j_factor']))
+        r['first_mort'] = self.first_mort * self.const * income_correction
+        r['mezz'] = self.mezz_debt * self.mezz_const * income_correction
+        r['calc_yield'] = self.equity * self.irr * income_correction
+        r['amort_first_mort'] = (- (self.first_mort * self.per_loan_repaid * r['sinking_fund_factor'])
+                                   * income_correction)
+        r['amort_mezz'] = - ((self.mezz_debt * self.per_mezz_loan_repaid * r['sinking_fund_factor'])
+                             * income_correction)
+        r['appr'] = r['appr_depr_factor'] * income_correction
 
         self.irr = (self.cash_on_cash * self.equity - r['amort_first_mort'] -
                     r['amort_mezz'] - r['appr']) / self.equity

@@ -1,3 +1,64 @@
+1/5
+
+Problems with db after adding jfactor jazz.
+
+Could there be something wrong with user ids?  You do understand how
+these are working?  Stash and see how things were working before?
+
+You also had the weird problem where the unit tests pass, but the app
+gets jammed up with db stuff.  mysql versus psql?  SqlAlchmey is
+supposed to insulate you.  That's what makes me think the db has
+gotten into a bad state.  But you deleted all the rows...  For all
+users???
+
+It's like a new schema version for Praefectus.
+
+From the psql prompt you see no scenarios.
+But, from the python prompt you see a couple, each with a different user_id
+And, you're connected to vinnerator_db for both
+So, what gives?
+
+You did this:
+from the psql prompt: drop database vinnerator_db;
+from the shell: createdb -U bnelson -E utf8 -O bnelson vinnerator_db -T template0
+
+Then restarted capulator, and it bitched.  Checked the db, nothing in it.  So manually, from a python prompt:
+
+>>> import os
+import os
+>>> os.environ["DATABASE_URL"] = "postgresql://localhost/vinnerator_db"
+os.environ["DATABASE_URL"] = "postgresql://localhost/vinnerator_db"
+>>> import app
+import app
+>>> from app import db, views
+from app import db, views
+>>> from app import models
+from app import models
+>>> models.init_db()
+models.init_db()
+>>> db
+db
+<SQLAlchemy engine='postgresql://localhost/vinnerator_db'>
+>>> scenarios = models.Scenario.query.all()
+scenarios = models.Scenario.query.all()
+>>> scenarios
+scenarios
+[<Title u'default'>]
+
+After that capulator ran fine (add scenarios, etc.)
+
+So, question: when you do this sort of kill the db and make a new one
+(which you shouldn't do - I think some sort of migration is in order),
+do you have to do some manually initialization in python?  Does
+capulator not get things set up for you automatically?
+
+What's going to happen when you try to get this change out to heroku?
+Do you need to figure out migration sooner than later?
+
+
+
+
+
 12/28
 
 heroku credentials:
@@ -116,82 +177,81 @@ done* Deploy to heroku - the db home will need to change...
 Postgresql cheat sheet 1:
 
 change to postgres user and open psql prompt
-
 sudo -u postgres psql postgres
+
 list databases
-
 postgres=# \l
+
 list roles
-
 postgres=# \du
+
 create role
-
 postgres=#CREATE ROLE demorole1 WITH LOGIN ENCRYPTED PASSWORD 'password1' CREATEDB;
+
 alter role
-
 postgres=#ALTER ROLE demorole1 CREATEROLE CREATEDB REPLICATION SUPERUSER;
+
 drop role
-
 postgres=#DROP ROLE demorole1;
+
 create database
-
 postgres=#CREATE DATABASE demodb1 WITH OWNER demorole1 ENCODING 'UTF8';
+
 grant privileges to new user
-
 GRANT ALL PRIVILEGES ON DATABASE demodb1 TO demorole1;
+
 drop database
-
 postgres=#DROP DATABASE demodb1;
+
 connect to database
-
 \c <databasename>
+
 list tables in connected database
-
 \dt
+
 list columns on table
-
 \d <tablename>
-backup database
 
+backup database
 pg_dump <databasename> > <outfile>
+
 change to postgres user and open psql prompt
-
 sudo -u postgres psql postgres
+
 list databases
-
 postgres=# \l
+
 list roles
-
 postgres=# \du
+
 create role
-
 postgres=#CREATE ROLE demorole1 WITH LOGIN ENCRYPTED PASSWORD 'password1' CREATEDB;
+
 alter role
-
 postgres=#ALTER ROLE demorole1 CREATEROLE CREATEDB REPLICATION SUPERUSER;
+
 drop role
-
 postgres=#DROP ROLE demorole1;
+
 create database
-
 postgres=#CREATE DATABASE demodb1 WITH OWNER demorole1 ENCODING 'UTF8';
+
 grant privileges to new user
-
 GRANT ALL PRIVILEGES ON DATABASE demodb1 TO demorole1;
+
 drop database
-
 postgres=#DROP DATABASE demodb1;
+
 connect to database
-
 \c <databasename>
+
 list tables in connected database
-
 \dt
+
 list columns on table
-
 \d <tablename>
-backup database
 
+backup database
 pg_dump <databasename> > <outfile>
 
 SELECT * from scenario;

@@ -31,9 +31,11 @@ def home():
 def about():
     return render_template('about.html')
 
+
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
+
 
 @app.route('/basic')
 def basic():
@@ -66,6 +68,7 @@ def basic_calc():
                         False,  # mezz_interest_only
                         False,  # mezz_secured
                         30,  # mezz_amort
+                        0,  # income_appr
                         0,  # apprec_depr
                         5)  # holding_period
 
@@ -95,29 +98,34 @@ def basic_calc():
 def show_scenarios(db_id=0):
     index = 0
     s_map = []
+    db_id = int(db_id)
+    user_id = current_user.id
+    result = {}
+    scenarios = []
     try:
-        db_id = int(db_id)
-        user_id = current_user.id
         scenarios = Scenario.query.filter_by(user_id=user_id).all()
-        s_len = len(scenarios)
-
-        if s_len == 0:
-            scenarios.append(default_scenario())
-        elif db_id > 0:
-            #print "db_id: %s" % db_id
-            s_map = [(scenarios[i].id, i) for i in range(s_len)]
-            print s_map
-            index = [s[1] for s in s_map if s[0] == db_id][0]
-        else:
-            index = s_len - 1
-
-        c = CalcCapRate(scenarios[index].__dict__)
-        result = c.iterate_computation()
-        # Convert to percentages for output
-        result.update((i, j*100) for i, j in result.items())
     except:
-        scenarios = []
-        result = {}
+        print "Couldn't find any scenarios in db, so adding default scenario"
+        scenario = default_scenario()
+        scenarios.append(scenario)
+        db.session.add(scenario)
+        db.session.commit()
+
+    s_len = len(scenarios)
+    if s_len == 0:
+        #print "Appending default scenario"
+        scenarios.append(default_scenario())
+    elif db_id > 0:
+        #print "db_id: %s" % db_id
+        s_map = [(scenarios[i].id, i) for i in range(s_len)]
+        index = [s[1] for s in s_map if s[0] == db_id][0]
+    else:
+        index = s_len - 1
+    c = CalcCapRate(scenarios[index].__dict__)
+    result = c.iterate_computation()
+    # Convert to percentages for output
+    result.update((i, j*100) for i, j in result.items())
+
     form = ScenarioForm(request.form)
     return render_template('show_scenarios.html',
                            form=form,
@@ -209,6 +217,7 @@ def add_scenario():
                         is_intr_only,
                         is_secured,
                         mezz_amort,
+                        0.0,  # TODO: replace with income_appr
                         float(request.form['apprec_depr']),
                         float(request.form['holding_period']),
                         current_user.id)
@@ -248,5 +257,6 @@ def default_scenario():
                     False,  # mezz_interest_only
                     False,  # mezz_secured
                     30.0,  # mezz_amort
+                    0.0,  # income_appr
                     0.0,  # apprec_depr
                     5.0)  # holding_period

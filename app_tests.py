@@ -132,5 +132,10 @@ class MyappTestCase(unittest.TestCase):
         rv = self.delete('None')
         assert '<option value="None" selected>default</option>' in rv.data
 
+    def test_show_scenario_without_add(self):
+        rv = self.register('blue@blue.com', 'password')
+        assert 'Offer Price Cap Rate' in rv.data
+
+
 if __name__ == '__main__':
     unittest.main()
