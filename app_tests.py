@@ -47,6 +47,7 @@ class MyappTestCase(unittest.TestCase):
                     recordation_cost='5.0',
                     recordation_buyer_share='50.0',
                     finance='1.0',
+                    income_appr='0.0',
                     apprec_depr='0.0',
                     holding_period='5.0'
                     )

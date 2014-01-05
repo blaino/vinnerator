@@ -217,7 +217,7 @@ def add_scenario():
                         is_intr_only,
                         is_secured,
                         mezz_amort,
-                        0.0,  # TODO: replace with income_appr
+                        float(request.form['income_appr']),
                         float(request.form['apprec_depr']),
                         float(request.form['holding_period']),
                         current_user.id)
@@ -254,8 +254,8 @@ def default_scenario():
                     6.0,  # interest
                     30.0,  # amort
                     8.0,  # mezz_rate
-                    False,  # mezz_interest_only
                     False,  # mezz_secured
+                    False,  # mezz_interest_only
                     30.0,  # mezz_amort
                     0.0,  # income_appr
                     0.0,  # apprec_depr

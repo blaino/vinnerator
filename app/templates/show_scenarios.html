@@ -287,9 +287,25 @@
             <tr>
 	      <td>
 		<a class="btn large primary has_popover" rel="popover"
+		   data-content="Percentage Appreciation or Depreciation of Income Over Hold Period
+				 (1% appreciation per year of hold period reasonable default, e.g., 5 year hold, 5% appreciation)">
+		  Income Appreciation
+		</a>
+	      </td>
+	      <td align="right">
+		<div class="input-group basic-input">
+		  <span class="input-group-addon mono">&nbsp</span>
+		  <input type=text class="percentage form-control right" name="income_appr" id="income_appr" value={{scenarios[index].apprec_depr}}>
+		  <span class="input-group-addon mono">%</span>
+		</div>
+	      </td>
+            </tr>
+            <tr>
+	      <td>
+		<a class="btn large primary has_popover" rel="popover"
 		   data-content="Percentage Appreciation or Depreciation of Asset Over Hold Period
 				 (1% appreciation per year of hold period reasonable default, e.g., 5 year hold, 5% appreciation)">
-		  Appreciation
+		  Asset Appreciation
 		</a>
 	      </td>
 	      <td align="right">
