@@ -52,18 +52,14 @@ class CalcCapRate():
 
         r['sinking_fund_factor'] = self.irr / ((1 + self.irr) ** self.holding_period - 1)
         r['appr_depr_factor'] = 0 - self.apprec_depr * r['sinking_fund_factor']
-        r['j_factor'] = ((self.holding_period /
-                          (1 - (1 + self.irr) ** (- self.holding_period)) - 1 / self.irr) *
-                         r['sinking_fund_factor'])
-        income_correction = (1 / (1 + self.income_appr * r['j_factor']))
-        r['first_mort'] = self.first_mort * self.const * income_correction
-        r['mezz'] = self.mezz_debt * self.mezz_const * income_correction
-        r['calc_yield'] = self.equity * self.irr * income_correction
+        r['first_mort'] = self.first_mort * self.const
+        r['mezz'] = self.mezz_debt * self.mezz_const
+        r['calc_yield'] = self.equity * self.irr
         r['amort_first_mort'] = (- (self.first_mort * self.per_loan_repaid * r['sinking_fund_factor'])
-                                   * income_correction)
+                                  )
         r['amort_mezz'] = - ((self.mezz_debt * self.per_mezz_loan_repaid * r['sinking_fund_factor'])
-                             * income_correction)
-        r['appr'] = r['appr_depr_factor'] * income_correction
+                            )
+        r['appr'] = r['appr_depr_factor']
 
         self.irr = (self.cash_on_cash * self.equity - r['amort_first_mort'] -
                     r['amort_mezz'] - r['appr']) / self.equity
@@ -72,17 +68,7 @@ class CalcCapRate():
         r['cap_rate'] = (r['first_mort'] + r['mezz'] + r['calc_yield'] +
                          r['amort_first_mort'] + r['amort_mezz'] + r['appr'])
 
-        def calc_secured_factor():
-            if self.mezz_secured == True:
-                return self.recordation_cost * self.transfer_buyer_share / 1000 * self.mezz_debt
-            else:
-                return 0
-
-        r['op_cap_rate'] = r['cap_rate'] * (
-            1 + self.transfer_cost * self.transfer_buyer_share +
-            self.recordation_cost * self.transfer_buyer_share / 1000 * self.first_mort +
-            self.finance * self.first_mort + self.finance * self.mezz_debt +
-            calc_secured_factor())
+        r['op_cap_rate'] = self.compute_offer_price_cap_rate(r)
 
         total = r['calc_yield'] + r['amort_first_mort'] + r['amort_mezz'] + r['appr']
         r['yield_per'] = total / r['calc_yield']
@@ -100,8 +86,31 @@ class CalcCapRate():
             new = self.compute_cap_rate()
             delta = new['cap_rate'] - old['cap_rate']
             old = new
+        new['j_factor'] = ((self.holding_period /
+                            (1 - (1 + self.irr) ** (- self.holding_period)) - 1 / self.irr) *
+                           new['sinking_fund_factor'])
+        # Apply j_factor
+        income_correction = (1 / (1 + self.income_appr * new['j_factor']))
+        new['first_mort'] = new['first_mort'] * income_correction
+        new['mezz'] = new['mezz'] * income_correction
+        new['calc_yield'] = new['calc_yield'] * income_correction
+        new['amort_first_mort'] = new['amort_first_mort'] * income_correction
+        new['amort_mezz'] = new['amort_mezz'] * income_correction
+        new['appr'] = new['appr'] * income_correction
+        new['cap_rate'] = (new['first_mort'] + new['mezz'] + new['calc_yield'] +
+                           new['amort_first_mort'] + new['amort_mezz'] + new['appr'])
+        new['op_cap_rate'] = self.compute_offer_price_cap_rate(new)
 
         return new
 
-    def compute_offer_prices_cap_rate():
-        pass
+    def compute_offer_price_cap_rate(self, r):
+        def calc_secured_factor():
+            if self.mezz_secured == True:
+                return self.recordation_cost * self.transfer_buyer_share / 1000 * self.mezz_debt
+            else:
+                return 0
+        return r['cap_rate'] * (
+            1 + self.transfer_cost * self.transfer_buyer_share +
+            self.recordation_cost * self.transfer_buyer_share / 1000 * self.first_mort +
+            self.finance * self.first_mort + self.finance * self.mezz_debt +
+            calc_secured_factor())

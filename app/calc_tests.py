@@ -157,9 +157,9 @@ class CalcTestCase(unittest.TestCase):
     def test_base_j_factor(self):
         self.run_scenario_with_j_factor(self.jfactor1_input, self.jfactor1_output)
 
-    # does not pass; does not match spreadsheet
-    # def test_j_factor_with_income_appr(self):
-    #     self.run_scenario_with_j_factor(self.jfactor2_input, self.jfactor2_output)
+    #does not pass; does not match spreadsheet
+    def test_j_factor_with_income_appr(self):
+        self.run_scenario_with_j_factor(self.jfactor2_input, self.jfactor2_output)
 
 if __name__ == '__main__':
     unittest.main()
