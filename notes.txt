@@ -1,3 +1,85 @@
+1/15
+
+Added postmark:10k to vinnerator (Free). Welcome to Postmark! You no
+longer have to worry about delivering or parsing your application's
+important emails. Postmark ensures your transactional emails get to
+the inbox and provides a simple process to parse incoming messages.
+
+We have set the following environment variables on your application
+server:
+POSTMARK_API_KEY
+POSTMARK_SMTP_SERVER
+POSTMARK_INBOUND_ADDRESS
+
+To get started, run `heroku addons:open postmark` and create your
+first sender signature. Need help? * Email us 24/7:
+support@postmarkapp.com * Chat is open from 9 - 5pm EST on our site. *
+Twitter: @postmarkapp * Status: http://status.postmarkapp.com
+
+
+
+1/12
+
+DN Simple
+
+Changing from
+@ (Informational)  ns65.domaincontrol.com
+to
+  ?    ns1.dnsimple.com
+
+1/11
+
+Reset db on heroku:
+
+heroku pg
+heroku pg:reset HEROKU_POSTGRESQL_AQUA_URL
+git push heroku master
+
+THEN: you had to follow the instructions below to run init_db().  (This needs to be
+automated somehow)   ((And, you still need to figure out migration))
+
+
+1/15
+
+Added postmark:10k to vinnerator (Free). Welcome to Postmark! You no
+longer have to worry about delivering or parsing your application's
+important emails. Postmark ensures your transactional emails get to
+the inbox and provides a simple process to parse incoming messages.
+
+We have set the following environment variables on your application
+server:
+POSTMARK_API_KEY
+POSTMARK_SMTP_SERVER
+POSTMARK_INBOUND_ADDRESS
+
+To get started, run `heroku addons:open postmark` and create your
+first sender signature. Need help? * Email us 24/7:
+support@postmarkapp.com * Chat is open from 9 - 5pm EST on our site. *
+Twitter: @postmarkapp * Status: http://status.postmarkapp.com
+
+
+
+1/12
+
+DN Simple
+
+Changing from
+@ (Informational)  ns65.domaincontrol.com
+to
+  ?    ns1.dnsimple.com
+
+1/11
+
+Reset db on heroku:
+
+heroku pg
+heroku pg:reset HEROKU_POSTGRESQL_AQUA_URL
+git push heroku master
+
+THEN: you had to follow the instructions below to run init_db().  (This needs to be
+automated somehow)   ((And, you still need to figure out migration))
+
+
 1/5
 
 Problems with db after adding jfactor jazz.
