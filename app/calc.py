@@ -82,14 +82,19 @@ class CalcCapRate():
         delta = 999
         old = self.compute_cap_rate()
         epsilon = .000001
-        while abs(delta) > epsilon:
+        while abs(delta) > epsilon:  # really should be checking delta on IRR, but works
             new = self.compute_cap_rate()
             delta = new['cap_rate'] - old['cap_rate']
             old = new
         new['j_factor'] = ((self.holding_period /
                             (1 - (1 + self.irr) ** (- self.holding_period)) - 1 / self.irr) *
                            new['sinking_fund_factor'])
-        # Apply j_factor
+
+        new = self.apply_jfactor(new)
+
+        return new
+
+    def apply_jfactor(self, new):
         income_correction = (1 / (1 + self.income_appr * new['j_factor']))
         new['first_mort'] = new['first_mort'] * income_correction
         new['mezz'] = new['mezz'] * income_correction
@@ -100,7 +105,6 @@ class CalcCapRate():
         new['cap_rate'] = (new['first_mort'] + new['mezz'] + new['calc_yield'] +
                            new['amort_first_mort'] + new['amort_mezz'] + new['appr'])
         new['op_cap_rate'] = self.compute_offer_price_cap_rate(new)
-
         return new
 
     def compute_offer_price_cap_rate(self, r):
