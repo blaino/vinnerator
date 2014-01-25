@@ -51,8 +51,16 @@ def submit_contact():
                      to="blaine.m.nelson@gmail.com",
                      text_body=text_body,
                      tag="hello")
-
     message.send()
+
+    message = PMMail(api_key=os.environ.get('POSTMARK_API_KEY'),
+                     subject="Contact Message from Capulator",
+                     sender="andrew@capulator.com",
+                     to="amvincent@gmail.com",
+                     text_body=text_body,
+                     tag="hello")
+    message.send()
+
     return render_template('thanks.html')
 
 
