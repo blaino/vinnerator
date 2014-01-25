@@ -1,3 +1,9 @@
+1/21
+
+Alan: do this: (don't need flask mail)
+https://devcenter.heroku.com/articles/postmark#sending-emails-via-the-postmark-smtp-interface
+
+
 1/15
 
 Added postmark:10k to vinnerator (Free). Welcome to Postmark! You no
