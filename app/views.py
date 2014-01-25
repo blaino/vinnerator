@@ -7,6 +7,7 @@ from flask.ext.security import login_required, current_user
 from calc import CalcCapRate
 from app.models import Scenario
 from forms import ScenarioForm
+from postmark import PMMail
 
 
 @app.route('/favicon.ico')
@@ -35,6 +36,24 @@ def about():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
+
+
+@app.route('/submit_contact', methods=['POST'])
+def submit_contact():
+    name = "Name: " + request.form['name']
+    email = "Email: " + request.form['email']
+    body = "Message: " + request.form['message']
+    text_body = name + '\n' + email + '\n' + body
+
+    message = PMMail(api_key=os.environ.get('POSTMARK_API_KEY'),
+                     subject="Contact Message from Capulator",
+                     sender="andrew@capulator.com",
+                     to="blaine.m.nelson@gmail.com",
+                     text_body=text_body,
+                     tag="hello")
+
+    message.send()
+    return render_template('thanks.html')
 
 
 @app.route('/basic')

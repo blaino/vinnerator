@@ -5,10 +5,15 @@
     <div class="col-lg-8">
       <div class="container">
         <div class="row">
-          <div class="col-sm-8 contact-form">
-            <h3>Drop us a line!</h3>
+          <div class="col-sm-4">
+            <h3>Get in touch</h3>
             <hr>
-            <form id="contact" method="post" class="form" role="form">
+            <address>
+              <strong>Email:</strong> <a href="mailto:#">andrew@capulator.com</a><br><br>
+            </address>
+          </div>
+          <div class="col-sm-8 contact-form">
+            <form action="{{ url_for('submit_contact') }}" id="contact" method="post" class="form" role="form">
               <div class="row">
                 <div class="col-xs-6 col-md-6 form-group">
                   <input class="form-control" id="name" name="name" placeholder="Name" type="text" required autofocus />
