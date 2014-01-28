@@ -95,13 +95,21 @@ class CalcCapRate():
         return new
 
     def apply_jfactor(self, new):
-        income_correction = (1 / (1 + self.income_appr * new['j_factor']))
-        new['first_mort'] = new['first_mort'] * income_correction
-        new['mezz'] = new['mezz'] * income_correction
-        new['calc_yield'] = new['calc_yield'] * income_correction
-        new['amort_first_mort'] = new['amort_first_mort'] * income_correction
-        new['amort_mezz'] = new['amort_mezz'] * income_correction
-        new['appr'] = new['appr'] * income_correction
+        '''
+        When comparing capulator to the spreadsheet the application of
+        the jfactor can be confusing.  It's ambiguous in the
+        spreadsheet whether or not you should iterate on jfactor in
+        addition to iterating on IRR, but the intent is to only
+        iterate on IRR.  Andrew's intent: jfactor is a correction
+        applied after the IRR iteration has settled down.
+        '''
+        income_correction = (1 + self.income_appr * new['j_factor'])
+        new['first_mort'] = new['first_mort'] / income_correction
+        new['mezz'] = new['mezz'] / income_correction
+        new['calc_yield'] = new['calc_yield'] / income_correction
+        new['amort_first_mort'] = new['amort_first_mort'] / income_correction
+        new['amort_mezz'] = new['amort_mezz'] / income_correction
+        new['appr'] = new['appr'] / income_correction
         new['cap_rate'] = (new['first_mort'] + new['mezz'] + new['calc_yield'] +
                            new['amort_first_mort'] + new['amort_mezz'] + new['appr'])
         new['op_cap_rate'] = self.compute_offer_price_cap_rate(new)
