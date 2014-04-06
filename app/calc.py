@@ -47,6 +47,7 @@ class CalcCapRate():
             self.per_mezz_loan_repaid = 0
 
         self.irr = 0.10  # Initial seed
+        self.formula = 0.06  # Initial seed
 
     def compute_cap_rate(self):
         r = {}
@@ -118,6 +119,9 @@ class CalcCapRate():
         applied after the IRR iteration has settled down.
         '''
         income_correction = (1 + self.income_appr * new['j_factor'])
+        self.formula = ((self.first_mort * self.const + self.mezz_debt * self.mezz_const +
+                         self.cash_on_cash * self.equity + new['j_factor'] * self.formula) /
+                        income_correction)
         new['first_mort'] = new['first_mort'] / income_correction
         new['mezz'] = new['mezz'] / income_correction
         new['amort_first_mort'] = new['amort_first_mort'] / income_correction
@@ -125,9 +129,14 @@ class CalcCapRate():
         new['appr'] = new['appr'] / income_correction
         new['calc_yield'] = (new['calc_yield'] / income_correction -
                              (new['amort_first_mort'] + new['amort_mezz'] + new['appr']))
-        new['cash_flow_growth'] = .0014 #TODO
+        new['cash_flow_growth'] = ((self.income_appr * new['j_factor'] *
+                                    (self.first_mort * self.const + self.mezz_debt *
+                                     self.mezz_const + self.cash_on_cash * self.equity +
+                                     self.income_appr * new['j_factor'] * self.formula) /
+                                    income_correction**2))
         new['cap_rate'] = (new['first_mort'] + new['mezz'] + new['calc_yield'] +
-                           new['amort_first_mort'] + new['amort_mezz'] + new['appr'])
+                           new['amort_first_mort'] + new['amort_mezz'] + new['appr'] +
+                           new['cash_flow_growth'])
         new['op_cap_rate'] = self.compute_offer_price_cap_rate(new)
         return new
 
