@@ -47,7 +47,7 @@ class CalcCapRate():
             self.per_mezz_loan_repaid = 0
 
         self.irr = 0.10  # Initial seed
-        self.formula = 0.06  # Initial seed
+        self.formula = 0.10  # Initial seed
 
     def compute_cap_rate(self):
         r = {}
@@ -57,7 +57,8 @@ class CalcCapRate():
 
         r['first_mort'] = self.first_mort * self.const
         r['mezz'] = self.mezz_debt * self.mezz_const
-        r['calc_yield'] = self.equity * self.irr
+        #r['calc_yield'] = self.equity * self.irr
+        r['calc_yield'] = self.equity * self.cash_on_cash
         r['amort_first_mort'] = (- (self.first_mort * self.per_loan_repaid * r['sinking_fund_factor'])
                                   )
         r['amort_mezz'] = - ((self.mezz_debt * self.per_mezz_loan_repaid * r['sinking_fund_factor'])
@@ -89,7 +90,8 @@ class CalcCapRate():
                      (r['amort_first_mort'] + r['amort_mezz'] + r['appr']))
                     / self.equity)
 
-        print "j_factor, irr: %s, %s: %s" % (r['j_factor'], self.irr, r['appr'])
+        r['irr'] = self.irr
+        #print "j_factor, irr: %s, %s: %s" % (r['j_factor'], self.irr, r['appr'])
 
         return r
 
@@ -98,15 +100,10 @@ class CalcCapRate():
         old = self.compute_cap_rate()
         epsilon = .000001
         while abs(delta) > epsilon:  # really should be checking delta on IRR, but works
-
             new = self.compute_cap_rate()
             delta = new['cap_rate'] - old['cap_rate']
             old = new
-            #print "old, new: %s, %s" % (old['cap_rate'], new['cap_rate'])
-            #print delta
-
-        #new = self.apply_jfactor(new)
-
+            print "old, new: %s, %s" % (old['cap_rate'], new['cap_rate'])
         return new
 
     def apply_jfactor(self, new):
