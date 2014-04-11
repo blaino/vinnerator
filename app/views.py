@@ -270,20 +270,20 @@ def add_scenario():
 
 def default_scenario():
     return Scenario("default",  # title
-                    10.0,  # cash_on_cash
-                    80.0,  # target_ltv
-                    0.0,  # mezz_debt
+                    8.0,  # cash_on_cash
+                    85.0,  # target_ltv
+                    7.5,  # mezz_debt
                     2.0,  # transfer_cost
                     50.0,  # transfer_buyer_share
                     5.0,  # recordation_cost
                     50.0,  # recordation_buyer_share
                     1.0,  # finance
-                    6.0,  # interest
+                    4.5,  # interest
                     30.0,  # amort
-                    8.0,  # mezz_rate
-                    False,  # mezz_secured
+                    5.0,  # mezz_rate
                     False,  # mezz_interest_only
+                    True,  # mezz_secured
                     30.0,  # mezz_amort
-                    0.0,  # income_appr
-                    0.0,  # apprec_depr
+                    5.0,  # income_appr
+                    5.0,  # apprec_depr
                     5.0)  # holding_period

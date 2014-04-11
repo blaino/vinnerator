@@ -335,60 +335,110 @@
 	</div>
 	<div class="col-md-4" id="results-column">
 	  <div class="panel panel-default">
+            <table class="table">
+	      <tr>
+	        <td>
+		  <h4>Capital Stack and Financial Metrics</h4>
+	        </td>
+	      </tr>
+	    </table>
+	    <table class="table">
+              <tr>
+		<td></td>
+		<td align="right"><strong>Year 1</strong></td>
+                <td align="right"><strong>Over Hold</strong></td>
+	      </tr>
+
+	      <tr>
+		<td>
+                  <a class="btn large primary has_popover" rel="popover"
+		     data-content="FIXME">
+                    <strong>Cash on Cash</strong>
+		  </a>
+                </td>
+		<td align="right"><strong>{{ '%.2f' % result.irr}}%</strong></td>
+                <td align="right"><strong>{{ '%.2f' % result.irr}}%</strong></td>
+	      </tr>
+	      <tr>
+		<td>
+                  <a class="btn large primary has_popover" rel="popover"
+		     data-content="For the purposes of this tool, IRR calculation holds equity yield cash on cash constant over the hold period">
+                    <strong>Leveraged IRR</strong>
+		  </a>
+                </td>
+		<td align="right"></td>
+                <td align="right"><strong>{{ '%.2f' % result.irr}}%</strong></td>
+	      </tr>
+              <tr>
+		<td>
+                  <a class="btn large primary has_popover" rel="popover"
+		     data-content="For the purposes of this tool, IRR calculation holds equity yield cash on cash constant over the hold period">
+                    <strong>Unleveraged IRR</strong>
+		  </a>
+                </td>
+		<td align="right"></td>
+                <td align="right">{{ '%.2f' % result.irr}}%</td>
+	      </tr>
+              <tr>
+		<td>
+                  <a class="btn large primary has_popover" rel="popover"
+		     data-content="FIXME">
+                    <strong>Debt Coverage - First</strong>
+		  </a>
+                </td>
+                <td align="right">{{ '%.2f' % 99}}%</td>
+                <td align="right">{{ '%.2f' % 99}}%</td>
+	      </tr>
+              <tr>
+		<td>
+                  <a class="btn large primary has_popover" rel="popover"
+		     data-content="FIXME">
+                    <strong>Debt Coverage - Mezz</strong>
+		  </a>
+                </td>
+                <td align="right">{{ '%.2f' % 99}}%</td>
+                <td align="right">{{ '%.2f' % 99}}%</td>
+	      </tr>
+	    </table>
 	  <table class="table">
 	    <tr>
 	      <td>
-		<h4>Results</h4>
+		<h4>Leveraged Source of Returns</h4>
 	      </td>
 	    </tr>
 	  </table>
 	    <div class="panel-body">
 	      <table class="table">
-		<tr>
-		  <td>Cash Flow</td>
-		  <td align="right">{{ '%.2f' % result.yield_per}}%</td>
-		</tr>
-		<tr>
+                <tr>
 		  <td>Loan Paydown</td>
-		  <td align="right">{{ '%.2f' % result.amort_first_mort_per}}%</td>
+		  <td align="right">{{ '%.2f' % result.amort_first_mort}}%</td>
 		</tr>
 		<tr>
 		  <td>Loan Paydown - Mezz</td>
-		  <td align="right">{{ '%.2f' % result.amort_mezz_per}}%</td>
+		  <td align="right">{{ '%.2f' % result.amort_mezz}}%</td>
 		</tr>
 		<tr>
+		  <td>Base Cash Flow</td>
+		  <td align="right">{{ '%.2f' % result.calc_yield}}%</td>
+		</tr>
+                <tr>
+		  <td>Cash Flow Growth</td>
+		  <td align="right">{{ '%.2f' % 99999.99}}%</td>
+		</tr>
+                <tr>
 		  <td>Gain on Sale</td>
-		  <td align="right">{{ '%.2f' % result.appr_per}}%</td>
+		  <td align="right">{{ '%.2f' % result.appr}}%</td>
 		</tr>
-	      </table>
-	      <table class="table">
-		<tr>
-		  <td>
-                    <a class="btn large primary has_popover" rel="popover"
-		       data-content="For the purposes of this tool, IRR calculation holds equity yield cash on cash constant over the hold period">
-                      <strong>IRR</strong>
-		    </a>
-                  </td>
-		  <td align="right"><strong>{{ '%.2f' % result.irr}}%</strong></td>
-		</tr>
-		<tr>
-		  <td>
-                    <a class="btn large primary has_popover" rel="popover"
-		       data-content="Yadda yadda yadda">
-                      <strong>Cap Rate</strong>
-		    </a>
-                  </td>
-		  <td align="right"><strong>{{ '%.2f' % result.cap_rate}}%</strong></td>
-		</tr>
-		<tr>
-		  <td>
-                    <a class="btn large primary has_popover" rel="popover"
-		       data-content="Offer Price Cap Rate accounts for transaction costs while maintaining year 1 cash on cash requirement">
-                      <strong>Offer Price Cap Rate</strong>
-		    </a>
-                  </td>
-		  <td align="right"><strong>{{ '%.2f' % result.op_cap_rate}}%</strong></td>
-		</tr>
+                <tr>
+		<td>
+                  <a class="btn large primary has_popover" rel="popover"
+		     data-content="Offer Price Cap Rate accounts for transaction costs while maintaining year 1 cash on cash requirement">
+                    <strong>Offer Price Cap Rate</strong>
+		  </a>
+                </td>
+		<td align="right"><strong>{{ '%.2f' % result.op_cap_rate}}%</strong></td>
+	      </tr>
+
 	      </table>
 	      <p align="center"><input type=submit value="Capulate!" class="btn btn-primary"></p>
 	    </div>
