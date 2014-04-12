@@ -35,118 +35,44 @@ class CalcTestCase(unittest.TestCase):
                              'appr_depr_factor': 0.000,
                              'op_cap_rate': 0.07955}
 
-        # Same as test1 but cash_on_cash is 20%
-        self.test2_input = deepcopy(self.test1_input)
-        self.test2_input['cash_on_cash'] = 20
-        self.test2_output = {'first_mort': 0.056428,
-                             'mezz': 0.000,
-                             'calc_yield': 0.050019,
-                             'amort_first_mort': -0.006876,
-                             'amort_mezz': 0.000,
-                             'appr': 0.000,
-                             'cap_rate': 0.099571,
-                             'sinking_fund_factor': .1262,
-                             'appr_depr_factor': 0.000,
-                             'op_cap_rate': 0.1015}
+        self.test021814_input = {'cash_on_cash': 8,
+                                 'target_ltv': 85,
+                                 'mezz_debt': 7.5,
+                                 'transfer_cost': 2,
+                                 'transfer_buyer_share': 50,
+                                 'recordation_cost': 5,
+                                 'recordation_buyer_share': 50,
+                                 'finance': 1,
+                                 'interest': 4.5,
+                                 'amort': 30,
+                                 'mezz_rate': 5,
+                                 'mezz_interest_only': False,
+                                 'mezz_secured': True,
+                                 'mezz_amort': 30,
+                                 'income_appr': 5,
+                                 'apprec_depr': 5,
+                                 'holding_period': 5}
 
-        # Same as test1 but mezz_debt is 5%
-        self.test3_input = deepcopy(self.test1_input)
-        self.test3_input['mezz_debt'] = 5
-        self.test3_output = {'first_mort': 0.056428,
-                             'mezz': 0.004,
-                             'calc_yield': 0.024668,
-                             'amort_first_mort': -0.008097,
-                             'amort_mezz': 0.000,
-                             'appr': 0.000,
-                             'cap_rate': 0.076999,
-                             'sinking_fund_factor': .1486,
-                             'appr_depr_factor': 0.000,
-                             'op_cap_rate': 0.0786}
+        self.test021814_output = {'first_mort': 0.0495,
+                                  'mezz': 0.0047,
+                                  'calc_yield': 0.0183,
+                                  'amort_first_mort': -0.0094,
+                                  'amort_mezz': -0.0008,
+                                  'appr': -0.0009,
+                                  'cap_rate': 0.0628431,
+                                  'sinking_fund_factor': .129819,
+                                  'appr': -0.0009451,
+                                  'op_cap_rate': 0.0642,
+                                  'j_factor': 0.43973279,
+                                  'cash_flow_growth': 0.0014,
+                                  'irr': 0.21758509,
+                                  'over_hold': 0.095,
+                                  'debt_cov_first_y1': 1.2410,
+                                  'debt_cov_first_oh': 1.2683,
+                                  'debt_cov_mezz_y1': 1.1329,
+                                  'debt_cov_mezz_oh': 1.1579}
 
-        # Test including appreciation
-        self.test4_input = {'cash_on_cash': 10,
-                            'target_ltv': 80,
-                            'mezz_debt': 0,
-                            'transfer_cost': 2,
-                            'transfer_buyer_share': 50,
-                            'recordation_cost': 5,
-                            'recordation_buyer_share': 50,
-                            'finance': 1,
-                            'interest': 4.75,
-                            'amort': 30,
-                            'mezz_rate': 0,
-                            'mezz_interest_only': True,
-                            'mezz_secured': False,
-                            'mezz_amort': 30,
-                            'apprec_depr': 5,
-                            'income_appr': 0,
-                            'holding_period': 7}
-
-        self.test4_output = {'first_mort': 0.0491,
-                             'mezz': 0.000,
-                             'calc_yield': 0.034570,
-                             'amort_first_mort': -0.0086,
-                             'amort_mezz': 0.000,
-                             'appr': -0.0044,
-                             'cap_rate': 0.0707,
-                             'sinking_fund_factor': .08757,
-                             'appr_depr_factor': -0.004389,
-                             'op_cap_rate': 0.0721}
-
-        # Base J Factor test
-        self.jfactor1_input = deepcopy(self.test1_input)
-        self.jfactor1_input['income_appr'] = 0
-        self.jfactor1_output = deepcopy(self.test1_output)
-        self.jfactor1_output['j_factor'] = 0.49441
-
-        # J Factor with income appreciation
-        self.jfactor2_input = deepcopy(self.jfactor1_input)
-        self.jfactor2_input['income_appr'] = 10
-        self.jfactor2_output = deepcopy(self.jfactor1_output)
-        self.jfactor2_output['first_mort'] = 0.0538
-        self.jfactor2_output['calc_yield'] = 0.0284
-        self.jfactor2_output['amort_first_mort'] = -0.0079
-        self.jfactor2_output['cap_rate'] = 0.07431
-        self.jfactor2_output['op_cap_rate'] = 0.07579
-
-        self.test5_input = {'cash_on_cash': 8,
-                            'target_ltv': 85,
-                            'mezz_debt': 7.5,
-                            'transfer_cost': 2,
-                            'transfer_buyer_share': 50,
-                            'recordation_cost': 5,
-                            'recordation_buyer_share': 50,
-                            'finance': 1,
-                            'interest': 4.5,
-                            'amort': 30,
-                            'mezz_rate': 5,
-                            'mezz_interest_only': False,
-                            'mezz_secured': True,
-                            'mezz_amort': 30,
-                            'income_appr': 5,
-                            'apprec_depr': 5,
-                            'holding_period': 5}
-
-        self.test5_output = {'first_mort': 0.0495,
-                             'mezz': 0.0047,
-                             'calc_yield': 0.0183,
-                             'amort_first_mort': -0.0094,
-                             'amort_mezz': -0.0008,
-                             'appr': -0.0009,
-                             'cap_rate': 0.0628431,
-                             'sinking_fund_factor': .129819,
-                             'appr': -0.0009451,
-                             'op_cap_rate': 0.0642,
-                             'j_factor': 0.43973279,
-                             'cash_flow_growth': 0.0014,
-                             'irr': 0.21758509,
-                             'over_hold': 0.095,
-                             'debt_cov_first_y1': 1.2410,
-                             'debt_cov_first_oh': 1.2683,
-                             'debt_cov_mezz_y1': 1.1329,
-                             'debt_cov_mezz_oh': 1.1579}
-
-    def test_init_scenario_1(self):
+    def test_basic_ingest_scenario_1(self):
         c = CalcCapRate(self.test1_input)
         self.assertEqual(c.cash_on_cash, 0.10)
         self.assertEqual(c.interest, 0.06)
@@ -157,18 +83,6 @@ class CalcTestCase(unittest.TestCase):
         self.assertAlmostEqual(c.per_loan_repaid, 0.0695, 2)
         self.assertAlmostEqual(c.mezz_const, 0.08, 2)
         self.assertAlmostEqual(c.per_mezz_loan_repaid, 0.0, 2)
-
-    # def test_scenario_1(self):
-    #     self.run_scenario(self.test1_input, self.test1_output)
-
-    # def test_scenario_2(self):
-    #     self.run_scenario(self.test2_input, self.test2_output)
-
-    # def test_scenario_3(self):
-    #     self.run_scenario(self.test3_input, self.test3_output)
-
-    # def test_scenario_4(self):
-    #     self.run_scenario(self.test4_input, self.test4_output)
 
     def run_scenario(self, input, output):
         c = CalcCapRate(input)
@@ -189,22 +103,11 @@ class CalcTestCase(unittest.TestCase):
         self.assertAlmostEqual(r['debt_cov_first_oh'], output['debt_cov_first_oh'], 3)
         self.assertAlmostEqual(r['debt_cov_mezz_y1'], output['debt_cov_mezz_y1'], 3)
         self.assertAlmostEqual(r['debt_cov_mezz_oh'], output['debt_cov_mezz_oh'], 3)
-
+        self.assertAlmostEqual(r['j_factor'], output['j_factor'], 3)
         return r
 
-    def run_scenario_with_j_factor(self, input, output):
-        r = self.run_scenario(input, output)
-        self.assertAlmostEqual(r['j_factor'], output['j_factor'], 2)
-
-    # def test_base_j_factor(self):
-    #     self.run_scenario_with_j_factor(self.jfactor1_input, self.jfactor1_output)
-
-    #does not pass; does not match spreadsheet
-    # def test_j_factor_with_income_appr(self):
-    #     self.run_scenario_with_j_factor(self.jfactor2_input, self.jfactor2_output)
-
-    def test_scenario_5(self):
-        self.run_scenario_with_j_factor(self.test5_input, self.test5_output)
+    def test_scenario_020814(self):
+        self.run_scenario(self.test021814_input, self.test021814_output)
 
 if __name__ == '__main__':
     unittest.main()

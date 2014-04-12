@@ -22,10 +22,12 @@ body {
 
 #table1 td {
     border-top: 0px;
+    vertical-align: middle;
 }
 
 #table2 td {
     border-top: 0px;
+    vertical-align: middle;
 }
 
 #basic-table td {

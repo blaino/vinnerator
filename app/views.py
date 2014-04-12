@@ -152,6 +152,11 @@ def show_scenarios(db_id=0):
     result = c.iterate_computation()
     # Convert to percentages for output
     result.update((i, j*100) for i, j in result.items())
+    # Except for debt coverage metrics:
+    result['debt_cov_first_y1'] = result['debt_cov_first_y1'] / 100
+    result['debt_cov_first_oh'] = result['debt_cov_first_oh'] / 100
+    result['debt_cov_mezz_y1'] = result['debt_cov_mezz_y1'] / 100
+    result['debt_cov_mezz_oh'] = result['debt_cov_mezz_oh'] / 100
 
     form = ScenarioForm(request.form)
     return render_template('show_scenarios.html',

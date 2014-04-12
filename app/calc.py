@@ -91,10 +91,6 @@ class CalcCapRate():
                     / self.equity)
 
         r['irr'] = self.irr
-
-        r['unleveraged_irr'] = 999
-        #print "j_factor, irr: %s, %s: %s" % (r['j_factor'], self.irr, r['appr'])
-
         return r
 
     def iterate_computation(self):
@@ -142,6 +138,7 @@ class CalcCapRate():
                             (new['calc_yield'] + new['cash_flow_growth'] + new['amort_first_mort'] +
                              new['amort_mezz'] + new['appr']) / self.equity)
 
+        new['unleveraged_irr'] = 9999
         new['debt_cov_first_y1'] = (1 / ((self.first_mort * self.const) / new['cap_rate']))
         new['debt_cov_first_oh'] = (1 / ((self.first_mort * self.const) / new['cap_rate']) *
                                     (1 + self.income_appr * new['j_factor']))

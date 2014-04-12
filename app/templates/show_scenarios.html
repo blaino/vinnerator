@@ -333,7 +333,7 @@
             </tr>
 	  </table>
 	</div>
-	<div class="col-md-4" id="results-column">
+	<div class="col-md-4" id="table2">
 	  <div class="panel panel-default">
             <table class="table">
 	      <tr>
@@ -377,7 +377,7 @@
 		  </a>
                 </td>
 		<td align="right"></td>
-                <td align="right">{{ '%.2f' % result.irr}}%</td>
+                <td align="right">{{ '%.2f' % 99.99}}%</td>
 	      </tr>
               <tr>
 		<td>
@@ -386,8 +386,8 @@
                     <strong>Debt Coverage - First</strong>
 		  </a>
                 </td>
-                <td align="right">{{ '%.2f' % 99}}%</td>
-                <td align="right">{{ '%.2f' % 99}}%</td>
+                <td align="right">{{ '%.2f' % result.debt_cov_first_y1}}%</td>
+                <td align="right">{{ '%.2f' % result.debt_cov_first_oh}}%</td>
 	      </tr>
               <tr>
 		<td>
@@ -396,8 +396,8 @@
                     <strong>Debt Coverage - Mezz</strong>
 		  </a>
                 </td>
-                <td align="right">{{ '%.2f' % 99}}%</td>
-                <td align="right">{{ '%.2f' % 99}}%</td>
+                <td align="right">{{ '%.2f' % result.debt_cov_mezz_y1}}%</td>
+                <td align="right">{{ '%.2f' % result.debt_cov_mezz_oh}}%</td>
 	      </tr>
 	    </table>
 	  <table class="table">
@@ -423,22 +423,27 @@
 		</tr>
                 <tr>
 		  <td>Cash Flow Growth</td>
-		  <td align="right">{{ '%.2f' % 99999.99}}%</td>
+		  <td align="right">{{ '%.2f' % result.cash_flow_growth}}%</td>
 		</tr>
                 <tr>
 		  <td>Gain on Sale</td>
 		  <td align="right">{{ '%.2f' % result.appr}}%</td>
 		</tr>
                 <tr>
-		<td>
-                  <a class="btn large primary has_popover" rel="popover"
-		     data-content="Offer Price Cap Rate accounts for transaction costs while maintaining year 1 cash on cash requirement">
-                    <strong>Offer Price Cap Rate</strong>
-		  </a>
-                </td>
-		<td align="right"><strong>{{ '%.2f' % result.op_cap_rate}}%</strong></td>
-	      </tr>
-
+		  <td>
+                      <strong>Offer Price Cap Rate</strong>
+                  </td>
+		  <td align="right"><strong>{{ '%.2f' % result.op_cap_rate}}%</strong></td>
+	        </tr>
+                <!-- <tr> -->
+		<!--   <td> -->
+                <!--     <a class="btn large primary has_popover" rel="popover" -->
+		<!--        data-content="Offer Price Cap Rate accounts for transaction costs while maintaining year 1 cash on cash requirement"> -->
+                <!--       <strong>Offer Price Cap Rate</strong> -->
+		<!--     </a> -->
+                <!--   </td> -->
+		<!--   <td align="right"><strong>{{ '%.2f' % result.op_cap_rate}}%</strong></td> -->
+	        <!-- </tr> -->
 	      </table>
 	      <p align="center"><input type=submit value="Capulate!" class="btn btn-primary"></p>
 	    </div>
