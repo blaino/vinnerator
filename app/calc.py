@@ -91,12 +91,15 @@ class CalcCapRate():
                     / self.equity)
 
         r['irr'] = self.irr
+
+        r = self.calc_output_percents(r)
+
         return r
 
     def iterate_computation(self):
         delta = 999
         old = self.compute_cap_rate()
-        epsilon = .00000001
+        epsilon = .000000001
         while abs(delta) > epsilon:  # really should be checking delta on IRR, but works
             new = self.compute_cap_rate()
             delta = new['cap_rate'] - old['cap_rate']
@@ -147,6 +150,19 @@ class CalcCapRate():
         new['debt_cov_mezz_oh'] = (1 / ((self.first_mort * self.const + self.mezz_debt * self.mezz_const) /
                                         new['cap_rate']) * (1 + self.income_appr * new['j_factor']))
         return new
+
+    def calc_output_percents(self, r):
+        r['loan_paydown_per'] = ((- r['amort_first_mort']) /
+                                 (r['calc_yield'] + r['cash_flow_growth']))
+        r['loan_paydown_mezz_per'] = ((- r['amort_mezz']) /
+                                      (r['calc_yield'] + r['cash_flow_growth']))
+        r['base_cash_flow_per'] = ((r['calc_yield'] + r['amort_first_mort'] +
+                                    + r['amort_mezz'] + r['appr']) /
+                                   (r['calc_yield'] + r['cash_flow_growth']))
+        r['cash_flow_growth_per'] = (r['cash_flow_growth'] /
+                                     (r['calc_yield'] + r['cash_flow_growth']))
+        r['gain_on_sale_per'] = (- (r['appr'] / (r['calc_yield'] + r['cash_flow_growth'])))
+        return r
 
     def compute_offer_price_cap_rate(self, r):
         def calc_secured_factor():

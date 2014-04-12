@@ -332,6 +332,7 @@
 	      </td>
             </tr>
 	  </table>
+          <p align="center"><input type=submit value="Capulate!" class="btn btn-primary"></p>
 	</div>
 	<div class="col-md-4" id="table2">
 	  <div class="panel panel-default">
@@ -411,23 +412,23 @@
 	      <table class="table">
                 <tr>
 		  <td>Loan Paydown</td>
-		  <td align="right">{{ '%.2f' % result.amort_first_mort}}%</td>
+		  <td align="right">{{ '%.2f' % result.loan_paydown_per}}%</td>
 		</tr>
 		<tr>
 		  <td>Loan Paydown - Mezz</td>
-		  <td align="right">{{ '%.2f' % result.amort_mezz}}%</td>
+		  <td align="right">{{ '%.2f' % result.loan_paydown_mezz_per}}%</td>
 		</tr>
 		<tr>
 		  <td>Base Cash Flow</td>
-		  <td align="right">{{ '%.2f' % result.calc_yield}}%</td>
+		  <td align="right">{{ '%.2f' % result.base_cash_flow_per}}%</td>
 		</tr>
                 <tr>
 		  <td>Cash Flow Growth</td>
-		  <td align="right">{{ '%.2f' % result.cash_flow_growth}}%</td>
+		  <td align="right">{{ '%.2f' % result.cash_flow_growth_per}}%</td>
 		</tr>
                 <tr>
 		  <td>Gain on Sale</td>
-		  <td align="right">{{ '%.2f' % result.appr}}%</td>
+		  <td align="right">{{ '%.2f' % result.gain_on_sale_per}}%</td>
 		</tr>
                 <tr>
 		  <td>
@@ -445,7 +446,6 @@
 		<!--   <td align="right"><strong>{{ '%.2f' % result.op_cap_rate}}%</strong></td> -->
 	        <!-- </tr> -->
 	      </table>
-	      <p align="center"><input type=submit value="Capulate!" class="btn btn-primary"></p>
 	    </div>
 	  </div>
 	  <form name="scenarioSelector" class="form-inline" role="form">

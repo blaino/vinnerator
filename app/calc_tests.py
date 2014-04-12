@@ -70,7 +70,13 @@ class CalcTestCase(unittest.TestCase):
                                   'debt_cov_first_y1': 1.2410,
                                   'debt_cov_first_oh': 1.2683,
                                   'debt_cov_mezz_y1': 1.1329,
-                                  'debt_cov_mezz_oh': 1.1579}
+                                  'debt_cov_mezz_oh': 1.1579,
+                                  'loan_paydown_per': 0.476644,
+                                  'loan_paydown_mezz_per': 0.039668,
+                                  'base_cash_flow_per': 0.367672,
+                                  'cash_flow_growth_per': 0.068891,
+                                  'gain_on_sale_per': 0.047125}
+
 
     def test_basic_ingest_scenario_1(self):
         c = CalcCapRate(self.test1_input)
@@ -104,6 +110,12 @@ class CalcTestCase(unittest.TestCase):
         self.assertAlmostEqual(r['debt_cov_mezz_y1'], output['debt_cov_mezz_y1'], 3)
         self.assertAlmostEqual(r['debt_cov_mezz_oh'], output['debt_cov_mezz_oh'], 3)
         self.assertAlmostEqual(r['j_factor'], output['j_factor'], 3)
+        self.assertAlmostEqual(r['loan_paydown_per'], output['loan_paydown_per'], 2)
+        self.assertAlmostEqual(r['loan_paydown_mezz_per'], output['loan_paydown_mezz_per'], 2)
+        self.assertAlmostEqual(r['base_cash_flow_per'], output['base_cash_flow_per'], 2)
+        self.assertAlmostEqual(r['cash_flow_growth_per'], output['cash_flow_growth_per'], 2)
+        self.assertAlmostEqual(r['gain_on_sale_per'], output['gain_on_sale_per'], 2)
+
         return r
 
     def test_scenario_020814(self):
