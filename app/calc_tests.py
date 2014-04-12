@@ -139,7 +139,12 @@ class CalcTestCase(unittest.TestCase):
                              'op_cap_rate': 0.0642,
                              'j_factor': 0.43973279,
                              'cash_flow_growth': 0.0014,
-                             'irr': 0.2176}
+                             'irr': 0.21758509,
+                             'over_hold': 0.095,
+                             'debt_cov_first_y1': 1.2410,
+                             'debt_cov_first_oh': 1.2683,
+                             'debt_cov_mezz_y1': 1.1329,
+                             'debt_cov_mezz_oh': 1.1579}
 
     def test_init_scenario_1(self):
         c = CalcCapRate(self.test1_input)
@@ -175,10 +180,16 @@ class CalcTestCase(unittest.TestCase):
         self.assertAlmostEqual(r['amort_mezz'], output['amort_mezz'], 4)
         self.assertAlmostEqual(r['cash_flow_growth'], output['cash_flow_growth'], 4)
         self.assertAlmostEqual(r['calc_yield'], output['calc_yield'], 3)
-        self.assertAlmostEqual(r['irr'], output['irr'], 2)
-        self.assertAlmostEqual(r['sinking_fund_factor'], output['sinking_fund_factor'], 2)
+        self.assertAlmostEqual(r['irr'], output['irr'], 3)
+        self.assertAlmostEqual(r['sinking_fund_factor'], output['sinking_fund_factor'], 4)
         self.assertAlmostEqual(r['cap_rate'], output['cap_rate'], 4)
         self.assertAlmostEqual(r['op_cap_rate'], output['op_cap_rate'], 4)
+        self.assertAlmostEqual(r['over_hold'], output['over_hold'], 3)
+        self.assertAlmostEqual(r['debt_cov_first_y1'], output['debt_cov_first_y1'], 3)
+        self.assertAlmostEqual(r['debt_cov_first_oh'], output['debt_cov_first_oh'], 3)
+        self.assertAlmostEqual(r['debt_cov_mezz_y1'], output['debt_cov_mezz_y1'], 3)
+        self.assertAlmostEqual(r['debt_cov_mezz_oh'], output['debt_cov_mezz_oh'], 3)
+
         return r
 
     def run_scenario_with_j_factor(self, input, output):

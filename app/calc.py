@@ -52,7 +52,7 @@ class CalcCapRate():
     def compute_cap_rate(self):
         r = {}
 
-        # Do these go in here?
+        r['cash_on_cash'] = self.cash_on_cash
         r['sinking_fund_factor'] = self.irr / ((1 + self.irr) ** self.holding_period - 1)
 
         r['first_mort'] = self.first_mort * self.const
@@ -91,6 +91,8 @@ class CalcCapRate():
                     / self.equity)
 
         r['irr'] = self.irr
+
+        r['unleveraged_irr'] = 999
         #print "j_factor, irr: %s, %s: %s" % (r['j_factor'], self.irr, r['appr'])
 
         return r
@@ -98,7 +100,7 @@ class CalcCapRate():
     def iterate_computation(self):
         delta = 999
         old = self.compute_cap_rate()
-        epsilon = .000001
+        epsilon = .00000001
         while abs(delta) > epsilon:  # really should be checking delta on IRR, but works
             new = self.compute_cap_rate()
             delta = new['cap_rate'] - old['cap_rate']
@@ -135,6 +137,18 @@ class CalcCapRate():
                            new['amort_first_mort'] + new['amort_mezz'] + new['appr'] +
                            new['cash_flow_growth'])
         new['op_cap_rate'] = self.compute_offer_price_cap_rate(new)
+
+        new['over_hold'] = ((1 + self.income_appr * new['j_factor']) *
+                            (new['calc_yield'] + new['cash_flow_growth'] + new['amort_first_mort'] +
+                             new['amort_mezz'] + new['appr']) / self.equity)
+
+        new['debt_cov_first_y1'] = (1 / ((self.first_mort * self.const) / new['cap_rate']))
+        new['debt_cov_first_oh'] = (1 / ((self.first_mort * self.const) / new['cap_rate']) *
+                                    (1 + self.income_appr * new['j_factor']))
+        new['debt_cov_mezz_y1'] = (1 / ((self.first_mort * self.const + self.mezz_debt * self.mezz_const) /
+                                        new['cap_rate']))
+        new['debt_cov_mezz_oh'] = (1 / ((self.first_mort * self.const + self.mezz_debt * self.mezz_const) /
+                                        new['cap_rate']) * (1 + self.income_appr * new['j_factor']))
         return new
 
     def compute_offer_price_cap_rate(self, r):
